@@ -3,7 +3,7 @@ setup: .runner .submitter .test-form .datastore .pdf-generator
 .datastore:
 	git clone git@github.com:ministryofjustice/fb-user-datastore.git .datastore
 
-.runner-email:
+.runner:
 	git clone git@github.com:ministryofjustice/fb-runner-node.git .runner
 
 .submitter:
@@ -29,7 +29,7 @@ serve: build
 	docker-compose up -d submitter-db datastore-db
 	docker-compose up -d runner-app
 	./scripts/wait_for_db datastore-db postgres && ./scripts/wait_for_db submitter-db postgres
-	docker-compose up -d submitter-app submitter-worker pdf-generator datastore-app formbuilder-test
+	docker-compose up -d submitter-app submitter-worker pdf-generator datastore-app formbuilder-persister
 
 spec: serve
 	docker-compose run formbuilder-test rspec
