@@ -1,23 +1,6 @@
 version: '3'
 
 services:
-  publisher-db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: postgres
-      POSTGRES_DB: publisher_local
-
-  filestore-app:
-    build:
-      context: .filestore
-      dockerfile: ./Dockerfile
-    ports:
-      - '3006:3000'
-    environment:
-      SECRET_KEY_BASE: 'super_secret'
-
   datastore-app:
     build:
       context: .datastore
@@ -42,32 +25,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: datastore_local
 
-  publisher-app:
-    build:
-      context: .publisher
-      dockerfile: ./docker/web/Dockerfile
-    links:
-      - publisher-db
-    environment:
-      DATABASE_URL: "postgres://postgres:password@publisher-db/publisher_local"
-      SECRET_KEY_BASE: "xxxyyy"
-    ports:
-      - 3005:3000
-
-  publisher-worker:
-    build:
-      context: .publisher
-      dockerfile: docker/worker/Dockerfile
-    environment:
-      REDISCLOUD_URL: "publisher-redis"
-      QUEUE: "*"
-    links:
-      - publisher-redis
-    depends_on:
-      - publisher-app
-    ports:
-      - 8000:80
-
   runner-app:
     build:
       context: .runner
@@ -79,9 +36,11 @@ services:
       SUBMITTER_URL: http://submitter-app:3000
       USER_DATASTORE_URL: http://datastore-app:3000
       USER_FILESTORE_URL: http://filestore:3000
-      SERVICE_SECRET: 'xyz'
-      SERVICE_TOKEN: 'xyz'
-      SERVICE_SLUG: test-form
+      SERVICE_SECRET: "xyz"
+      SERVICE_TOKEN: "xyz"
+      SERVICE_SLUG: slug
+      SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
+      RUNNER_OVERRIDE_URL: "http://runner-app:3000"
     volumes:
       - ".test-form:/home/deploy/.test-form"
 
@@ -99,19 +58,23 @@ services:
       dockerfile: ./docker/api/Dockerfile
     environment:
       DATABASE_URL: "postgres://postgres:password@submitter-db/submitter_local"
-      NOTIFY_EMAIL_GENERIC: '46a72b64-9541-4000-91a7-fa8a3fa10bf9'
-      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_TOKEN: '38f6a1cd-a810-4f59-8899-2c300236c5b4'
-      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_VERIFIED: ''
-      NOTIFY_EMAIL_RETURN_SETUP_MOBILE_VERIFIED: '54dcaad7-4967-431d-8606-72b0b80b5c6a'
-      NOTIFY_EMAIL_RETURN_SIGNIN_EMAIL: ''
-      NOTIFY_EMAIL_RETURN_SIGNIN_SUCCESS: ''
-      NOTIFY_SMS_GENERIC: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
-      NOTIFY_SMS_RETURN_SETUP_MOBILE: '54dcaad7-4967-431d-8606-72b0b80b5c6a'
-      NOTIFY_SMS_RETURN_SIGNIN_MOBILE: 'something'
-      NOTIFY_SMS_RETURN_SETUP_MOBILE: '54dcaad7-4967-431d-8606-72b0b80b5c6a'
-      FB_ENVIRONMENT_SLUG: 'test'
-      SECRET_KEY_BASE: 'xxxyyy'
-      PDF_GENERATOR_ROOT_URL: 'pdf-generator:3000'
+      NOTIFY_EMAIL_GENERIC: "46a72b64-9541-4000-91a7-fa8a3fa10bf9"
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_TOKEN: "38f6a1cd-a810-4f59-8899-2c300236c5b4"
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_VERIFIED: ""
+      NOTIFY_EMAIL_RETURN_SETUP_MOBILE_VERIFIED: "54dcaad7-4967-431d-8606-72b0b80b5c6a"
+      NOTIFY_EMAIL_RETURN_SIGNIN_EMAIL: ""
+      NOTIFY_EMAIL_RETURN_SIGNIN_SUCCESS: ""
+      NOTIFY_SMS_GENERIC: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+      NOTIFY_SMS_RETURN_SETUP_MOBILE: "54dcaad7-4967-431d-8606-72b0b80b5c6a"
+      NOTIFY_SMS_RETURN_SIGNIN_MOBILE: "something"
+      NOTIFY_SMS_RETURN_SETUP_MOBILE: "54dcaad7-4967-431d-8606-72b0b80b5c6a"
+      FB_ENVIRONMENT_SLUG: "test"
+      SECRET_KEY_BASE: "xxxyyy"
+      PDF_GENERATOR_ROOT_URL: "http://pdf-generator:3000"
+      RAILS_ENV: development
+      SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
+      RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
+      MOCK_CALLBACK_ENDPOINT: 'http://formbuilder-test:3008/persist-payload'
     links:
       - submitter-db
 
@@ -121,36 +84,27 @@ services:
       dockerfile: ./docker/worker/Dockerfile
     environment:
       DATABASE_URL: "postgres://postgres:password@submitter-db/submitter_local"
-      NOTIFY_EMAIL_GENERIC: '46a72b64-9541-4000-91a7-fa8a3fa10bf9'
-      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_TOKEN: '38f6a1cd-a810-4f59-8899-2c300236c5b4'
-      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_VERIFIED: ''
-      NOTIFY_EMAIL_RETURN_SETUP_MOBILE_VERIFIED: '54dcaad7-4967-431d-8606-72b0b80b5c6a'
-      NOTIFY_EMAIL_RETURN_SIGNIN_EMAIL: ''
-      NOTIFY_EMAIL_RETURN_SIGNIN_SUCCESS: ''
-      NOTIFY_SMS_GENERIC: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
-      NOTIFY_SMS_RETURN_SETUP_MOBILE: '54dcaad7-4967-431d-8606-72b0b80b5c6a'
-      NOTIFY_SMS_RETURN_SIGNIN_MOBILE: 'something'
-      NOTIFY_SMS_RETURN_SETUP_MOBILE: '54dcaad7-4967-431d-8606-72b0b80b5c6a'
-      FB_ENVIRONMENT_SLUG: 'test'
-      SECRET_KEY_BASE: 'xxxyyy'
-      PDF_GENERATOR_ROOT_URL: 'pdf-generator:3000'
+      NOTIFY_EMAIL_GENERIC: "46a72b64-9541-4000-91a7-fa8a3fa10bf9"
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_TOKEN: "38f6a1cd-a810-4f59-8899-2c300236c5b4"
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_VERIFIED: ""
+      NOTIFY_EMAIL_RETURN_SETUP_MOBILE_VERIFIED: "54dcaad7-4967-431d-8606-72b0b80b5c6a"
+      NOTIFY_EMAIL_RETURN_SIGNIN_EMAIL: ""
+      NOTIFY_EMAIL_RETURN_SIGNIN_SUCCESS: ""
+      NOTIFY_SMS_GENERIC: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+      NOTIFY_SMS_RETURN_SETUP_MOBILE: "54dcaad7-4967-431d-8606-72b0b80b5c6a"
+      NOTIFY_SMS_RETURN_SIGNIN_MOBILE: "something"
+      NOTIFY_SMS_RETURN_SETUP_MOBILE: "54dcaad7-4967-431d-8606-72b0b80b5c6a"
+      FB_ENVIRONMENT_SLUG: "test"
+      SECRET_KEY_BASE: "xxxyyy"
+      PDF_GENERATOR_ROOT_URL: "http://pdf-generator:3000"
+      SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: "true"
+      RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
+      MOCK_CALLBACK_ENDPOINT: 'http://formbuilder-test:3008/persist-payload'
     links:
       - submitter-db
     command: bundle exec rake jobs:work
-
-  token-cache-app:
-    build:
-      context: .token-cache
-      dockerfile: ./Dockerfile
-    ports:
-      - 3004:3000
-    environment:
-      SECRET_KEY_BASE: 'super_secret'
-
-  av-app:
-    build:
-      context: .av
-      dockerfile: ./Dockerfile
 
   pdf-generator:
     build:
@@ -158,12 +112,14 @@ services:
       dockerfile: ./Dockerfile
     environment:
       SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
-      SENTRY_DSN: 'whatever'
-
-  publisher-redis:
-    image: 'bitnami/redis:5.0'
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+      SENTRY_DSN: "whatever"
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: "true"
     ports:
-      - '6379:6379'
+      - 3007:3000
+
+  formbuilder-test:
+    build:
+      context: acceptance_tests
+    ports:
+      - 3008:3008
