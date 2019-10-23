@@ -13,7 +13,7 @@
       },
       "hint": "Give as much detail as you can, including dates if you know them",
       "hint:cy": "Rhowch gymaint o fanylion â phosib, yn cynnwys dyddiadau os ydynt yn hysbys ichi",
-      "label": "Your complaint",
+      "label": "Please tell us about your cat",
       "label:cy": "Eich cwyn",
       "name": "complaint_details"
     }
