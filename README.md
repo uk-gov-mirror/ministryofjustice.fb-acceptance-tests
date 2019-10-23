@@ -20,5 +20,4 @@ make spec
 This will ensure that the contents filled into the form fields are contained in the PDF email attachment.
 
 ## TODO
-- License
 - Hook into CI

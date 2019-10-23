@@ -35,15 +35,12 @@ describe 'Filling out an Email output form' do
       parsed_message = Mail.read_from_string(response.parsed_response['raw_message'])
 
       parsed_message.attachments.each do |attachment|
-        File.open('/tmp/submission.pdf', 'w') do |file|
-          file.write(attachment.decoded)
-        end
+        File.open('/tmp/submission.pdf', 'w') { |file| file.write(attachment.decoded) }
 
         result = PDF::Reader.new('/tmp/submission.pdf').pages.map { |page| page.text }.join(' ')
 
-        p result
-
         p 'Email Received.  Asserting PDF contents'
+
         expected_result = <<-HEREDOC
  Complain about a court or tribunal
 
