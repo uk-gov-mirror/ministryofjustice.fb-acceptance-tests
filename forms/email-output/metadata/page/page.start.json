@@ -1,0 +1,21 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "body": "You cannot use this form to complain about:\r\n\r\n* the result of a case\r\n* a judge, magistrate, coroner or member of a tribunal\r\n\r\nThis online form is also available in [Welsh (Cymraeg)](https://complain-about-a-court-or-tribunal.form.service.justice.gov.uk/cy).",
+  "body:cy": "Ni ellir defnyddio'r ffurflen hon i gwyno am:\r\n\r\n* ganlyniad achos \r\n* barnwr, ynad, crwner neu aelod o dribiwnlys",
+  "heading": "Complain about a court or tribunal",
+  "heading:cy": "Gwneud cwyn am lys neu dribiwnlys",
+  "lede": "Your complaint will not affect your case.",
+  "lede:cy": "Ni fydd eich cwyn yn effeithio ar eich achos.",
+  "steps": [
+    "page.name",
+    "page.email-contact",
+    "page.email-address",
+    "page.post-contact",
+    "page.complaint",
+    "page.documents-to-support-your-complaint",
+    "page.check-answers",
+    "page.complaint-sent"
+  ],
+  "url": "/"
+}

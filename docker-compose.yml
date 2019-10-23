@@ -32,7 +32,7 @@ services:
     ports:
       - 3003:3000
     environment:
-      SERVICE_PATH: /home/deploy/.test-form
+      SERVICE_PATH: /home/deploy/email-output
       SUBMITTER_URL: http://submitter-app:3000
       USER_DATASTORE_URL: http://datastore-app:3000
       USER_FILESTORE_URL: http://filestore:3000
@@ -42,7 +42,7 @@ services:
       SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
       RUNNER_OVERRIDE_URL: "http://runner-app:3000"
     volumes:
-      - ".test-form:/home/deploy/.test-form"
+      - ./forms/email-output:/home/deploy/email-output
 
   submitter-db:
     image: postgres

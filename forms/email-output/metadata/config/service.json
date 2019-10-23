@@ -1,0 +1,13 @@
+{
+  "_id": "service",
+  "_isa": "@ministryofjustice/fb-components-core=>service",
+  "_type": "config.service",
+  "languages": [
+    "en",
+    "cy"
+  ],
+  "name": "Complain about a court or tribunal",
+  "name:cy": "Gwneud cwyn am lys neu dribiwnlys",
+  "pdfHeading": "Complain about a court or tribunal",
+  "phase": "none"
+}

@@ -1,4 +1,4 @@
-setup: .runner .submitter .test-form .datastore .pdf-generator
+setup: .runner .submitter .datastore .pdf-generator
 
 .datastore:
 	git clone git@github.com:ministryofjustice/fb-user-datastore.git .datastore
@@ -9,13 +9,10 @@ setup: .runner .submitter .test-form .datastore .pdf-generator
 .submitter:
 	git clone git@github.com:ministryofjustice/fb-submitter.git .submitter
 
-.test-form:
-	git clone git@github.com:emileswarts/fb-hmcts-complaints.git .test-form
-
 .pdf-generator:
 	git clone git@github.com:ministryofjustice/fb-pdf-generator.git .pdf-generator
 
-destroy: .runner .submitter .test-form .datastore .pdf-generator
+destroy: .runner .submitter .datastore .pdf-generator
 	docker-compose down
 
 stop:
@@ -34,4 +31,4 @@ spec: serve
 	docker-compose run acceptance-tests rspec
 
 clean:
-	rm -fr .runner .submitter .test-form .datastore .pdf-generator
+	rm -fr .runner .submitter .datastore .pdf-generator
