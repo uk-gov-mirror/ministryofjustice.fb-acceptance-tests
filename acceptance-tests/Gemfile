@@ -4,7 +4,6 @@ ruby File.read('.ruby-version').chomp
 gem 'rspec'
 gem 'capybara'
 gem 'selenium-webdriver'
-gem 'sinatra'
 gem 'pry'
 gem 'mail'
 gem 'httparty'

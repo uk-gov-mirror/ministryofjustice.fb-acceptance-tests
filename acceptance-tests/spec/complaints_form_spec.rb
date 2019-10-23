@@ -22,11 +22,18 @@ describe 'Filling out an Email output form' do
     continue
     click_on 'Send complaint'
 
+    wait_for_email_and_assert_contents
+  end
+
+  def continue
+    click_on 'Continue'
+  end
+
+  def wait_for_email_and_assert_contents
     begin
-      response = HTTParty.get(ENV.fetch('RESULT_ENDPOINT'))
-      result = response.body
-      raw_message = response.parsed_response['raw_message']
-      parsed_message = Mail.read_from_string(raw_message)
+      response = HTTParty.get(ENV.fetch('EMAIL_ENDPOINT'))
+      parsed_message = Mail.read_from_string(response.parsed_response['raw_message'])
+
       parsed_message.attachments.each do |attachment|
         File.open('/tmp/submission.pdf', 'w') do |file|
           file.write(attachment.decoded)
@@ -35,16 +42,14 @@ describe 'Filling out an Email output form' do
         reader = PDF::Reader.new('/tmp/submission.pdf')
         assert_result = reader.pages.map { |page| page.text }.join(' ')
 
+        p 'Email Received.  Asserting PDF contents'
         expect(assert_result).to include('bob.smith@digital.justice.gov.uk')
       end
 
     rescue HTTParty::Error => e
+      p 'Waiting for email to be delivered...'
       sleep 2
       retry
     end
-  end
-
-  def continue
-    click_on 'Continue'
   end
 end

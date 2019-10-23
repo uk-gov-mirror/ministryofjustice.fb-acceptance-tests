@@ -29,10 +29,10 @@ serve: build
 	docker-compose up -d submitter-db datastore-db
 	docker-compose up -d runner-app
 	./scripts/wait_for_db datastore-db postgres && ./scripts/wait_for_db submitter-db postgres
-	docker-compose up -d submitter-app submitter-worker pdf-generator datastore-app formbuilder-persister
+	docker-compose up -d submitter-app submitter-worker pdf-generator datastore-app fake-inbox
 
 spec: serve
-	docker-compose run formbuilder-test rspec
+	docker-compose run acceptance-tests rspec
 
 clean:
 	rm -fr .runner .submitter .test-form .datastore .pdf-generator

@@ -1,6 +1,6 @@
 FROM ruby:2.6.4-alpine
 
-RUN apk add build-base bash tzdata chromium-chromedriver chromium zlib-dev xorg-server
+RUN apk add build-base bash tzdata
 
 WORKDIR /usr/src/app
 
