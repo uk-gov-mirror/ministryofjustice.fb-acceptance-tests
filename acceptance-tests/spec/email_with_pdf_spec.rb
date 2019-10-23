@@ -39,11 +39,43 @@ describe 'Filling out an Email output form' do
           file.write(attachment.decoded)
         end
 
-        reader = PDF::Reader.new('/tmp/submission.pdf')
-        assert_result = reader.pages.map { |page| page.text }.join(' ')
+        result = PDF::Reader.new('/tmp/submission.pdf').pages.map { |page| page.text }.join(' ')
+
+        p result
 
         p 'Email Received.  Asserting PDF contents'
-        expect(assert_result).to include('bob.smith@digital.justice.gov.uk')
+        expected_result = <<-HEREDOC
+ Complain about a court or tribunal
+
+
+
+ Your name
+
+
+
+
+ First name                Bob
+
+
+ Last name                 Smith
+
+
+
+ Can we contact you about
+                           Yes
+ your complaint by email?
+
+ Your email address        bob.smith@digital.justice.gov.uk
+
+
+ Your complaint            Some complaint details
+
+
+ Would you like to send any
+ documents as part of your No
+ complaint?
+HEREDOC
+        expect(result).to include(expected_result)
       end
 
     rescue HTTParty::Error => e
