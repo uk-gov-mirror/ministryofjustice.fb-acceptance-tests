@@ -10,4 +10,4 @@ RUN bundle check || bundle install
 
 COPY . .
 
-CMD ["bundle", "exec", "rackup", "-o", "0.0.0.0", "-p", "3008"]
+CMD ["bundle", "exec", "rackup", "-o", "0.0.0.0", "-p", "3002"]

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+for app in 3001 3002
+do
+  until curl localhost:$app/health |grep healthy; do
+      >&2 echo "Waiting for $app to boot";
+      sleep 1
+  done
+done
+
+until curl localhost:3000/ping.json |grep APP_SHA; do
+    >&2 echo "Waiting for Runner to boot";
+    sleep 1
+done
+
+>&2 echo "Runner is up, ready for testing";

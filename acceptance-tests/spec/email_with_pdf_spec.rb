@@ -75,7 +75,7 @@ HEREDOC
         expect(result).to include(expected_result)
       end
 
-    rescue HTTParty::Error => e
+    rescue
       p 'Waiting for email to be delivered...'
       sleep 2
       retry

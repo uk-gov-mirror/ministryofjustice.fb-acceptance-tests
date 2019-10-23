@@ -16,4 +16,8 @@ class App < Sinatra::Base
       status 404
     end
   end
+
+  get '/health' do
+    'healthy'
+  end
 end

@@ -23,12 +23,11 @@ build: setup
 	docker-compose build --build-arg BUNDLE_FLAGS='' --build-arg BUNDLE_ARGS='' --parallel
 
 serve: build
-	docker-compose up -d submitter-db datastore-db runner-app fake-inbox pdf-generator
-	./scripts/wait_for_db datastore-db postgres && ./scripts/wait_for_db submitter-db postgres
-	docker-compose up -d submitter-app submitter-worker datastore-app
+	docker-compose up -d
 
 spec: serve
-	docker-compose run acceptance-tests rspec
+	./scripts/wait_for_apps
+	docker-compose up acceptance-tests
 
 clean:
 	rm -fr .runner .submitter .datastore .pdf-generator

@@ -14,8 +14,6 @@ services:
       SECRET_KEY_BASE: "xxxyyy"
       MAX_IAT_SKEW_SECONDS: "60"
       SERVICE_TOKEN_CACHE_ROOT_URL: "http://token-cache-app:3000"
-    ports:
-      - 3006:3000
 
   datastore-db:
     image: postgres
@@ -30,7 +28,7 @@ services:
       context: .runner
       dockerfile: Dockerfile
     ports:
-      - 3003:3000
+      - 3000:3000
     environment:
       SERVICE_PATH: /home/deploy/email-output
       SUBMITTER_URL: http://submitter-app:3000
@@ -74,9 +72,7 @@ services:
       RAILS_ENV: development
       SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
-      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3008'
-    links:
-      - submitter-db
+      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3002'
 
   submitter-worker:
     build:
@@ -101,9 +97,7 @@ services:
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
-      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3008'
-    links:
-      - submitter-db
+      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3002'
     command: bundle exec rake jobs:work
 
   pdf-generator:
@@ -116,16 +110,24 @@ services:
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
     ports:
-      - 3007:3000
+      - 3001:3000
 
   fake-inbox:
     build:
       context: fake-inbox
     ports:
-      - 3008:3008
+      - 3002:3002
 
   acceptance-tests:
     build:
       context: acceptance-tests
     environment:
-      EMAIL_ENDPOINT: 'http://fake-inbox:3008'
+      EMAIL_ENDPOINT: 'http://fake-inbox:3002'
+    depends_on:
+      - runner-app
+      - submitter-db
+      - datastore-db
+      - pdf-generator
+      - submitter-app
+      - submitter-worker
+      - fake-inbox

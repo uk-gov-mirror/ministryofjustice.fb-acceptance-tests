@@ -9,7 +9,7 @@ This will spin up the Form Builder environment locally for regression testing an
 make serve
 ```
 
-You can now visit http://localhost:3003 to see the test form
+You can now visit http://localhost:3000 to see the test form
 
 ### Run acceptance specs
 
