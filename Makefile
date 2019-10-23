@@ -18,7 +18,7 @@ destroy: .runner .submitter .datastore .pdf-generator
 stop:
 	docker-compose down
 
-build: setup
+build: stop setup
 	echo HEAD > .runner/APP_SHA
 	docker-compose build --build-arg BUNDLE_FLAGS='' --build-arg BUNDLE_ARGS='' --parallel
 
