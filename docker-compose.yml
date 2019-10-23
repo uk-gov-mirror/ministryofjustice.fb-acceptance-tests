@@ -74,7 +74,7 @@ services:
       RAILS_ENV: development
       SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
-      MOCK_CALLBACK_ENDPOINT: 'http://formbuilder-test:3008/persist-payload'
+      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3008'
     links:
       - submitter-db
 
@@ -101,7 +101,7 @@ services:
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
-      MOCK_CALLBACK_ENDPOINT: 'http://formbuilder-test:3008/persist-payload'
+      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3008'
     links:
       - submitter-db
     command: bundle exec rake jobs:work
@@ -118,8 +118,14 @@ services:
     ports:
       - 3007:3000
 
-  formbuilder-test:
+  fake-inbox:
     build:
-      context: acceptance_tests
+      context: fake-inbox
     ports:
       - 3008:3008
+
+  acceptance-tests:
+    build:
+      context: acceptance-tests
+    environment:
+      EMAIL_ENDPOINT: 'http://fake-inbox:3008'
