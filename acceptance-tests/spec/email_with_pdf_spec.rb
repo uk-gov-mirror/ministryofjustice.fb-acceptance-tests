@@ -16,9 +16,9 @@ describe 'Filling out an Email output form' do
     continue
     fill_in 'Your email address', with: 'bob.smith@digital.justice.gov.uk'
     continue
-    fill_in 'complaint_details', with: 'Some complaint details'
+    fill_in 'complaint_details', with: 'Foo bar baz'
     continue
-    choose 'has-complaint-documents', option: 'no', visible: false
+    check 'Apples', visible: false
     continue
     click_on 'Send complaint'
 
@@ -40,43 +40,20 @@ describe 'Filling out an Email output form' do
         result = PDF::Reader.new('/tmp/submission.pdf').pages.map { |page| page.text }.join(' ')
 
         p 'Email Received.  Asserting PDF contents'
-
-        expected_result = <<-HEREDOC
- Complain about a court or tribunal
-
-
-
- Your name
-
-
-
-
- First name                Bob
-
-
- Last name                 Smith
-
-
-
- Can we contact you about
-                           Yes
- your complaint by email?
-
- Your email address        bob.smith@digital.justice.gov.uk
-
-
- Your complaint            Some complaint details
-
-
- Would you like to send any
- documents as part of your No
- complaint?
-HEREDOC
-        expect(result).to include(expected_result)
+         expect(result).to include('This is a custom PDF Heading')
+         expect(result).to include('Your name')
+         expect(result).to include('First name               Bob')
+         expect(result).to include('Last name                Smith')
+         expect(result).to include('Can we contact you by')
+         expect(result).to include('email?                   Yes')
+         expect(result).to include('Your email address       bob.smith@digital.justice.gov.uk')
+         expect(result).to include('Please tell us about yourFoo bar baz')
+         expect(result).to include('Some Heading')
+         expect(result).to include('Best Legend              Apples')
       end
 
     rescue
-      p 'Waiting for email to be delivered...'
+      p 'Waiting PDF to be generated...'
       sleep 2
       retry
     end

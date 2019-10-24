@@ -11,13 +11,12 @@
     {
       "_id": "config.meta--link--2",
       "_type": "link",
-      "href": "https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service/about/personal-information-charter",
+      "href": "https://www.example.com",
       "text": "Privacy"
     },
     {
       "_id": "config.meta--link--3",
       "_type": "link",
-      "href": "/accessibility",
       "text": "Accessibility"
     }
   ]

@@ -2,15 +2,15 @@
 
 for app in 3001 3002
 do
-  until curl localhost:$app/health |grep healthy; do
-      >&2 echo "Waiting for $app to boot";
+    until curl -v --silent localhost:$app/health 2>&1 | grep healthy; do
+      echo "Waiting for apps to start accepting traffic...";
       sleep 1
   done
 done
 
-until curl localhost:3000/ping.json |grep APP_SHA; do
-    >&2 echo "Waiting for Runner to boot";
+until curl -v --silent localhost:3000/ping.json 2>&1 | grep APP_SHA; do
+    echo "Waiting for apps to start accepting traffic...";
     sleep 1
 done
 
->&2 echo "Runner is up, ready for testing";
+echo "All apps accepting traffing";

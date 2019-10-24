@@ -21,7 +21,7 @@
           "value": "no"
         }
       ],
-      "legend": "Can we contact you about your complaint by email?",
+      "legend": "Can we contact you by email?",
       "legend:cy": "A oes modd inni gysylltu â chi drwy e-bost i drafod eich cwyn?",
       "name": "has-email"
     }
