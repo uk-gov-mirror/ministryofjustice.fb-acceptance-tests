@@ -22,40 +22,44 @@ describe 'Filling out an Email output form' do
     continue
     click_on 'Send complaint'
 
-    wait_for_email_and_assert_contents
+    wait_for_pdf_to_be_generated
+    assert_pdf_contents
   end
 
   def continue
     click_on 'Continue'
   end
 
-  def wait_for_email_and_assert_contents
-    begin
-      response = HTTParty.get(ENV.fetch('EMAIL_ENDPOINT'))
-      parsed_message = Mail.read_from_string(response.parsed_response['raw_message'])
-
-      parsed_message.attachments.each do |attachment|
-        File.open('/tmp/submission.pdf', 'w') { |file| file.write(attachment.decoded) }
-
-        result = PDF::Reader.new('/tmp/submission.pdf').pages.map { |page| page.text }.join(' ')
-
-        p 'Email Received.  Asserting PDF contents'
-         expect(result).to include('This is a custom PDF Heading')
-         expect(result).to include('Your name')
-         expect(result).to include('First name               Bob')
-         expect(result).to include('Last name                Smith')
-         expect(result).to include('Can we contact you by')
-         expect(result).to include('email?                   Yes')
-         expect(result).to include('Your email address       bob.smith@digital.justice.gov.uk')
-         expect(result).to include('Please tell us about yourFoo bar baz')
-         expect(result).to include('Some Heading')
-         expect(result).to include('Best Legend              Apples')
-      end
-
-    rescue
-      p 'Waiting PDF to be generated...'
+  def wait_for_pdf_to_be_generated(tries = 0, max_tries = 20)
+    until HTTParty.get(ENV.fetch('EMAIL_ENDPOINT')).success?
+      p 'waiting for PDF to be generated'
+      abort 'Wait for PDF timeout' if tries >= max_tries
+      tries += 1
       sleep 2
-      retry
+    end
+  end
+
+  def assert_pdf_contents
+    pdf_path = '/tmp/submission.pdf'
+
+    response = HTTParty.get(ENV.fetch('EMAIL_ENDPOINT'))
+    parsed_message = Mail.read_from_string(response.parsed_response['raw_message'])
+
+    parsed_message.attachments.each do |attachment|
+      File.open(pdf_path, 'w') { |file| file.write(attachment.decoded) }
+      result = PDF::Reader.new(pdf_path).pages.map { |page| page.text }.join(' ')
+
+      p 'Email Received.  Asserting PDF contents'
+      expect(result).to include('This is a custom PDF Heading')
+      expect(result).to include('Your name')
+      expect(result).to include('First name               Bob')
+      expect(result).to include('Last name                Smith')
+      expect(result).to include('Can we contact you by')
+      expect(result).to include('email?                   Yes')
+      expect(result).to include('Your email address       bob.smith@digital.justice.gov.uk')
+      expect(result).to include('Please tell us about yourFoo bar baz')
+      expect(result).to include('Some Heading')
+      expect(result).to include('Best Legend              Apples')
     end
   end
 end
