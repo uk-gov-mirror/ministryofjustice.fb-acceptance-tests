@@ -56,15 +56,15 @@ describe 'Filling out an Email output form' do
 
       p 'Email Received.  Asserting PDF contents'
       expect(result).to include('This is a custom PDF Heading')
-      expect(result).to include('Your name')
       # text
+      expect(result).to include('Your name')
       expect(result).to match(/First name[\n\r\s]+Bob/)
       expect(result).to match(/Last name[\n\r\s]+Smith/)
 
       # radio
       expect(result).to include('Can we contact you by')
-      expect(result).to include('yes')
       expect(result).to include('email?')
+      expect(result).to include('yes')
 
       # email
       expect(result).to match(/Your email address[\n\r\s]+bob.smith@digital.justice.gov.uk/)
@@ -77,7 +77,7 @@ describe 'Filling out an Email output form' do
       expect(result).to match(/Best Legend[\n\r\s]+Apples/)
 
       # date
-      expect(result).to include('When did this cat choose')
+      expect(result).to include('When did the cat choose')
       expect(result).to include('you?')
       expect(result).to include('2007-11-12')
     end

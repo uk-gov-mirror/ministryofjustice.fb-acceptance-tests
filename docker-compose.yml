@@ -2,6 +2,7 @@ version: '3'
 
 services:
   datastore-app:
+    container_name: datastore-app
     build:
       context: .datastore
       dockerfile: ./Dockerfile
@@ -24,13 +25,14 @@ services:
       POSTGRES_DB: datastore_local
 
   runner-app:
+    container_name: runner-app
     build:
       context: .runner
       dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
-      SERVICE_PATH: /home/deploy/email-output
+      SERVICE_PATH: ./forms/email-output
       SUBMITTER_URL: http://submitter-app:3000
       USER_DATASTORE_URL: http://datastore-app:3000
       USER_FILESTORE_URL: http://filestore:3000
@@ -39,8 +41,6 @@ services:
       SERVICE_SLUG: slug
       SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
       RUNNER_OVERRIDE_URL: "http://runner-app:3000"
-    volumes:
-      - ./forms/email-output:/home/deploy/email-output
 
   submitter-db:
     image: postgres
@@ -51,6 +51,7 @@ services:
       POSTGRES_DB: submitter_local
 
   submitter-app:
+    container_name: submitter-app
     build:
       context: .submitter
       dockerfile: ./docker/api/Dockerfile
@@ -75,6 +76,7 @@ services:
       EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3002'
 
   submitter-worker:
+    container_name: submitter-worker
     build:
       context: .submitter
       dockerfile: ./docker/worker/Dockerfile
@@ -101,6 +103,7 @@ services:
     command: bundle exec rake jobs:work
 
   pdf-generator:
+    container_name: pdf-generator
     build:
       context: .pdf-generator
       dockerfile: ./Dockerfile

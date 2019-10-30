@@ -20,6 +20,8 @@ stop:
 
 build: stop setup
 	echo HEAD > .runner/APP_SHA
+	mkdir -p .runner/forms
+	cp -r forms/email-output .runner/forms
 	docker-compose build --build-arg BUNDLE_FLAGS='' --build-arg BUNDLE_ARGS='' --parallel
 
 serve: build
@@ -27,7 +29,7 @@ serve: build
 
 spec: serve
 	./scripts/wait_for_apps
-	docker-compose up acceptance-tests
+	docker-compose run acceptance-tests
 
 clean:
 	rm -fr .runner .submitter .datastore .pdf-generator

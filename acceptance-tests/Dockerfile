@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY Gemfile* .ruby-version ./
 RUN gem update --system && gem install bundler
-RUN bundle check || bundle install
+RUN bundle check || BUNDLE_JOBS=2 bundle install
 
 COPY . .
 

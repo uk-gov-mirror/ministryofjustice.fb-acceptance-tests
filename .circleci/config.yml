@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: circleci/ruby:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: setup
+          command: make setup
+      - run:
+          name: run tests
+          command: make spec
+
+workflows:
+  version: 2
+  commit-worflow:
+    jobs:
+      - test
+  # scheduled-workflow:
+  #   jobs:
+  #     - test
+  #   triggers:
+  #     - schedule:
+  #         cron: "0,30 * * * *"
+  #         filters:
+  #           branches:
+  #             only: master
