@@ -3,6 +3,15 @@
 This will spin up the Form Builder environment locally for regression testing and debugging.
 
 ## Usage
+
+### Setup
+
+Run the following command to clone all the needed repositories
+
+```
+make setup
+```
+
 ### Serve locally
 
 ```
