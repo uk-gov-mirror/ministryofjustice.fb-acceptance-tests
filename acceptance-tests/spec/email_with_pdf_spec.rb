@@ -20,6 +20,11 @@ describe 'Filling out an Email output form' do
     continue
     check 'Apples', visible: false
     continue
+
+    fill_in 'COMPOSITE.date-day', with: '12'
+    fill_in 'COMPOSITE.date-month', with: '11'
+    fill_in 'COMPOSITE.date-year', with: '2007'
+    continue
     click_on 'Send complaint'
 
     wait_for_pdf_to_be_generated
@@ -52,14 +57,29 @@ describe 'Filling out an Email output form' do
       p 'Email Received.  Asserting PDF contents'
       expect(result).to include('This is a custom PDF Heading')
       expect(result).to include('Your name')
-      expect(result).to include('First name               Bob')
-      expect(result).to include('Last name                Smith')
+      # text
+      expect(result).to match(/First name[\n\r\s]+Bob/)
+      expect(result).to match(/Last name[\n\r\s]+Smith/)
+
+      # radio
       expect(result).to include('Can we contact you by')
-      expect(result).to include('email?                   Yes')
-      expect(result).to include('Your email address       bob.smith@digital.justice.gov.uk')
-      expect(result).to include('Please tell us about yourFoo bar baz')
+      expect(result).to include('yes')
+      expect(result).to include('email?')
+
+      # email
+      expect(result).to match(/Your email address[\n\r\s]+bob.smith@digital.justice.gov.uk/)
+
+      # textarea
+      expect(result).to match(/Please tell us about your[\n\r\s]+cat[\n\r\s]+Foo bar baz/)
       expect(result).to include('Some Heading')
-      expect(result).to include('Best Legend              Apples')
+
+      # checkbox
+      expect(result).to match(/Best Legend[\n\r\s]+Apples/)
+
+      # date
+      expect(result).to include('When did this cat choose')
+      expect(result).to include('you?')
+      expect(result).to include('2007-11-12')
     end
   end
 end
