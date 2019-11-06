@@ -15,9 +15,14 @@ until docker exec pdf-generator wget http://localhost:3000/health -O - | grep he
   sleep 1
 done
 
-until docker exec runner-app wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
+until docker exec runner-app-email wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
   echo "Waiting for runner to start accepting traffic...";
   sleep 1
+done
+
+until docker exec runner-app-json wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
+    echo "Waiting for runner JSON to start accepting traffic...";
+    sleep 1
 done
 
 echo "All apps accepting traffing";
