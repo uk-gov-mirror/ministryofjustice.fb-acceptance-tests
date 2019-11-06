@@ -1,28 +1,17 @@
 #!/bin/sh
 
-until docker exec datastore-app wget http://localhost:3000/health -O - | grep healthy; do
-  echo "Waiting for datastore to start accepting traffic...";
-  sleep 1
+for app in datastore-app submitter-app pdf-generator; do
+    until docker exec $app wget http://localhost:3000/health -O - | grep healthy; do
+        echo "Waiting for ${app} to start accepting traffic...";
+        sleep 1
+    done
 done
 
-until docker exec submitter-app wget http://localhost:3000/health -O - | grep healthy; do
-  echo "Waiting for submitter to start accepting traffic...";
-  sleep 1
+for app in runner-app-email runner-app-json; do
+    until docker exec $app wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
+        echo "Waiting for ${app} to start accepting traffic...";
+        sleep 1
+    done
 done
 
-until docker exec pdf-generator wget http://localhost:3000/health -O - | grep healthy; do
-  echo "Waiting for pdf-generator accepting traffic...";
-  sleep 1
-done
-
-until docker exec runner-app-email wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
-  echo "Waiting for runner to start accepting traffic...";
-  sleep 1
-done
-
-until docker exec runner-app-json wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
-    echo "Waiting for runner JSON to start accepting traffic...";
-    sleep 1
-done
-
-echo "All apps accepting traffing";
+echo "All apps accepting traffic";

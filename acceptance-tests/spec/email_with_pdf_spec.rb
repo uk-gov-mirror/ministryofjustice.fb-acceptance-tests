@@ -35,10 +35,10 @@ describe 'Filling out an Email output form' do
     click_on 'Continue'
   end
 
-  def wait_for_pdf_to_be_generated(tries = 0, max_tries = 20)
+  def wait_for_pdf_to_be_generated(tries = 0, max_tries = 10)
     until HTTParty.get(ENV.fetch('EMAIL_ENDPOINT')).success?
       p 'waiting for PDF to be generated'
-      abort 'Wait for PDF timeout' if tries >= max_tries
+      fail 'PDF assertion timeout' if tries >= max_tries
       tries += 1
       sleep 2
     end

@@ -46,10 +46,10 @@ describe 'JSON Output' do
     click_on 'Continue'
   end
 
-  def wait_for_json_submission(tries = 0, max_tries = 30)
+  def wait_for_json_submission(tries = 0, max_tries = 10)
     until HTTParty.get(ENV.fetch('JSON_ENDPOINT')).success?
       p 'waiting for JSON result'
-      abort 'Wait for JSON timeout' if tries >= max_tries
+      fail 'JSON assertion timeout' if tries >= max_tries
       tries += 1
       sleep 2
     end
