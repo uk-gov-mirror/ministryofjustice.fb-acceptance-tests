@@ -40,7 +40,6 @@ services:
       SERVICE_TOKEN: "xyz"
       SERVICE_SLUG: slug
       SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
-      RUNNER_OVERRIDE_URL: "http://runner-app-email:3000"
 
   runner-app-json:
     container_name: runner-app-json
@@ -57,8 +56,7 @@ services:
       SERVICE_SECRET: "xyz"
       SERVICE_TOKEN: "xyz"
       SERVICE_SLUG: slug
-      RUNNER_OVERRIDE_URL: "http://runner-app-json:3000"
-      SERVICE_OUTPUT_JSON_ENDPOINT: 'http://fake-inbox:3000/json-output'
+      SERVICE_OUTPUT_JSON_ENDPOINT: 'http://output-recorder:3000/json'
       SERVICE_OUTPUT_JSON_KEY: '19a56ee0e50dd83g'
 
   submitter-db:
@@ -92,7 +90,7 @@ services:
       RAILS_ENV: development
       SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app-email"
-      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3000'
+      EMAIL_ENDPOINT_OVERRIDE: 'http://output-recorder:3000/email'
 
   submitter-worker:
     container_name: submitter-worker
@@ -118,7 +116,7 @@ services:
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app-email"
-      EMAIL_ENDPOINT_OVERRIDE: 'http://fake-inbox:3000'
+      EMAIL_ENDPOINT_OVERRIDE: 'http://output-recorder:3000/email'
     command: bundle exec rake jobs:work
 
   pdf-generator:
@@ -134,9 +132,9 @@ services:
     ports:
       - 3002:3000
 
-  fake-inbox:
+  output-recorder:
     build:
-      context: fake-inbox
+      context: ./acceptance-tests/output-recorder
     ports:
       - 3003:3000
 
@@ -144,8 +142,8 @@ services:
     build:
       context: acceptance-tests
     environment:
-      EMAIL_ENDPOINT: 'http://fake-inbox:3000'
-      JSON_ENDPOINT: 'http://fake-inbox:3000/json-output'
+      EMAIL_ENDPOINT: 'http://output-recorder:3000/email'
+      JSON_ENDPOINT: 'http://output-recorder:3000/json'
       SERVICE_OUTPUT_JSON_KEY: '19a56ee0e50dd83g'
     depends_on:
       - runner-app-email
@@ -155,4 +153,4 @@ services:
       - pdf-generator
       - submitter-app
       - submitter-worker
-      - fake-inbox
+      - output-recorder

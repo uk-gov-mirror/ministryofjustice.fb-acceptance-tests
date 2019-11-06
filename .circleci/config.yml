@@ -19,12 +19,12 @@ workflows:
   commit-worflow:
     jobs:
       - test
-  # scheduled-workflow:
-  #   jobs:
-  #     - test
-  #   triggers:
-  #     - schedule:
-  #         cron: "0,30 * * * *"
-  #         filters:
-  #           branches:
-  #             only: master
+  scheduled-workflow:
+    jobs:
+      - test
+    triggers:
+      - schedule:
+          cron: "0,30 * * * *"
+          filters:
+            branches:
+              only: master
