@@ -29,7 +29,7 @@ serve: build
 
 spec: serve
 	./scripts/wait_for_apps
-	docker-compose run acceptance-tests
+	docker-compose run acceptance-tests rspec
 
 clean:
 	rm -fr .runner .submitter .datastore .pdf-generator
