@@ -25,6 +25,10 @@ describe 'Filling out an Email output form' do
     fill_in 'COMPOSITE.date-month', with: '11'
     fill_in 'COMPOSITE.date-year', with: '2007'
     continue
+
+    fill_in 'number_cats', with: 28
+    continue
+
     click_on 'Send complaint'
 
     wait_for_pdf_to_be_generated
@@ -70,9 +74,11 @@ describe 'Filling out an Email output form' do
       expect(result).to match(/Your email address[\n\r\s]+bob.smith@digital.justice.gov.uk/)
 
       # textarea
-      expect(result).to match(/Please tell us about your[\n\r\s]+cat[\n\r\s]+Foo bar baz/)
-      expect(result).to include('Some Heading')
+      expect(result).to include('Please tell us about your')
+      expect(result).to include('cat')
+      expect(result).to include('Foo bar baz')
 
+      expect(result).to include('Some Heading')
       # checkbox
       expect(result).to match(/Best Legend[\n\r\s]+Apples/)
 
@@ -80,6 +86,9 @@ describe 'Filling out an Email output form' do
       expect(result).to include('When did the cat choose')
       expect(result).to include('you?')
       expect(result).to include('2007-11-12')
+
+      # number
+      expect(result).to match(/How many cats\?[\n\r\s]+28/)
     end
   end
 end

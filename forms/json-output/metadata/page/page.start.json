@@ -13,6 +13,7 @@
     "page.email-address",
     "page.complaint",
     "page.date",
+    "page.number",
     "page.check-answers",
     "page.complaint-sent"
   ],
