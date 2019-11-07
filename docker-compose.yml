@@ -151,6 +151,7 @@ services:
       - submitter-db
       - datastore-db
       - pdf-generator
+      - datastore-app
       - submitter-app
       - submitter-worker
       - output-recorder

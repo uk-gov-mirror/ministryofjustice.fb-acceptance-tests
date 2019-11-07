@@ -22,6 +22,10 @@ describe 'JSON Output' do
     fill_in 'COMPOSITE.date-month', with: '11'
     fill_in 'COMPOSITE.date-year', with: '2007'
     continue
+
+    fill_in 'number_cats', with: 28
+    continue
+
     click_on 'Send complaint'
 
     encrypted_result = wait_for_json_submission
@@ -35,7 +39,8 @@ describe 'JSON Output' do
       'has-email': 'yes',
       email_address: 'bob.smith@digital.justice.gov.uk',
       complaint_details: 'Foo bar baz',
-      date: '2007-11-12'
+      date: '2007-11-12',
+      number_cats: 28
     })
 
     expect(result).to include(attachments: [])
