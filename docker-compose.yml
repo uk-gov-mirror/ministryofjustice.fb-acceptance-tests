@@ -91,6 +91,8 @@ services:
       SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app-email"
       EMAIL_ENDPOINT_OVERRIDE: 'http://output-recorder:3000/email'
+      ENCRYPTION_KEY: 'i6USnzeRKljfLMPbRlB2E9oikURx4ou3'
+      ENCRYPTION_SALT: 'lGlcn9HabIducdpwlSHcM06e9gFuIfS1Ogg5krtn1Fw='
 
   submitter-worker:
     container_name: submitter-worker
@@ -117,6 +119,8 @@ services:
       RAILS_LOG_TO_STDOUT: "true"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app-email"
       EMAIL_ENDPOINT_OVERRIDE: 'http://output-recorder:3000/email'
+      ENCRYPTION_KEY: 'i6USnzeRKljfLMPbRlB2E9oikURx4ou3'
+      ENCRYPTION_SALT: 'lGlcn9HabIducdpwlSHcM06e9gFuIfS1Ogg5krtn1Fw='
     command: bundle exec rake jobs:work
 
   pdf-generator:
