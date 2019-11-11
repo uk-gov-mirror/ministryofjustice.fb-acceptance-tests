@@ -17,7 +17,7 @@ services:
       SERVICE_TOKEN_CACHE_ROOT_URL: "http://token-cache-app:3000"
 
   datastore-db:
-    image: postgres
+    image: postgres:10.9-alpine
     restart: always
     environment:
       POSTGRES_PASSWORD: password
@@ -60,7 +60,7 @@ services:
       SERVICE_OUTPUT_JSON_KEY: '19a56ee0e50dd83g'
 
   submitter-db:
-    image: postgres
+    image: postgres:10.9-alpine
     restart: always
     environment:
       POSTGRES_PASSWORD: password
