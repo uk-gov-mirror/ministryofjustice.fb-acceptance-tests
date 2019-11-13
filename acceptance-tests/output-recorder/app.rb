@@ -4,6 +4,13 @@ class App < Sinatra::Base
   EMAIL_RESULT_FILE = '/tmp/email.json'
   JSON_RESULT_FILE = '/tmp/json'
 
+  delete '/teardown' do
+    File.delete(EMAIL_RESULT_FILE)
+    File.delete(JSON_RESULT_FILE)
+
+    status 200
+  end
+
   post '/email' do
     File.open(EMAIL_RESULT_FILE, 'w') { |file| file.write(params.to_json) }
 

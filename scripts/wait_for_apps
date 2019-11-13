@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for app in datastore-app submitter-app pdf-generator; do
+for app in output-recorder datastore-app filestore-app submitter-app pdf-generator service-token-cache-app; do
     until docker exec $app wget http://localhost:3000/health -O - | grep healthy; do
         echo "Waiting for ${app} to start accepting traffic...";
         sleep 1

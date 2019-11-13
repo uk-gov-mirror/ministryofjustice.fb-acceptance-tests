@@ -5,6 +5,10 @@ require 'mail'
 require 'pdf-reader'
 
 describe 'Filling out an Email output form' do
+  before :each do
+    HTTParty.delete(ENV.fetch('RECORDER_TEARDOWN_ENDPOINT'))
+  end
+
   it 'sends an email with the submission in a PDF' do
     visit 'http://runner-app:3000'
     click_on 'Start'
@@ -46,6 +50,10 @@ describe 'Filling out an Email output form' do
 
     # autocomplete
     fill_in 'page_autocomplete--autocomplete_autocomplete', with: "California Spangled\n" # the new line "presses enter" on the selected option
+    continue
+
+    # upload
+    # attach_file("upload[1]", 'spec/fixtures/files/hello_world.txt')
     continue
 
     click_on 'Send complaint'
