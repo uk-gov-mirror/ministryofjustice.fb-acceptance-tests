@@ -35,13 +35,37 @@ services:
       SERVICE_PATH: ./forms/email-output
       SUBMITTER_URL: http://submitter-app:3000
       USER_DATASTORE_URL: http://datastore-app:3000
-      USER_FILESTORE_URL: http://filestore:3000
+      USER_FILESTORE_URL: http://filestore-app:3000
       SERVICE_SECRET: "xyz"
       SERVICE_TOKEN: "xyz"
       SERVICE_SLUG: slug
       SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
       SERVICE_OUTPUT_JSON_ENDPOINT: 'http://output-recorder:3000/json'
       SERVICE_OUTPUT_JSON_KEY: '19a56ee0e50dd83g'
+
+  filestore-app:
+    container_name: filestore-app
+    build:
+      context: .filestore
+      dockerfile: ./Dockerfile
+    ports:
+      - 10001:3000
+    environment:
+      RAILS_ENV: development
+      AWS_ACCESS_KEY_ID: 'qwerty'
+      AWS_SECRET_ACCESS_KEY: 'qwerty'
+      AWS_S3_EXTERNAL_BUCKET_ACCESS_KEY_ID: 'qwerty'
+      AWS_S3_EXTERNAL_BUCKET_SECRET_ACCESS_KEY: 'qwerty'
+      AWS_S3_EXTERNAL_BUCKET_NAME: 'external-filestore-bucket'
+      SENTRY_DSN: ''
+      KEY_ENCRYPTION_IV: '1234567890123456'
+      AWS_S3_BUCKET_NAME: 'filestore-bucket'
+      ENCRYPTION_KEY: '12345678901234561234567890123456'
+      ENCRYPTION_IV: '1234567890123456'
+      # SERVICE_TOKEN: "xyz"
+      # SECRET_KEY_BASE: "xxxyyy"
+      # MAX_IAT_SKEW_SECONDS: "60"
+      SERVICE_TOKEN_CACHE_ROOT_URL: "http://service-token-cache-app:3000"
 
   submitter-db:
     image: postgres:10.9-alpine
@@ -119,10 +143,41 @@ services:
       - 3002:3000
 
   output-recorder:
+    container_name: output-recorder
     build:
       context: ./acceptance-tests/output-recorder
     ports:
       - 3003:3000
+
+  service-token-cache-app:
+    container_name: service-token-cache-app
+    build:
+      context: .service-token-cache
+      dockerfile: ./Dockerfile
+    environment:
+      SENTRY_DSN: "whatever"
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: "true"
+      REDIS_URL: service-token-cache-redis
+      SERVICE_TOKEN_CACHE_TTL: "300"
+    depends_on:
+      - service-token-cache-redis
+    ports:
+      - 3004:3000
+
+  service-token-cache-redis:
+    container_name: service-token-cache-redis
+    image: redis:5.0.6-alpine
+
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:latest
+    ports:
+      - '4563-4599:4563-4599'
+      - '8055:8080'
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
 
   acceptance-tests:
     build:
@@ -130,13 +185,17 @@ services:
     environment:
       EMAIL_ENDPOINT: 'http://output-recorder:3000/email'
       JSON_ENDPOINT: 'http://output-recorder:3000/json'
+      RECORDER_TEARDOWN_ENDPOINT: 'http://output-recorder:3000/teardown'
       SERVICE_OUTPUT_JSON_KEY: '19a56ee0e50dd83g'
     depends_on:
       - runner-app
+      - localstack
+      - service-token-cache-app
       - submitter-db
       - datastore-db
       - pdf-generator
       - datastore-app
+      - filestore-app
       - submitter-app
       - submitter-worker
       - output-recorder

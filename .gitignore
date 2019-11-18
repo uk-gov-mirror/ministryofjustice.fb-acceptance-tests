@@ -6,4 +6,5 @@
 .datastore
 .runner
 .pdf-generator
+.service-token-cache
 .DS_Store

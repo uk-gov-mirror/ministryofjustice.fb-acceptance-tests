@@ -17,6 +17,7 @@
     "page.number",
     "page.select",
     "page.autocomplete",
+    "page.upload",
     "page.check-answers",
     "page.complaint-sent"
   ],
