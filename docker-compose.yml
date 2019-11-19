@@ -66,6 +66,8 @@ services:
       # SECRET_KEY_BASE: "xxxyyy"
       # MAX_IAT_SKEW_SECONDS: "60"
       SERVICE_TOKEN_CACHE_ROOT_URL: "http://service-token-cache-app:3000"
+    depends_on:
+      - localstack
 
   submitter-db:
     image: postgres:10.9-alpine
@@ -159,7 +161,7 @@ services:
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
       REDIS_URL: service-token-cache-redis
-      SERVICE_TOKEN_CACHE_TTL: "300"
+      SERVICE_TOKEN_CACHE_TTL: 999999
     depends_on:
       - service-token-cache-redis
     ports:
@@ -176,8 +178,10 @@ services:
       - '4563-4599:4563-4599'
       - '8055:8080'
     environment:
-      - SERVICES=s3
-      - DEBUG=1
+      SERVICES: 's3'
+      AWS_ACCESS_KEY_ID: 'qwerty'
+      AWS_SECRET_KEY: 'qwerty'
+      AWS_SECRET_ACCESS_KEY: 'qwerty'
 
   acceptance-tests:
     build:
