@@ -213,5 +213,3 @@ services:
       - submitter-app
       - submitter-worker
       - output-recorder
-    volumes:
-      - ./acceptance-tests:/usr/src/app
