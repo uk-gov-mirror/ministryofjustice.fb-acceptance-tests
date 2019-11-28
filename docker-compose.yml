@@ -16,7 +16,7 @@ services:
       SERVICE_TOKEN: "xyz"
       SECRET_KEY_BASE: "xxxyyy"
       MAX_IAT_SKEW_SECONDS: "60"
-      SERVICE_TOKEN_CACHE_ROOT_URL: "http://token-cache-app:3000"
+      SERVICE_TOKEN_CACHE_ROOT_URL: "http://service-token-cache-app:3000"
 
   datastore-db:
     image: postgres:10.9-alpine
@@ -102,7 +102,7 @@ services:
       SECRET_KEY_BASE: "xxxyyy"
       PDF_GENERATOR_ROOT_URL: "http://pdf-generator:3000"
       RAILS_ENV: development
-      SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
+      SERVICE_TOKEN_CACHE_ROOT_URL: "http://service-token-cache-app:3000"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
       EMAIL_ENDPOINT_OVERRIDE: 'http://output-recorder:8080/email'
       ENCRYPTION_KEY: 'i6USnzeRKljfLMPbRlB2E9oikURx4ou3'
@@ -129,7 +129,7 @@ services:
       FB_ENVIRONMENT_SLUG: "test"
       SECRET_KEY_BASE: "xxxyyy"
       PDF_GENERATOR_ROOT_URL: "http://pdf-generator:3000"
-      SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
+      SERVICE_TOKEN_CACHE_ROOT_URL: "http://service-token-cache-app:3000"
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
       RUNNER_CALLBACK_URL_OVERRIDE: "runner-app"
@@ -146,7 +146,7 @@ services:
       args:
         BUNDLE_ARGS: '--path vendor/bundle'
     environment:
-      SERVICE_TOKEN_CACHE_ROOT_URL: "token-cache-app:3000"
+      SERVICE_TOKEN_CACHE_ROOT_URL: "http://service-token-cache-app:3000"
       SENTRY_DSN: "whatever"
       RAILS_ENV: development
       RAILS_LOG_TO_STDOUT: "true"
