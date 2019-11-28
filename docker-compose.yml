@@ -39,7 +39,7 @@ services:
       USER_DATASTORE_URL: http://datastore-app:3000
       USER_FILESTORE_URL: http://filestore-app:3000
       SERVICE_SECRET: "xyz"
-      SERVICE_TOKEN: "xyz"
+      SERVICE_TOKEN: "token-for-slug"
       SERVICE_SLUG: slug
       SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
       SERVICE_OUTPUT_JSON_ENDPOINT: 'http://output-recorder:8080/json'
