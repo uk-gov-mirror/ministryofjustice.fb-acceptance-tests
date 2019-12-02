@@ -6,14 +6,14 @@ module OutputRecorder
 
   def self.wait_for_result(url:, expected_requests: 1)
     tries = 0
-    max_tries = 15
+    max_tries = 20
     actual_requests = 0
     until actual_requests == expected_requests
       p "waiting for posts to arrive at '#{url}' endpoint (received #{actual_requests} of #{expected_requests})"
       sleep 1
 
       actual_requests = request_count(url: url)
-      raise 'JSON assertion timeout' if tries >= max_tries
+      raise 'callback assertion timeout' if tries >= max_tries
 
       tries += 1
     end

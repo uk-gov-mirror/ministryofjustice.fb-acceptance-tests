@@ -4,6 +4,7 @@ require 'httparty'
 require 'mail'
 require 'pdf-reader'
 require 'cgi'
+require 'csv'
 
 describe 'Filling out an Email output form' do
   before :each do
@@ -59,10 +60,11 @@ describe 'Filling out an Email output form' do
 
     click_on 'Send complaint'
 
-    recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 2)
+    recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 3)
     assert_pdf_contents recorded_emails[0]
+    assert_csv_contents recorded_emails[1]
     assert_file_upload(
-        actual: recorded_emails[1],
+        actual: recorded_emails[2],
         expected: File.read("spec/fixtures/files/hello_world.txt")
     )
   end
@@ -85,7 +87,7 @@ describe 'Filling out an Email output form' do
       File.open(pdf_path, 'w') { |file| file.write(attachment.decoded) }
       result = PDF::Reader.new(pdf_path).pages.map { |page| page.text }.join(' ')
 
-      p 'Email Received.  Asserting PDF contents'
+      p 'Email Received. Asserting PDF contents'
       expect(result).to include('This is a custom PDF Heading')
       # text
       expect(result).to include('Your name')
@@ -126,6 +128,32 @@ describe 'Filling out an Email output form' do
       expect(result).to include('California Spangled')
 
       expect(result).to match(/Upload documents[\n\r\s]+hello_world.txt \(12B\)/)
+    end
+  end
+
+  def assert_csv_contents(email)
+    path_to_file = '/tmp/submission.csv'
+
+    parsed_message = parse_email(email)
+
+    parsed_message.attachments.each do |attachment|
+      File.open(path_to_file, 'w') { |file| file.write(attachment.decoded) }
+      rows = CSV.read(path_to_file)
+
+      p 'Email Received. Asserting CSV contents'
+      expect(rows[0]).to eql(['submission_id', 'first_name', 'last_name', 'has-email', 'email_address', 'complaint_details', 'checkbox-apples', 'date', 'number_cats', 'cat_spy', 'cat_breed', 'upload'])
+      expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+      expect(rows[1][1..-1]).to eql(['Bob',
+                                     'Smith',
+                                     'yes',
+                                     'bob.smith@digital.justice.gov.uk',
+                                     'Foo bar baz',
+                                     'yes',
+                                     '2007-11-12',
+                                     '28',
+                                     'machine answer 3',
+                                     'California Spangled',
+                                     'data not available in csv format'])
     end
   end
 
