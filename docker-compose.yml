@@ -44,6 +44,7 @@ services:
       SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
       SERVICE_OUTPUT_JSON_ENDPOINT: 'http://output-recorder:8080/json'
       SERVICE_OUTPUT_JSON_KEY: '19a56ee0e50dd83g'
+      SERVICE_OUTPUT_CSV: 'true'
 
   filestore-app:
     container_name: filestore-app
