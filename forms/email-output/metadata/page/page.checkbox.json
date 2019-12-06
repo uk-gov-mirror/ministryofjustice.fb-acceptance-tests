@@ -17,6 +17,12 @@
           "_type": "checkbox",
           "label": "Pears",
           "name": "checkbox-pears"
+        },
+        {
+          "_id": "page.checkbox--checkboxes--checkbox.checkbox-fruit-3",
+          "_type": "checkbox",
+          "label": "Bananas",
+          "name": "checkbox-bananas"
         }
       ],
       "legend": "Best Legend"

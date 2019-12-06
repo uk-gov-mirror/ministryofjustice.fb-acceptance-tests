@@ -34,6 +34,7 @@ describe 'Filling out an Email output form' do
 
     # checkbox
     check 'Apples', visible: false
+    check 'Pears', visible: false
     continue
 
     # date
@@ -61,12 +62,13 @@ describe 'Filling out an Email output form' do
     click_on 'Send complaint'
 
     recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 3)
+
     assert_pdf_contents recorded_emails[0]
-    assert_csv_contents recorded_emails[1]
     assert_file_upload(
-        actual: recorded_emails[2],
+        actual: recorded_emails[1],
         expected: File.read("spec/fixtures/files/hello_world.txt")
     )
+    assert_csv_contents recorded_emails[2]
   end
 
   def continue
@@ -110,6 +112,7 @@ describe 'Filling out an Email output form' do
       expect(result).to include('Some Heading')
       # checkbox
       expect(result).to match(/Best Legend[\n\r\s]+Apples/)
+      expect(result).to match(/Pears/)
 
       # date
       expect(result).to include('When did the cat choose')
@@ -141,19 +144,34 @@ describe 'Filling out an Email output form' do
       rows = CSV.read(path_to_file)
 
       p 'Email Received. Asserting CSV contents'
-      expect(rows[0]).to eql(['submission_id', 'first_name', 'last_name', 'has-email', 'email_address', 'complaint_details', 'checkbox-apples', 'date', 'number_cats', 'cat_spy', 'cat_breed', 'upload'])
-      expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+
+      expect(rows[0]).to eql(['submission_id',
+                              'first_name',
+                              'last_name',
+                              'has-email',
+                              'email_address',
+                              'complaint_details',
+                              'checkbox-apples',
+                              'checkbox-pears',
+                              'date',
+                              'number_cats',
+                              'cat_spy',
+                              'cat_breed',
+                              'upload'])
+
+      expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/) # guid
       expect(rows[1][1..-1]).to eql(['Bob',
                                      'Smith',
                                      'yes',
                                      'bob.smith@digital.justice.gov.uk',
                                      'Foo bar baz',
                                      'yes',
+                                     'yes',
                                      '2007-11-12',
                                      '28',
                                      'machine answer 3',
                                      'California Spangled',
-                                     'data not available in csv format'])
+                                     'data not available in CSV format'])
     end
   end
 
