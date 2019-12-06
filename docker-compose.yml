@@ -44,6 +44,7 @@ services:
       SERVICE_OUTPUT_EMAIL: "bob.admin@digital.justice.gov.uk"
       SERVICE_OUTPUT_JSON_ENDPOINT: 'http://output-recorder:8080/json'
       SERVICE_OUTPUT_JSON_KEY: '19a56ee0e50dd83g'
+      SERVICE_OUTPUT_CSV: 'true'
 
   filestore-app:
     container_name: filestore-app
@@ -136,6 +137,8 @@ services:
       EMAIL_ENDPOINT_OVERRIDE: 'http://output-recorder:8080/email'
       ENCRYPTION_KEY: 'i6USnzeRKljfLMPbRlB2E9oikURx4ou3'
       ENCRYPTION_SALT: 'lGlcn9HabIducdpwlSHcM06e9gFuIfS1Ogg5krtn1Fw='
+    depends_on:
+      - submitter-app
     command: bundle exec rake jobs:work
 
   pdf-generator:
@@ -206,10 +209,10 @@ services:
       - localstack
       - service-token-cache-app
       - submitter-db
+      - submitter-app
       - datastore-db
       - pdf-generator
       - datastore-app
       - filestore-app
-      - submitter-app
       - submitter-worker
       - output-recorder
