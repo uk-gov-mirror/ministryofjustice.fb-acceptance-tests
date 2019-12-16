@@ -36,7 +36,7 @@ serve: build
 	./scripts/setup_test_env.sh
 
 spec: serve
-	docker-compose run acceptance-tests rspec
+	docker-compose run acceptance-tests bundle exec rspec
 
 clean:
 	rm -fr .runner .submitter .datastore .filestore .pdf-generator .service-token-cache
