@@ -61,6 +61,8 @@ describe 'Filling out an Email output form' do
 
     click_on 'Send complaint'
 
+    expect(page).to have_content('Details sent')
+
     recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 3)
 
     assert_pdf_contents recorded_emails[0]
