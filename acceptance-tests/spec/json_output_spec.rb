@@ -58,6 +58,8 @@ describe 'JSON Output' do
 
     click_on 'Send complaint'
 
+    expect(page).to have_content('Details sent')
+
     results = OutputRecorder.wait_for_result(url: '/json')
     expect(results.size).to eq(1)
 
