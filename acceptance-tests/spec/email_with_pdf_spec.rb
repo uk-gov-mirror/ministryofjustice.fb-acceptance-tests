@@ -148,6 +148,7 @@ describe 'Filling out an Email output form' do
       p 'Email Received. Asserting CSV contents'
 
       expect(rows[0]).to eql(['submission_id',
+                              'submission_at',
                               'first_name',
                               'last_name',
                               'has-email',
@@ -162,7 +163,8 @@ describe 'Filling out an Email output form' do
                               'upload'])
 
       expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/) # guid
-      expect(rows[1][1..-1]).to eql(['Bob',
+      expect(rows[1][1]).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/) # iso timestamp
+      expect(rows[1][2..-1]).to eql(['Bob',
                                      'Smith',
                                      'yes',
                                      'bob.smith@digital.justice.gov.uk',
