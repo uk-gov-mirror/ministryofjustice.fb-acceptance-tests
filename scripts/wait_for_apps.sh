@@ -13,8 +13,8 @@ until docker exec output-recorder wget http://localhost:8080/health -O - | grep 
 done
 
 until docker exec runner-app wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
-        echo "Waiting for runner-app to start accepting traffic...";
-        sleep 1
+    echo "Waiting for runner-app to start accepting traffic...";
+    sleep 1
 done
 
 echo "All apps accepting traffic";
