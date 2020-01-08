@@ -32,7 +32,7 @@ build: stop setup
 
 serve: build
 	docker-compose up -d
-	./scripts/wait_for_apps
+	./scripts/wait_for_apps.sh
 	./scripts/setup_test_env.sh
 
 spec: serve

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 set -ex
 
 # adds a test token to use in end to end test
