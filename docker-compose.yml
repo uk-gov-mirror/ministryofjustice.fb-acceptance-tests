@@ -70,7 +70,7 @@ services:
       ENCRYPTION_IV: '1234567890123456'
       # SERVICE_TOKEN: "xyz"
       # SECRET_KEY_BASE: "xxxyyy"
-      # MAX_IAT_SKEW_SECONDS: "60"
+      MAX_IAT_SKEW_SECONDS: "60"
       SERVICE_TOKEN_CACHE_ROOT_URL: "http://service-token-cache-app:3000"
     depends_on:
       - localstack
