@@ -28,7 +28,7 @@ make spec
 
 This will ensure that the contents filled into the form fields are contained in the PDF email attachment.
 
-### Ensuring Component are up to date
+### Ensuring Components are up to date
 
 Under the hood `make setup` clones the HEAD of master of dependent repositories to local disk. To update these cached versions run:
 
