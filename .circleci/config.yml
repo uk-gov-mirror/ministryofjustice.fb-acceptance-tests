@@ -16,6 +16,6 @@ jobs:
 
 workflows:
   version: 2
-  commit-worflow:
+  commit-workflow:
     jobs:
       - test
