@@ -1,10 +1,5 @@
 require 'capybara/rspec'
 require 'spec_helper'
-require 'httparty'
-require 'mail'
-require 'pdf-reader'
-require 'cgi'
-require 'csv'
 
 describe 'Using Save and Return' do
   it 'puts a link onto the start page' do
