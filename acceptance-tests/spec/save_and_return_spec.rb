@@ -57,30 +57,30 @@ describe 'Using Save and Return' do
   end
 
   # it 'accepts an email address' do
-  #   visit 'http://runner-app:3000'
+  #   visit 'http://runner-app:3000'
 
-  #   # Save and Return "Continue work on a saved form"
-  #   find('p a[href="/return"]').click
+  #   # Save and Return "Continue work on a saved form"
+  #   find('p a[href="/return"]').click
 
-  #   # Save and Return start
-  #   expect(page).to have_selector 'h1', text: 'Get a sign-in link'
-  #   expect(page).to have_selector 'form label', text: 'Email address'
+  #   # Save and Return start
+  #   expect(page).to have_selector 'h1', text: 'Get a sign-in link'
+  #   expect(page).to have_selector 'form label', text: 'Email address'
 
-  #   # email
-  #   fill_in 'email', with: "form-builder-developers@digital.justice.gov.uk"
-  #   continue
+  #   # email
+  #   fill_in 'email', with: "form-builder-developers@digital.justice.gov.uk"
+  #   continue
 
-  #   expect(page).to have_selector 'h1', text: 'Check your email'
-  #   expect(page).to have_selector 'h1 + p', text: "We’ve sent your sign-in link to form-builder-developers@digital.justice.gov.uk"
+  #   expect(page).to have_selector 'h1', text: 'Check your email'
+  #   expect(page).to have_selector 'h1 + p', text: "We’ve sent your sign-in link to form-builder-developers@digital.justice.gov.uk"
 
-  #   expect(page).to have_selector 'h2', text: 'Didn’t receive the email?'
-  #   expect(page).to have_selector 'ul li a[href="/return/form-builder-developers@digital.justice.gov.uk"]', text: 'resend the email'
+  #   expect(page).to have_selector 'h2', text: 'Didn’t receive the email?'
+  #   expect(page).to have_selector 'ul li a[href="/return/form-builder-developers@digital.justice.gov.uk"]', text: 'resend the email'
 
-  #   find('ul li a[href="/return/form-builder-developers@digital.justice.gov.uk"]').click
+  #   find('ul li a[href="/return/form-builder-developers@digital.justice.gov.uk"]').click
 
-  #   expect(page).to have_selector 'h1', text: 'Get a sign-in link'
-  #   expect(page).to have_selector 'form label', text: 'Email address'
-  # end
+  #   expect(page).to have_selector 'h1', text: 'Get a sign-in link'
+  #   expect(page).to have_selector 'form label', text: 'Email address'
+  # end
 
   it 'rejects no email address' do
     visit 'http://runner-app:3000'
