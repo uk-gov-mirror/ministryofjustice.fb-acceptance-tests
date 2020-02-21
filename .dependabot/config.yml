@@ -5,7 +5,6 @@ update_configs:
     directory: "/acceptance-tests"
     update_schedule: "live"
     default_reviewers:
-    - asmega
     - tomas-stefano
     - brenetic
     - sequencemedialimited
@@ -13,7 +12,6 @@ update_configs:
     directory: "/acceptance-tests"
     update_schedule: "daily"
     default_reviewers:
-    - asmega
     - tomas-stefano
     - brenetic
     - sequencemedialimited
