@@ -10,7 +10,7 @@ describe 'JSON Output' do
   end
 
   it 'sends the JSON payload to the specified endpoint' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-json-app:3000'
     click_on 'Start'
 
     # text

@@ -2,14 +2,14 @@ version: 1
 
 update_configs:
   - package_manager: "ruby:bundler"
-    directory: "/acceptance-tests"
+    directory: "/tests"
     update_schedule: "live"
     default_reviewers:
     - tomas-stefano
     - brenetic
     - sequencemedialimited
   - package_manager: "docker"
-    directory: "/acceptance-tests"
+    directory: "/tests"
     update_schedule: "daily"
     default_reviewers:
     - tomas-stefano
