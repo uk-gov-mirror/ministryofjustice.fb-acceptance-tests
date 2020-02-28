@@ -12,7 +12,7 @@ describe 'Filling out an Email output form' do
   end
 
   it 'sends an email with the submission in a PDF' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-email-app:3000'
     click_on 'Start'
 
     # text

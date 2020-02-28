@@ -1,10 +1,11 @@
-.av
+.DS_Store
+
 .publisher
 .submitter
 .token-cache
 .filestore
 .datastore
 .runner
+.forms
 .pdf-generator
 .service-token-cache
-.DS_Store
