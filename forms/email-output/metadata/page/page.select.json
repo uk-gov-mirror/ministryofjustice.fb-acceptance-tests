@@ -5,6 +5,7 @@
     {
       "_id": "page.select--select.auto_name__1",
       "_type": "select",
+      "hint": "Tell us whether your cat is watching you now",
       "items": [
         {
           "_id": "page.select--select.auto_name__1--option",
@@ -29,5 +30,6 @@
       "name": "cat_spy"
     }
   ],
+  "sectionHeading": "A **Select** component",
   "url": "select"
 }

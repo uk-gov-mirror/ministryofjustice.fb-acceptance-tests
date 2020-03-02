@@ -15,27 +15,17 @@
           "any:cy": "Rhaid i'r ffeil fod yn llai na 5MB"
         }
       },
-      "hint": "You can upload your documents as scanned copies or photos of the originals",
+      "hint": "Send us a picture of your cat",
       "hint:cy": "Gallwch lwytho eich dogfennau fel copïau wedi eu sganio neu luniau o'r gwreiddiol",
-      "label": "Upload documents",
+      "label": "What does your cat look like?",
       "label:cy": "Llwytho dogfennau",
       "name": "upload",
       "validation": {
-        "required": false,
-        "accept": [
-          "text/plain",
-          "image/jpeg",
-          "image/bmp",
-          "image/x-ms-bmp",
-          "image/png",
-          "image/tiff",
-          "application/pdf",
-          "application/msword",
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        ],
-        "maxSize": "5242880"
+        "maxSize": "5242880",
+        "required": false
       }
     }
   ],
+  "sectionHeading": "A **File Upload** component",
   "url": "/upload"
 }

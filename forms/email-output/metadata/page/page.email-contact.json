@@ -5,6 +5,7 @@
     {
       "_id": "page.email-contact--radios.auto_name__1",
       "_type": "radios",
+      "hint": "Tell us whether we can contact you by email",
       "items": [
         {
           "_id": "page.email-contact--radios.auto_name__1--radio.auto_value__1",
@@ -23,8 +24,9 @@
       ],
       "legend": "Can we contact you by email?",
       "legend:cy": "A oes modd inni gysylltu â chi drwy e-bost i drafod eich cwyn?",
-      "name": "has-email"
+      "name": "has_email"
     }
   ],
+  "sectionHeading": "A **Radios** component",
   "url": "email-contact"
 }
