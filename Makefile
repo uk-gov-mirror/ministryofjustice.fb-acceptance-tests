@@ -25,10 +25,12 @@ destroy: stop clean
 make-forms:
 	mkdir -p .forms/email-output
 	mkdir -p .forms/json-output
+	mkdir -p .forms/save-and-return-module
 
 copy-forms:
 	cp -r .runner/* .forms/email-output
 	cp -r .runner/* .forms/json-output
+	cp -r .runner/* .forms/save-and-return-module
 
 stop:
 	docker-compose down
@@ -40,6 +42,9 @@ build: stop setup
 	echo HEAD > .forms/json-output/APP_SHA
 	mkdir -p .forms/json-output/form
 	cp -r ./forms/json-output/* .forms/json-output/form
+	echo HEAD > .forms/save-and-return-module/APP_SHA
+	mkdir -p .forms/save-and-return-module/form
+	cp -r ./forms/save-and-return-module/* .forms/save-and-return-module/form
 	docker-compose build --parallel
 
 serve: build
