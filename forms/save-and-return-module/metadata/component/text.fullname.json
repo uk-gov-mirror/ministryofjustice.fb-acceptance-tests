@@ -1,0 +1,6 @@
+{
+  "_id": "text.fullname",
+  "_type": "text",
+  "label": "Full name",
+  "name": "fullname"
+}
