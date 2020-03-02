@@ -1,8 +1,9 @@
 {
   "_id": "page.check-answers",
   "_type": "page.summary",
-  "heading": "Check your answers",
+  "heading": "Your answers",
   "heading:cy": "Gwirio eich atebion",
+  "sectionHeading": "An **Answers** component",
   "sendBody": "",
   "sendHeading": "",
   "url": "check-answers"

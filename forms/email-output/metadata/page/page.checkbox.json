@@ -5,29 +5,34 @@
     {
       "_id": "page.checkbox--checkboxes",
       "_type": "checkboxes",
+      "hint": "This is not about your cat",
       "items": [
         {
-          "_id": "page.checkbox--checkboxes--checkbox.checkbox-fruit-1",
+          "_id": "page.checkbox--checkboxes--checkbox.checkbox--fruit--1",
           "_type": "checkbox",
           "label": "Apples",
-          "name": "checkbox-apples"
+          "name": "checkbox_apples",
+          "value": "Apples"
         },
         {
-          "_id": "page.checkbox--checkboxes--checkbox.checkbox-fruit-2",
+          "_id": "page.checkbox--checkboxes--checkbox.checkbox--fruit--2",
           "_type": "checkbox",
           "label": "Pears",
-          "name": "checkbox-pears"
+          "name": "checkbox_pears",
+          "value": "Pears"
         },
         {
-          "_id": "page.checkbox--checkboxes--checkbox.checkbox-fruit-3",
+          "_id": "page.checkbox--checkboxes--checkbox.checkbox--fruit--3",
           "_type": "checkbox",
           "label": "Bananas",
-          "name": "checkbox-bananas"
+          "name": "checkbox_bananas",
+          "value": "Bananas"
         }
       ],
-      "legend": "Best Legend"
+      "legend": "Choose your fruit"
     }
   ],
-  "heading": "Some Heading",
+  "heading": "Your fruit",
+  "sectionHeading": "A **Checkboxes** component",
   "url": "checkbox"
 }

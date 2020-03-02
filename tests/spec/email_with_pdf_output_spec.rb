@@ -16,20 +16,20 @@ describe 'Filling out an Email output form' do
     click_on 'Start'
 
     # text
-    fill_in 'First name', with: 'Bob'
-    fill_in 'Last name', with: 'Smith'
+    fill_in 'First name', with: 'Form'
+    fill_in 'Last name', with: 'Builders'
     continue
 
     # radio
-    choose 'has-email', option: 'yes', visible: false
+    choose 'has_email', option: 'yes', visible: false
     continue
 
     # email
-    fill_in 'Your email address', with: 'bob.smith@digital.justice.gov.uk'
+    fill_in 'email_address', with: 'form-builder-developers@digital.justice.gov.uk'
     continue
 
     # text
-    fill_in 'complaint_details', with: 'Foo bar baz'
+    fill_in 'cat_details', with: 'My cat is a fluffy killer'
     continue
 
     # checkbox
@@ -61,7 +61,7 @@ describe 'Filling out an Email output form' do
 
     click_on 'Send complaint'
 
-    expect(page).to have_content('Details sent')
+    expect(page).to have_content("You've sent us the answers about your cat!")
 
     recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 3)
 
@@ -91,12 +91,14 @@ describe 'Filling out an Email output form' do
       File.open(pdf_path, 'w') { |file| file.write(attachment.decoded) }
       result = PDF::Reader.new(pdf_path).pages.map { |page| page.text }.join(' ')
 
-      p 'Email Received. Asserting PDF contents'
-      expect(result).to include('This is a custom PDF Heading')
+      p 'Asserting PDF contents'
+
+      expect(result).to include('Email Output Service PDF Heading')
+
       # text
       expect(result).to include('Your name')
-      expect(result).to match(/First name[\n\r\s]+Bob/)
-      expect(result).to match(/Last name[\n\r\s]+Smith/)
+      expect(result).to match(/First name[\n\r\s]+Form/)
+      expect(result).to match(/Last name[\n\r\s]+Builders/)
 
       # radio
       expect(result).to include('Can we contact you by')
@@ -104,35 +106,40 @@ describe 'Filling out an Email output form' do
       expect(result).to include('Yes')
 
       # email
-      expect(result).to match(/Your email address[\n\r\s]+bob.smith@digital.justice.gov.uk/)
+      expect(result).to include('Your email address')
+      expect(result).to include('form-builder-developers@digital.justice.gov.uk')
 
       # textarea
-      expect(result).to include('Please tell us about your')
-      expect(result).to include('cat')
-      expect(result).to include('Foo bar baz')
+      expect(result).to include('Your cat')
+      expect(result).to include('My cat is a fluffy killer')
 
-      expect(result).to include('Some Heading')
       # checkbox
-      expect(result).to match(/Best Legend[\n\r\s]+Apples/)
-      expect(result).to match(/Pears/)
+      expect(result).to include('Your fruit')
+      expect(result).to include('Choose your fruit')
+      expect(result).to include('Apples')
+      expect(result).to include('Pears')
 
       # date
-      expect(result).to include('When did the cat choose')
+      expect(result).to include('When did your cat choose')
       expect(result).to include('you?')
       expect(result).to include('12 November 2007')
 
       # number
-      expect(result).to match(/How many cats\?[\n\r\s]+28/)
+      expect(result).to include('How many cats have chosen')
+      expect(result).to include('you?')
+      expect(result).to include('28')
 
       # select
       expect(result).to include('Is your cat watching you')
       expect(result).to include('now?')
       expect(result).to include("I can't say (They can read)")
 
-      expect(result).to include('Cat Breed')
+      expect(result).to include('Cat breed')
       expect(result).to include('California Spangled')
 
-      expect(result).to match(/Upload documents[\n\r\s]+hello_world.txt \(12B\)/)
+      expect(result).to include('What does your cat look')
+      expect(result).to include('like?')
+      expect(result).to include('hello_world.txt (12B)')
     end
   end
 
@@ -145,37 +152,41 @@ describe 'Filling out an Email output form' do
       File.open(path_to_file, 'w') { |file| file.write(attachment.decoded) }
       rows = CSV.read(path_to_file)
 
-      p 'Email Received. Asserting CSV contents'
+      p 'Asserting CSV contents'
 
-      expect(rows[0]).to eql(['submission_id',
-                              'submission_at',
-                              'first_name',
-                              'last_name',
-                              'has-email',
-                              'email_address',
-                              'complaint_details',
-                              'checkbox-apples',
-                              'checkbox-pears',
-                              'date',
-                              'number_cats',
-                              'cat_spy',
-                              'cat_breed',
-                              'upload'])
+      expect(rows[0]).to eql([
+        'submission_id',
+        'submission_at',
+        'first_name',
+        'last_name',
+        'has_email',
+        'email_address',
+        'cat_details',
+        'checkbox_apples',
+        'checkbox_pears',
+        'date',
+        'number_cats',
+        'cat_spy',
+        'cat_breed',
+        'upload'
+      ])
 
       expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/) # guid
       expect(rows[1][1]).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/) # iso timestamp
-      expect(rows[1][2..-1]).to eql(['Bob',
-                                     'Smith',
-                                     'yes',
-                                     'bob.smith@digital.justice.gov.uk',
-                                     'Foo bar baz',
-                                     'yes',
-                                     'yes',
-                                     '2007-11-12',
-                                     '28',
-                                     'machine answer 3',
-                                     'California Spangled',
-                                     'data not available in CSV format'])
+      expect(rows[1][2..-1]).to eql([
+        'Form',
+        'Builders',
+        'yes',
+        'form-builder-developers@digital.justice.gov.uk',
+        'My cat is a fluffy killer',
+        'Apples',
+        'Pears',
+        '2007-11-12',
+        '28',
+        'machine answer 3',
+        'California Spangled',
+        'data not available in CSV format'
+      ])
     end
   end
 

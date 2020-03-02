@@ -5,13 +5,7 @@
     {
       "_id": "page.email-address--email.auto_name__2",
       "_type": "email",
-      "errors": {
-        "format": {},
-        "required": {
-          "any": "Enter an email address",
-          "any:cy": "Rhowch gyfeiriad e-bost yn y blwch"
-        }
-      },
+      "hint": "Tell us your email address",
       "label": "Your email address",
       "label:cy": "Eich cyfeiriad e-bost",
       "name": "email_address",
@@ -20,8 +14,9 @@
       }
     }
   ],
+  "sectionHeading": "An **Email** component",
   "show": {
-    "identifier": "has-email",
+    "identifier": "has_email",
     "operator": "is",
     "value": "yes"
   },

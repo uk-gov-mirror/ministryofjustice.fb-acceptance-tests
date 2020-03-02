@@ -14,20 +14,20 @@ describe 'JSON Output' do
     click_on 'Start'
 
     # text
-    fill_in 'First name', with: 'Bob'
-    fill_in 'Last name', with: 'Smith'
+    fill_in 'First name', with: 'Form'
+    fill_in 'Last name', with: 'Builders'
     continue
 
     # radio
-    choose 'has-email', option: 'yes', visible: false
+    choose 'has_email', option: 'yes', visible: false
     continue
 
     # email
-    fill_in 'Your email address', with: 'bob.smith@digital.justice.gov.uk'
+    fill_in 'Your email address', with: 'form-builder-developers@digital.justice.gov.uk'
     continue
 
     # text
-    fill_in 'complaint_details', with: 'Foo bar baz'
+    fill_in 'cat_details', with: 'My cat is a fluffy killer'
     continue
 
     # checkbox
@@ -58,7 +58,7 @@ describe 'JSON Output' do
 
     click_on 'Send complaint'
 
-    expect(page).to have_content('Details sent')
+    expect(page).to have_content("You've sent us the answers about your cat!")
 
     results = OutputRecorder.wait_for_result(url: '/json')
     expect(results.size).to eq(1)
@@ -72,30 +72,19 @@ describe 'JSON Output' do
 
     expect(result).to include(serviceSlug: 'slug')
     expect(submission_answers_without_upload).to eql(
-      first_name: 'Bob',
-      last_name: 'Smith',
-      'has-email': 'yes',
-      email_address: 'bob.smith@digital.justice.gov.uk',
-      complaint_details: 'Foo bar baz',
+      first_name: 'Form',
+      last_name: 'Builders',
+      has_email: 'yes',
+      email_address: 'form-builder-developers@digital.justice.gov.uk',
+      cat_details: 'My cat is a fluffy killer',
       date: '2007-11-12',
       number_cats: 28,
       cat_spy: 'machine answer 3',
       cat_breed: 'California Spangled',
-      'checkbox-apples': 'yes'
+      checkbox_apples: 'Apples'
     )
 
     expect(uploads.size).to eql(1)
-    expect(upload[:allowed_types]).to eql(
-      ['text/plain',
-       'image/jpeg',
-       'image/bmp',
-       'image/x-ms-bmp',
-       'image/png',
-       'image/tiff',
-       'application/pdf',
-       'application/msword',
-       'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
-    )
 
     four_weeks = 28 * 24 * 60 * 60
     expect(Time.at(upload[:date])).to be_within(300).of(Time.at(Time.now.to_i + four_weeks))
