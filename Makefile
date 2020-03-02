@@ -20,8 +20,7 @@ setup: .runner .forms .submitter .datastore .filestore .pdf-generator .service-t
 .service-token-cache:
 	git clone git@github.com:ministryofjustice/fb-service-token-cache.git .service-token-cache
 
-destroy: .runner .submitter .datastore .filestore .pdf-generator .service-token-cache
-	docker-compose down
+destroy: stop clean
 
 make-forms:
 	mkdir -p .forms/email-output
