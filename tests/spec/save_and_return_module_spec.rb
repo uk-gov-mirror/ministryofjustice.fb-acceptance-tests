@@ -3,21 +3,21 @@ require 'spec_helper'
 
 describe 'Using Save and Return' do
   it 'puts a link onto the start page' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-save-and-return-app:3000'
 
     # Save and Return "Continue work on a saved form"
     expect(page).to have_selector 'p a[href="/return"]', text: 'Continue work on a saved form'
   end
 
   it 'puts a save and return button into the form' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-save-and-return-app:3000'
     click_on 'Start'
 
     expect(page).to have_selector 'button[name="setupReturn"]', text: 'Save and come back later'
   end
 
   it 'puts a save and return message into the page' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-save-and-return-app:3000'
     click_on 'Start'
 
     expect(page).to have_selector 'p', text: /Your session will time out after \d+ minutes of inactivity/
@@ -25,7 +25,7 @@ describe 'Using Save and Return' do
   end
 
   it 'sets up save and return' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-save-and-return-app:3000'
     click_on 'Start'
 
     # Save and Return "Save and come back later"
@@ -46,7 +46,7 @@ describe 'Using Save and Return' do
   end
 
   it 'puts a continue link onto the start page' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-save-and-return-app:3000'
 
     # Save and Return "Continue work on a saved form"
     find('p a[href="/return"]').click
@@ -57,7 +57,7 @@ describe 'Using Save and Return' do
   end
 
   # it 'accepts an email address' do
-  #   visit 'http://runner-app:3000'
+  #   visit 'http://forms-save-and-return-app:3000'
 
   #   # Save and Return "Continue work on a saved form"
   #   find('p a[href="/return"]').click
@@ -83,7 +83,7 @@ describe 'Using Save and Return' do
   # end
 
   it 'rejects no email address' do
-    visit 'http://runner-app:3000'
+    visit 'http://forms-save-and-return-app:3000'
 
     # Save and Return "Continue work on a saved form"
     find('p a[href="/return"]').click
