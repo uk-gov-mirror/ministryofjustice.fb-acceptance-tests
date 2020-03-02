@@ -5,7 +5,8 @@
     {
       "_id": "page.number--number.auto_name__5",
       "_type": "number",
-      "label": "How many cats?",
+      "hint": "Tell us how many cats have ever chosen you",
+      "label": "How many cats have chosen you?",
       "name": "number_cats",
       "validation": {
         "maximum": 10000,
@@ -13,5 +14,6 @@
       }
     }
   ],
+  "sectionHeading": "A **Number** component",
   "url": "number"
 }

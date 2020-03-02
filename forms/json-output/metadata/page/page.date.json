@@ -5,9 +5,11 @@
     {
       "_id": "page.date--date.auto_name__5",
       "_type": "date",
-      "label": "When did the cat choose you?",
+      "hint": "[% hint.date %]",
+      "label": "When did your cat choose you?",
       "name": "date"
     }
   ],
+  "sectionHeading": "A **Date** component",
   "url": "date"
 }

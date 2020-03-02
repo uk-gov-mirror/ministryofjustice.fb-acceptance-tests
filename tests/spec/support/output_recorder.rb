@@ -1,7 +1,7 @@
 module OutputRecorder
   def self.cleanup_recorded_requests
     HTTParty.delete(ENV.fetch('OUTPUT_RECORDER_ENDPOINT') + '/__admin/requests')
-    p 'deleted previous recorded requests'
+    p 'Deleted previous requests'
   end
 
   def self.wait_for_result(url:, expected_requests: 1)
@@ -9,7 +9,7 @@ module OutputRecorder
     max_tries = 20
     actual_requests = 0
     until actual_requests == expected_requests
-      p "waiting for posts to arrive at '#{url}' endpoint (received #{actual_requests} of #{expected_requests})"
+      p "Waiting for requests to arrive at endpoint '#{url}'. Received #{actual_requests} of #{expected_requests} on try #{tries + 1} of #{max_tries}"
       sleep 1
 
       actual_requests = request_count(url: url)
@@ -17,6 +17,8 @@ module OutputRecorder
 
       tries += 1
     end
+
+    p "Received #{actual_requests} of #{expected_requests}"
     get_all_requests_made(url: url)
   end
 

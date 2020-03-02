@@ -1,16 +1,11 @@
 {
   "_id": "page.autocomplete",
   "_type": "page.singlequestion",
-  "errors": {
-    "required": {
-      "any": "Enter a cat breed"
-    }
-  },
   "components": [
     {
       "_id": "page.autocomplete--autocomplete.autocomplete",
       "_type": "autocomplete",
-      "hint": "What breed of cat do you have?",
+      "hint": "What breed is your cat?",
       "items": [
         {
           "_id": "court_code__default",
@@ -37,9 +32,10 @@
           "value": "Maine Coon"
         }
       ],
-      "label": "Cat Breed",
+      "label": "Cat breed",
       "name": "cat_breed"
     }
   ],
+  "sectionHeading": "An **Autocomplete** component",
   "url": "autocomplete"
 }
