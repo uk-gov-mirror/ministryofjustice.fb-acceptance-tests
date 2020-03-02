@@ -45,4 +45,4 @@ To delete them without cloning them again run:
 make destroy
 ```
 
-Assuming an otherwise clean installation, the `make setup` target clones the dependent repositories and starts any services described in the `docker-compose.yml`. The `make spec` target executes the specs and leaves services running. The `make destroy` target deletes the dependent repositories and shuts down those services. 
+Assuming an otherwise clean installation, the `make setup` target clones the dependent repositories. The `make spec` target starts any services described in the `docker-compose.yml` and executes the specs, leaving services running. The `make destroy` target shuts down those services and deletes the dependent repositories from your development environment. 
