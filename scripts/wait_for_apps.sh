@@ -12,7 +12,7 @@ until docker exec output-recorder wget http://localhost:8080/health -O - | grep 
     sleep 1
 done
 
-for app in forms-email-app forms-json-app forms-save-and-return-app; do
+for app in features-email-app features-json-app features-save-and-return-app; do
     until docker exec $app wget http://localhost:3000/ping.json -O - | grep APP_SHA; do
         echo "Waiting for ${app} to start accepting traffic...";
         sleep 1
