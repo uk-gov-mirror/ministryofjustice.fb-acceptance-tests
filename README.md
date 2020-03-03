@@ -18,7 +18,7 @@ make setup
 make serve
 ```
 
-You can visit ports on localhost to see the _Form_ forms.
+You can visit ports on localhost to see the _Feature_ forms.
 
 - http://localhost:5080 Email output
 - http://localhost:5081 JSON output
