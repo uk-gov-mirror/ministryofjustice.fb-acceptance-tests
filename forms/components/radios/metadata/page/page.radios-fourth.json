@@ -1,0 +1,49 @@
+{
+  "_id": "page.radios-fourth",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.radios-fourth--radios.radios-fourth",
+      "_type": "radios",
+      "hint": "Radios - Fourth - hint text",
+      "items": [
+        {
+          "_id": "page.radios-fourth--radios.radios-fourth--radio.auto_value__1",
+          "_type": "radio",
+          "hint": "One - hint text",
+          "label": "One",
+          "labelSummary": "One - summary version",
+          "value": "1"
+        },
+        {
+          "_id": "page.radios-fourth--radios.radios-fourth--radio.auto_value__2",
+          "_type": "radio",
+          "hint": "Two - hint text",
+          "label": "Two",
+          "labelSummary": "Two - summary version",
+          "value": "2"
+        },
+        {
+          "_id": "page.radios-fourth--radios.radios-fourth--radio.auto_value__3",
+          "_type": "radio",
+          "hint": "Three - hint text",
+          "label": "Three",
+          "labelSummary": "Three - summary version",
+          "value": "3"
+        },
+        {
+          "_id": "page.radios-fourth--radios.radios-fourth--radio.auto_value__4",
+          "_type": "radio",
+          "hint": "Four - hint text",
+          "label": "Four",
+          "labelSummary": "Four - summary version",
+          "value": "4"
+        }
+      ],
+      "legend": "Radios - Fourth",
+      "name": "radios-four"
+    }
+  ],
+  "sectionHeading": "Radios - Fourth - section heading",
+  "url": "radios-fourth"
+}

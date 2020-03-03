@@ -1,0 +1,16 @@
+{
+  "_id": "page.textarea-second",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.textarea-second--textarea.auto_name__2",
+      "_type": "textarea",
+      "hint": "Textarea - Second - hint text",
+      "label": "Textarea - Second",
+      "labelSummary": "Textarea - Second - summary version",
+      "name": "auto_name__2"
+    }
+  ],
+  "sectionHeading": "Textarea - Second - section heading",
+  "url": "textarea-second"
+}

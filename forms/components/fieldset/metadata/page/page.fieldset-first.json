@@ -1,0 +1,199 @@
+{
+  "_id": "page.fieldset-first",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.fieldset-first--fieldset",
+      "_type": "fieldset",
+      "components": [
+        {
+          "_id": "page.fieldset-first--fieldset--autocomplete.auto_name__1",
+          "_type": "autocomplete",
+          "hint": "Autocomplete - First - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-first--fieldset--autocomplete.auto_name__1--option",
+              "_type": "option",
+              "text": "One",
+              "value": "1"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--autocomplete.auto_name__1--option--2",
+              "_type": "option",
+              "text": "Two",
+              "value": "2"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--autocomplete.auto_name__1--option--3",
+              "_type": "option",
+              "text": "Three",
+              "value": "3"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--autocomplete.auto_name__1--option--4",
+              "_type": "option",
+              "text": "Four",
+              "value": "4"
+            }
+          ],
+          "label": "Autocomplete",
+          "name": "auto_name__1"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--checkboxes",
+          "_type": "checkboxes",
+          "hint": "Checkboxes - First - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-first--fieldset--checkboxes--checkbox.auto_name__2",
+              "_type": "checkbox",
+              "hint": "Checkbox - One - hint text",
+              "label": "One",
+              "name": "auto_name__2"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--checkboxes--checkbox.auto_name__3",
+              "_type": "checkbox",
+              "hint": "Checkbox - Two - hint text",
+              "label": "Two",
+              "name": "auto_name__3"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--checkboxes--checkbox.auto_name__4",
+              "_type": "checkbox",
+              "hint": "Checkbox - Three - hint text",
+              "label": "Three",
+              "name": "auto_name__4"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--checkboxes--checkbox.auto_name__5",
+              "_type": "checkbox",
+              "hint": "Checkbox - Four - hint text",
+              "label": "Four",
+              "name": "auto_name__5"
+            }
+          ],
+          "legend": "Checkboxes"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--date.auto_name__6",
+          "_type": "date",
+          "hint": "Date - First - hint text",
+          "legend": "Date",
+          "name": "auto_name__6"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--email.auto_name__7",
+          "_type": "email",
+          "hint": "Email - First - hint text",
+          "label": "Email",
+          "name": "auto_name__7"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--number.auto_name__8",
+          "_type": "number",
+          "hint": "Number - First - hint text",
+          "label": "Number",
+          "name": "auto_name__8"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--radios.auto_name__9",
+          "_type": "radios",
+          "hint": "Radios - First - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-first--fieldset--radios.auto_name__9--radio.auto_value__1",
+              "_type": "radio",
+              "hint": "Radio - One - hint text",
+              "label": "One",
+              "value": "1"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--radios.auto_name__9--radio.auto_value__2",
+              "_type": "radio",
+              "hint": "Radio - Two - hint text",
+              "label": "Two",
+              "value": "2"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--radios.auto_name__9--radio.auto_value__3",
+              "_type": "radio",
+              "hint": "Radio - Three - hint text",
+              "label": "Three",
+              "value": "3"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--radios.auto_name__9--radio.auto_value__4",
+              "_type": "radio",
+              "hint": "Radio - Four - hint text",
+              "label": "Four",
+              "value": "4"
+            }
+          ],
+          "legend": "Radios",
+          "name": "auto_name__9"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--select.auto_name__10",
+          "_type": "select",
+          "hint": "Select - First - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-first--fieldset--select.auto_name__10--option",
+              "_type": "option",
+              "text": "One",
+              "value": "1"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--select.auto_name__10--option--2",
+              "_type": "option",
+              "text": "Two",
+              "value": "2"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--select.auto_name__10--option--3",
+              "_type": "option",
+              "text": "Three",
+              "value": "3"
+            },
+            {
+              "_id": "page.fieldset-first--fieldset--select.auto_name__10--option--4",
+              "_type": "option",
+              "text": "Four",
+              "value": "4"
+            }
+          ],
+          "label": "Select",
+          "name": "auto_name__10"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--text.auto_name__11",
+          "_type": "text",
+          "hint": "Text - First - hint text",
+          "label": "Text",
+          "name": "auto_name__11"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--textarea.auto_name__12",
+          "_type": "textarea",
+          "hint": "Textarea - First - hint text",
+          "label": "Textarea",
+          "name": "auto_name__12"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--upload.auto_name__13",
+          "_type": "upload",
+          "hint": "Upload - First - hint text",
+          "label": "Upload",
+          "name": "auto_name__13"
+        }
+      ],
+      "legend": "Fieldset - First"
+    }
+  ],
+  "sectionHeading": "Fieldset - First - section heading",
+  "url": "fieldset-first",
+  "steps": [
+    "page.fieldset-first-check"
+  ]
+}

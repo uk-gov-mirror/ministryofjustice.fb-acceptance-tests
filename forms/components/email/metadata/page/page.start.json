@@ -1,0 +1,13 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Email - Automated",
+  "steps": [
+    "page.email-first",
+    "page.email-second",
+    "page.email-third",
+    "page.email-summary",
+    "page.email-confirmation"
+  ],
+  "url": "/"
+}

@@ -1,0 +1,13 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Textarea - Automated",
+  "steps": [
+    "page.textarea-first",
+    "page.textarea-second",
+    "page.textarea-third",
+    "page.textarea-summary",
+    "page.textarea-confirmation"
+  ],
+  "url": "/"
+}

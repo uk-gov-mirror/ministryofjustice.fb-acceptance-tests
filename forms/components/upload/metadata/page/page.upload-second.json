@@ -1,0 +1,19 @@
+{
+  "_id": "page.upload-second",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.upload-second--upload.auto_name__2",
+      "_type": "upload",
+      "hint": "Upload - Second - hint text",
+      "label": "Upload - Second",
+      "labelSummary": "Upload - Second - summary version",
+      "name": "auto_name__2"
+    }
+  ],
+  "sectionHeading": "Upload - Second - section heading",
+  "steps": [
+    "page.upload-second-check"
+  ],
+  "url": "upload-second"
+}

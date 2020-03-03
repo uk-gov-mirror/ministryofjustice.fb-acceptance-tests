@@ -1,0 +1,14 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Date - Automated",
+  "steps": [
+    "page.date-first",
+    "page.date-second",
+    "page.date-third",
+    "page.date-fourth",
+    "page.date-summary",
+    "page.date-confirmation"
+  ],
+  "url": "/"
+}

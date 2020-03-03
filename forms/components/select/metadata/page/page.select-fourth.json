@@ -1,0 +1,46 @@
+{
+  "_id": "page.select-fourth",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.select-fourth--select.auto_name__4",
+      "_type": "select",
+      "hint": "Select - Fourth - hint text",
+      "items": [
+        {
+          "_id": "page.select-fourth--select.auto_name__4--option",
+          "_type": "option",
+          "text": "One",
+          "textSummary": "One - summary version",
+          "value": "1"
+        },
+        {
+          "_id": "page.select-fourth--select.auto_name__4--option--2",
+          "_type": "option",
+          "text": "Two",
+          "textSummary": "Two - summary version",
+          "value": "2"
+        },
+        {
+          "_id": "page.select-fourth--select.auto_name__4--option--3",
+          "_type": "option",
+          "text": "Three",
+          "textSummary": "Three - summary version",
+          "value": "3"
+        },
+        {
+          "_id": "page.select-fourth--select.auto_name__4--option--4",
+          "_type": "option",
+          "text": "Four",
+          "textSummary": "Four - summary version",
+          "value": "4"
+        }
+      ],
+      "label": "Select - Fourth",
+      "labelSummary": "Select - Fourth - summary version",
+      "name": "select-fourth"
+    }
+  ],
+  "sectionHeading": "Select - Fourth - section heading",
+  "url": "select-fourth"
+}

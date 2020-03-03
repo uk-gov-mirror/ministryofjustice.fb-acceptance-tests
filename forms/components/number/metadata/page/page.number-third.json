@@ -1,0 +1,16 @@
+{
+  "_id": "page.number-third",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.number-third--number.auto_name__3",
+      "_type": "number",
+      "hint": "Number - Third - hint text",
+      "label": "Number - Third",
+      "labelSummary": "Number - Third - summary version",
+      "name": "number-third"
+    }
+  ],
+  "sectionHeading": "Number - Third - section heading",
+  "url": "number-third"
+}

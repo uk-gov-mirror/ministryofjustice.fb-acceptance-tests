@@ -1,0 +1,15 @@
+{
+  "_id": "page.textarea-first",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.textarea-first--textarea.auto_name__1",
+      "_type": "textarea",
+      "hint": "Textarea - First - hint text",
+      "label": "Textarea - First",
+      "name": "auto_name__1"
+    }
+  ],
+  "sectionHeading": "Textarea - First - section heading",
+  "url": "textarea-first"
+}

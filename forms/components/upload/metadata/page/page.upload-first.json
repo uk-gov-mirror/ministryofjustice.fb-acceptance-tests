@@ -1,0 +1,18 @@
+{
+  "_id": "page.upload-first",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.upload-first--upload.auto_name__1",
+      "_type": "upload",
+      "hint": "Upload - First - hint text",
+      "label": "Upload - First",
+      "name": "auto_name__1"
+    }
+  ],
+  "sectionHeading": "Upload - First - section heading",
+  "steps": [
+    "page.upload-first-check"
+  ],
+  "url": "upload-first"
+}

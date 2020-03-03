@@ -1,0 +1,48 @@
+{
+  "_id": "page.checkboxes-fourth",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.checkboxes-fourth--checkboxes",
+      "_type": "checkboxes",
+      "hint": "Checkboxes - Fourth - hint text",
+      "items": [
+        {
+          "_id": "page.checkboxes-fourth--checkboxes--checkbox.auto_name__13",
+          "_type": "checkbox",
+          "hint": "One - hint text",
+          "label": "One",
+          "labelSummary": "One - summary version",
+          "name": "checkboxes-one"
+        },
+        {
+          "_id": "page.checkboxes-fourth--checkboxes--checkbox.auto_name__14",
+          "_type": "checkbox",
+          "hint": "Two - hint text",
+          "label": "Two",
+          "labelSummary": "Two - summary version",
+          "name": "checkboxes-two"
+        },
+        {
+          "_id": "page.checkboxes-fourth--checkboxes--checkbox.auto_name__15",
+          "_type": "checkbox",
+          "hint": "Three - hint text",
+          "label": "Three",
+          "labelSummary": "Three - summary version",
+          "name": "checkboxes-three"
+        },
+        {
+          "_id": "page.checkboxes-fourth--checkboxes--checkbox.auto_name__16",
+          "_type": "checkbox",
+          "hint": "Four - hint text",
+          "label": "Four",
+          "labelSummary": "Four - summary version",
+          "name": "checkboxes-four"
+        }
+      ],
+      "legend": "Checkboxes - Fourth"
+    }
+  ],
+  "sectionHeading": "Checkboxes - Fourth - section heading",
+  "url": "checkboxes-fourth"
+}

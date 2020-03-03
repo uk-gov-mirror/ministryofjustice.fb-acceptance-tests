@@ -1,0 +1,6 @@
+{
+  "_id": "page.upload-confirmation",
+  "_type": "page.confirmation",
+  "heading": "Upload - Confirmation",
+  "url": "upload-confirmation"
+}

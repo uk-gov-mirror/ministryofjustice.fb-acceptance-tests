@@ -1,0 +1,16 @@
+{
+  "_id": "page.date-third",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.date-third--date.auto_name__3",
+      "_type": "date",
+      "hint": "Date - Third - hint text",
+      "legend": "Date - Third",
+      "legendSummary": "Date - Third - summary version",
+      "name": "auto_name__3"
+    }
+  ],
+  "sectionHeading": "Date - Third - section heading",
+  "url": "date-third"
+}

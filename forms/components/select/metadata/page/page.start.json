@@ -1,0 +1,14 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Select - Automated",
+  "steps": [
+    "page.select-first",
+    "page.select-second",
+    "page.select-third",
+    "page.select-fourth",
+    "page.select-summary",
+    "page.select-confirmation"
+  ],
+  "url": "/"
+}

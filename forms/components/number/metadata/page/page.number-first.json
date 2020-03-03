@@ -1,0 +1,15 @@
+{
+  "_id": "page.number-first",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.number-first--number.auto_name__1",
+      "_type": "number",
+      "hint": "Number - First - hint text",
+      "label": "Number - First",
+      "name": "auto_name__1"
+    }
+  ],
+  "sectionHeading": "Number - First - section heading",
+  "url": "number-first"
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "page.upload-sixth",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.upload-sixth--upload.auto_name__6",
+      "_type": "upload",
+      "hint": "Upload - Sixth - hint text",
+      "label": "Upload - Sixth",
+      "labelSummary": "Upload - Sixth - summary version",
+      "name": "upload-sixth",
+      "minFiles": 1,
+      "maxFiles": 3
+    }
+  ],
+  "sectionHeading": "Upload - Sixth - section heading",
+  "steps": [
+    "page.upload-sixth-check",
+    "page.upload-sixth-summary"
+  ],
+  "url": "upload-sixth"
+}
