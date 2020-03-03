@@ -259,9 +259,9 @@ services:
       - service-token-cache-app
       - submitter-db
       - submitter-app
+      - submitter-worker
       - datastore-db
-      - pdf-generator
       - datastore-app
       - filestore-app
-      - submitter-worker
+      - pdf-generator
       - output-recorder
