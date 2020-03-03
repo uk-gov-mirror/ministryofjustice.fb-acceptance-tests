@@ -49,7 +49,7 @@ build: stop setup
 
 serve: build
 	docker-compose up -d
-	./scripts/wait_for_apps.sh
+	./scripts/wait_for_features_apps.sh
 	./scripts/setup_test_env.sh
 
 spec: .features serve
