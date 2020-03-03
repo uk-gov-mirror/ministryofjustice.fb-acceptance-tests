@@ -25,89 +25,23 @@ setup: .runner .features .components .submitter .datastore .filestore .pdf-gener
 destroy: stop clean
 
 make-features:
-	mkdir -p .features/email-output
-	mkdir -p .features/json-output
-	mkdir -p .features/save-and-return-module
+	./scripts/make_features.sh
 
 copy-features:
-	cp -r .runner/* .features/email-output
-	cp -r .runner/* .features/json-output
-	cp -r .runner/* .features/save-and-return-module
+	./scripts/copy_features.sh
 
 make-components:
-	mkdir -p .components/autocomplete
-	mkdir -p .components/checkboxes
-	mkdir -p .components/date
-	mkdir -p .components/email
-	mkdir -p .components/fieldset
-	mkdir -p .components/number
-	mkdir -p .components/radios
-	mkdir -p .components/select
-	mkdir -p .components/text
-	mkdir -p .components/textarea
-	mkdir -p .components/upload
+	./scripts/make_components.sh
 
 copy-components:
-	cp -r .runner/* .components/autocomplete
-	cp -r .runner/* .components/checkboxes
-	cp -r .runner/* .components/date
-	cp -r .runner/* .components/email
-	cp -r .runner/* .components/fieldset
-	cp -r .runner/* .components/number
-	cp -r .runner/* .components/radios
-	cp -r .runner/* .components/select
-	cp -r .runner/* .components/text
-	cp -r .runner/* .components/textarea
-	cp -r .runner/* .components/upload
+	./scripts/copy_components.sh
 
 stop:
 	docker-compose down
 
 build: stop setup
-	echo HEAD > .features/email-output/APP_SHA
-	mkdir -p .features/email-output/form
-	cp -r ./forms/features/email-output/* .features/email-output/form
-	echo HEAD > .features/json-output/APP_SHA
-	mkdir -p .features/json-output/form
-	cp -r ./forms/features/json-output/* .features/json-output/form
-	echo HEAD > .features/save-and-return-module/APP_SHA
-	mkdir -p .features/save-and-return-module/form
-	cp -r ./forms/features/save-and-return-module/* .features/save-and-return-module/form
-	
-	echo HEAD > .components/autocomplete/APP_SHA
-	mkdir -p .components/autocomplete/form
-	cp -r ./forms/components/autocomplete/* .components/autocomplete/form
-	echo HEAD > .components/checkboxes/APP_SHA
-	mkdir -p .components/checkboxes/form
-	cp -r ./forms/components/checkboxes/* .components/checkboxes/form
-	echo HEAD > .components/date/APP_SHA
-	mkdir -p .components/date/form
-	cp -r ./forms/components/date/* .components/date/form
-	echo HEAD > .components/email/APP_SHA
-	mkdir -p .components/email/form
-	cp -r ./forms/components/email/* .components/email/form
-	echo HEAD > .components/fieldset/APP_SHA
-	mkdir -p .components/fieldset/form
-	cp -r ./forms/components/fieldset/* .components/fieldset/form
-	echo HEAD > .components/number/APP_SHA
-	mkdir -p .components/number/form
-	cp -r ./forms/components/number/* .components/number/form
-	echo HEAD > .components/radios/APP_SHA
-	mkdir -p .components/radios/form
-	cp -r ./forms/components/radios/* .components/radios/form
-	echo HEAD > .components/select/APP_SHA
-	mkdir -p .components/select/form
-	cp -r ./forms/components/select/* .components/select/form
-	echo HEAD > .components/text/APP_SHA
-	mkdir -p .components/text/form
-	cp -r ./forms/components/text/* .components/text/form
-	echo HEAD > .components/textarea/APP_SHA
-	mkdir -p .components/textarea/form
-	cp -r ./forms/components/textarea/* .components/textarea/form
-	echo HEAD > .components/upload/APP_SHA
-	mkdir -p .components/upload/form
-	cp -r ./forms/components/upload/* .components/upload/form
-	
+	./scripts/setup_features.sh
+	./scripts/setup_components.sh
 	docker-compose build --parallel
 
 serve: build
