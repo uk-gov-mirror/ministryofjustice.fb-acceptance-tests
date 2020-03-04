@@ -38,6 +38,7 @@ copy-components:
 
 stop:
 	docker-compose down
+	./scripts/teardown.sh
 
 build: stop setup
 	./scripts/setup_features.sh
@@ -46,10 +47,7 @@ build: stop setup
 
 serve: build
 	docker-compose up -d
-	./scripts/wait_for_datastore_app.sh
-	./scripts/wait_for_filestore_app.sh
-	./scripts/wait_for_submitter_app.sh
-	./scripts/wait_for_service_token_cache_app.sh
+	./scripts/wait_for_services_apps.sh
 	./scripts/wait_for_features_apps.sh
 	./scripts/wait_for_components_apps.sh
 	./scripts/setup_test_env.sh
