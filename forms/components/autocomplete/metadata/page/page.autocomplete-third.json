@@ -1,0 +1,46 @@
+{
+  "_id": "page.autocomplete-third",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.autocomplete-third--autocomplete.auto_name__3",
+      "_type": "autocomplete",
+      "hint": "Autocomplete - Third - hint text",
+      "items": [
+        {
+          "_id": "page.autocomplete-third--autocomplete.auto_name__3--option",
+          "_type": "option",
+          "text": "One",
+          "textSummary": "One - summary version",
+          "value": "1"
+        },
+        {
+          "_id": "page.autocomplete-third--autocomplete.auto_name__3--option--2",
+          "_type": "option",
+          "text": "Two",
+          "textSummary": "Two - summary version",
+          "value": "2"
+        },
+        {
+          "_id": "page.autocomplete-third--autocomplete.auto_name__3--option--3",
+          "_type": "option",
+          "text": "Three",
+          "textSummary": "Three - summary version",
+          "value": "3"
+        },
+        {
+          "_id": "page.autocomplete-third--autocomplete.auto_name__3--option--4",
+          "_type": "option",
+          "text": "Four",
+          "textSummary": "Four - summary version",
+          "value": "4"
+        }
+      ],
+      "label": "Autocomplete - Third",
+      "labelSummary": "Autocomplete - Third - summary version",
+      "name": "autocomplete-third"
+    }
+  ],
+  "sectionHeading": "Autocomplete - Third - section heading",
+  "url": "autocomplete-third"
+}

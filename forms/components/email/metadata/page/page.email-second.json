@@ -1,0 +1,16 @@
+{
+  "_id": "page.email-second",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.email-second--email.auto_name__2",
+      "_type": "email",
+      "hint": "Email - Second - hint text",
+      "label": "Email - Second",
+      "labelSummary": "Email - Second - summary version",
+      "name": "auto_name__2"
+    }
+  ],
+  "sectionHeading": "Email - Second - section heading",
+  "url": "email-second"
+}

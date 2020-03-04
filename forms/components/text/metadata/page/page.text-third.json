@@ -1,0 +1,16 @@
+{
+  "_id": "page.text-third",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.text-third--text.auto_name__3",
+      "_type": "text",
+      "hint": "Text - Third - hint text",
+      "label": "Text - Third",
+      "labelSummary": "Text - Third - summary version",
+      "name": "text-third"
+    }
+  ],
+  "sectionHeading": "Text - Third - section heading",
+  "url": "text-third"
+}

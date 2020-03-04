@@ -1,0 +1,14 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Radios - Automated",
+  "steps": [
+    "page.radios-first",
+    "page.radios-second",
+    "page.radios-third",
+    "page.radios-fourth",
+    "page.radios-summary",
+    "page.radios-confirmation"
+  ],
+  "url": "/"
+}

@@ -1,0 +1,14 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Checkboxes - Automated",
+  "steps": [
+    "page.checkboxes-first",
+    "page.checkboxes-second",
+    "page.checkboxes-third",
+    "page.checkboxes-fourth",
+    "page.checkboxes-summary",
+    "page.checkboxes-confirmation"
+  ],
+  "url": "/"
+}

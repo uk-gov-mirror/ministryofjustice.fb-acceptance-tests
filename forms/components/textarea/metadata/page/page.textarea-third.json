@@ -1,0 +1,16 @@
+{
+  "_id": "page.textarea-third",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.textarea-third--textarea.auto_name__3",
+      "_type": "textarea",
+      "hint": "Textarea - Third - hint text",
+      "label": "Textarea - Third",
+      "labelSummary": "Textarea - Third - summary version",
+      "name": "textarea-third"
+    }
+  ],
+  "sectionHeading": "Textarea - Third - section heading",
+  "url": "textarea-third"
+}

@@ -1,0 +1,15 @@
+{
+  "_id": "page.date-second",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.date-second--date.auto_name__2",
+      "_type": "date",
+      "hint": "Date - Second - hint text ",
+      "legend": "Date - Second",
+      "name": "auto_name__2"
+    }
+  ],
+  "sectionHeading": "Date - Second - section heading",
+  "url": "date-second"
+}

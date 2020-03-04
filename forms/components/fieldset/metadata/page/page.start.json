@@ -1,0 +1,14 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Fieldset - Automated",
+  "steps": [
+    "page.fieldset-first",
+    "page.fieldset-second",
+    "page.fieldset-third",
+    "page.fieldset-fourth",
+    "page.fieldset-summary",
+    "page.fieldset-confirmation"
+  ],
+  "url": "/"
+}

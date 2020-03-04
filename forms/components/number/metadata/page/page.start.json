@@ -1,0 +1,13 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Number - Automated",
+  "steps": [
+    "page.number-first",
+    "page.number-second",
+    "page.number-third",
+    "page.number-summary",
+    "page.number-confirmation"
+  ],
+  "url": "/"
+}

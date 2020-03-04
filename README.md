@@ -1,4 +1,4 @@
-# Form Builder Acceptance Tests
+# Form Builder Feature and Component Acceptance Tests
 
 This will spin up the Form Builder environment for regression testing and debugging.
 
@@ -23,6 +23,20 @@ You can visit ports on localhost to see the _Feature_ forms.
 - http://localhost:5080 Email output
 - http://localhost:5081 JSON output
 - http://localhost:5082 "Save and return" module
+
+You can visit ports on localhost to see the _Component_ forms.
+
+- http://localhost:3080 Autocomplete
+- http://localhost:3081 Checkboxes
+- http://localhost:3082 Date
+- http://localhost:3083 Email
+- http://localhost:3084 Fieldset
+- http://localhost:3085 Number
+- http://localhost:3086 Radios
+- http://localhost:3087 Select
+- http://localhost:3088 Text
+- http://localhost:3089 Textarea
+- http://localhost:3090 Upload
 
 ### Run acceptance specs
 

@@ -1,0 +1,16 @@
+{
+  "_id": "page.email-third",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.email-third--email.auto_name__3",
+      "_type": "email",
+      "hint": "Email - Third - hint text",
+      "label": "Email - Third",
+      "labelSummary": "Email - Third - summary version",
+      "name": "email-third"
+    }
+  ],
+  "sectionHeading": "Email - Third - section heading",
+  "url": "email-third"
+}

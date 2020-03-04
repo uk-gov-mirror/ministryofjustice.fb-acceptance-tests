@@ -12,5 +12,5 @@
   "pdfSubHeading": "IOJ",
   "phase": "alpha",
   "phaseText": "Send your feedback here",
-  "_isa": "@ministryofjustice/fb-components-core=>service"
+  "_isa": "@ministryofjustice/fb-components=>service"
 }

@@ -1,0 +1,205 @@
+{
+  "_id": "page.fieldset-second",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.fieldset-second--fieldset",
+      "_type": "fieldset",
+      "components": [
+        {
+          "_id": "page.fieldset-second--fieldset--autocomplete.auto_name__14",
+          "_type": "autocomplete",
+          "hint": "Autocomplete - Second - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-second--fieldset--autocomplete.auto_name__14--option",
+              "_type": "option",
+              "text": "One",
+              "value": "1"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--autocomplete.auto_name__14--option--2",
+              "_type": "option",
+              "text": "Two",
+              "value": "2"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--autocomplete.auto_name__14--option--3",
+              "_type": "option",
+              "text": "Three",
+              "value": "3"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--autocomplete.auto_name__14--option--4",
+              "_type": "option",
+              "text": "Four",
+              "value": "4"
+            }
+          ],
+          "label": "Autocomplete",
+          "labelSummary": "Autocomplete - summary version",
+          "name": "auto_name__14"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--checkboxes",
+          "_type": "checkboxes",
+          "hint": "Checkboxes - Second - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-second--fieldset--checkboxes--checkbox.auto_name__15",
+              "_type": "checkbox",
+              "hint": "Checkbox - One - hint text",
+              "label": "One",
+              "name": "auto_name__15",
+              "value": "1"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--checkboxes--checkbox.auto_name__16",
+              "_type": "checkbox",
+              "hint": "Checkbox - Two - hint text",
+              "label": "Two",
+              "name": "auto_name__16",
+              "value": "2"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--checkboxes--checkbox.auto_name__17",
+              "_type": "checkbox",
+              "hint": "Checkbox - Three - hint text",
+              "label": "Three",
+              "name": "auto_name__17",
+              "value": "3"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--checkboxes--checkbox.auto_name__18",
+              "_type": "checkbox",
+              "hint": "Checkbox - Four - hint text",
+              "label": "Four",
+              "name": "auto_name__18",
+              "value": "4"
+            }
+          ],
+          "legend": "Checkboxes"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--date.auto_name__19",
+          "_type": "date",
+          "hint": "Date - Second - hint text",
+          "legend": "Date",
+          "name": "auto_name__19"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--email.auto_name__20",
+          "_type": "email",
+          "hint": "Email - Second - hint text",
+          "label": "Email",
+          "name": "auto_name__20"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--number.auto_name__21",
+          "_type": "number",
+          "hint": "Number - Second - hint text",
+          "label": "Number",
+          "name": "auto_name__21"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--radios.auto_name__22",
+          "_type": "radios",
+          "hint": "Radios - Second - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-second--fieldset--radios.auto_name__22--radio.auto_value__1",
+              "_type": "radio",
+              "hint": "Radio - One - hint text",
+              "label": "One",
+              "value": "1"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--radios.auto_name__22--radio.auto_value__2",
+              "_type": "radio",
+              "hint": "Radio - Two - hint text",
+              "label": "Two",
+              "value": "2"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--radios.auto_name__22--radio.auto_value__3",
+              "_type": "radio",
+              "hint": "Radio - Three - hint text",
+              "label": "Three",
+              "value": "3"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--radios.auto_name__22--radio.auto_value__4",
+              "_type": "radio",
+              "hint": "Radio - Four - hint text",
+              "label": "Four",
+              "value": "4"
+            }
+          ],
+          "legend": "Radios",
+          "name": "auto_name__22"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--select.auto_name__23",
+          "_type": "select",
+          "hint": "Select - Second - hint text",
+          "items": [
+            {
+              "_id": "page.fieldset-second--fieldset--select.auto_name__23--option",
+              "_type": "option",
+              "text": "One",
+              "value": "1"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--select.auto_name__23--option--2",
+              "_type": "option",
+              "text": "Two",
+              "value": "2"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--select.auto_name__23--option--3",
+              "_type": "option",
+              "text": "Three",
+              "value": "3"
+            },
+            {
+              "_id": "page.fieldset-second--fieldset--select.auto_name__23--option--4",
+              "_type": "option",
+              "text": "Four",
+              "value": "4"
+            }
+          ],
+          "label": "Select",
+          "labelSummary": "Select - summary version",
+          "name": "auto_name__23"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--text.auto_name__24",
+          "_type": "text",
+          "hint": "Text - Second - hint text",
+          "label": "Text",
+          "name": "auto_name__24"
+        },
+        {
+          "_id": "page.fieldset-second--fieldset--textarea.auto_name__25",
+          "_type": "textarea",
+          "hint": "Textarea - Second - hint text",
+          "label": "Textarea",
+          "name": "auto_name__25"
+        },
+        {
+          "_id": "page.fieldset-first--fieldset--upload.auto_name__26",
+          "_type": "upload",
+          "hint": "Upload - Second - hint text",
+          "label": "Upload",
+          "name": "auto_name__26"
+        }
+      ],
+      "legend": "Fieldset - Second"
+    }
+  ],
+  "sectionHeading": "Fieldset - Second - section heading",
+  "url": "fieldset-second",
+  "steps": [
+    "page.fieldset-second-check"
+  ]
+}

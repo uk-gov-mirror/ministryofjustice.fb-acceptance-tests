@@ -1,0 +1,16 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Automated - Upload",
+  "steps": [
+    "page.upload-first",
+    "page.upload-second",
+    "page.upload-third",
+    "page.upload-fourth",
+    "page.upload-fifth",
+    "page.upload-sixth",
+    "page.upload-summary",
+    "page.upload-confirmation"
+  ],
+  "url": "/"
+}

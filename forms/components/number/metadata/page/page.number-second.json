@@ -1,0 +1,16 @@
+{
+  "_id": "page.number-second",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.number-second--number.auto_name__2",
+      "_type": "number",
+      "hint": "Number - Second - hint text",
+      "label": "Number - Second",
+      "labelSummary": "Number - Second - summary version",
+      "name": "auto_name__2"
+    }
+  ],
+  "sectionHeading": "Number - Second - section heading",
+  "url": "number-second"
+}
