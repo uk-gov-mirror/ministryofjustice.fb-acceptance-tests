@@ -23,28 +23,17 @@ setup: .runner .features .submitter .datastore .filestore .pdf-generator .servic
 destroy: stop clean
 
 make-features:
-	mkdir -p .features/email-output
-	mkdir -p .features/json-output
-	mkdir -p .features/save-and-return-module
+	./scripts/make_features.sh
 
 copy-features:
-	cp -r .runner/* .features/email-output
-	cp -r .runner/* .features/json-output
-	cp -r .runner/* .features/save-and-return-module
+	./scripts/copy_features.sh
 
 stop:
 	docker-compose down
+	./scripts/teardown.sh
 
 build: stop setup
-	echo HEAD > .features/email-output/APP_SHA
-	mkdir -p .features/email-output/form
-	cp -r ./forms/features/email-output/* .features/email-output/form
-	echo HEAD > .features/json-output/APP_SHA
-	mkdir -p .features/json-output/form
-	cp -r ./forms/features/json-output/* .features/json-output/form
-	echo HEAD > .features/save-and-return-module/APP_SHA
-	mkdir -p .features/save-and-return-module/form
-	cp -r ./forms/features/save-and-return-module/* .features/save-and-return-module/form
+	./scripts/setup_features.sh
 	docker-compose build --parallel
 
 serve: build
