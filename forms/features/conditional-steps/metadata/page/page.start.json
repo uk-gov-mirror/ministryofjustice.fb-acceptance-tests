@@ -1,0 +1,15 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Conditional - Automated",
+  "steps": [
+    "page.radios",
+    "page.checkboxes",
+    "page.email",
+    "page.number",
+    "page.text",
+    "page.summary",
+    "page.confirmation"
+  ],
+  "url": "/"
+}

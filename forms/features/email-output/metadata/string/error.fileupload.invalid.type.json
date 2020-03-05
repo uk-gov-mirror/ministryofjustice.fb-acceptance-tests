@@ -2,6 +2,5 @@
   "_id": "error.fileupload.invalid.type",
   "_type": "string.error",
   "description": "File uploaded is wrong type",
-  "value": "The selected file must be a JPG, BMP, PNG, TIF, PDF, DOC or DOCX",
-  "value:cy": "Rhaid i'r ffeil fod yn JPG, BMP, PNG, TIF, PDF, DOC neu DOCX"
+  "value": "The selected file must be a JPG, BMP, PNG, TIF, PDF, DOC or DOCX"
 }

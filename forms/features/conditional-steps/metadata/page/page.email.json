@@ -1,0 +1,19 @@
+{
+  "_id": "page.email",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.email--email.auto_name__5",
+      "_type": "email",
+      "hint": "Email hint text",
+      "label": "Email",
+      "name": "auto_name__5"
+    }
+  ],
+  "sectionHeading": "Email section heading",
+  "show": {
+    "identifier": "auto_name__2",
+    "operator": "defined"
+  },
+  "url": "email"
+}

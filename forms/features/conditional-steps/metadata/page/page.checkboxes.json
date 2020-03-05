@@ -1,0 +1,42 @@
+{
+  "_id": "page.checkboxes",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.checkboxes--checkboxes",
+      "_type": "checkboxes",
+      "hint": "Checkboxes hint text",
+      "items": [
+        {
+          "_id": "page.checkboxes--checkboxes--checkbox.auto_name__2",
+          "_type": "checkbox",
+          "hint": "A hint text",
+          "label": "A",
+          "name": "auto_name__2"
+        },
+        {
+          "_id": "page.checkboxes--checkboxes--checkbox.auto_name__3",
+          "_type": "checkbox",
+          "hint": "B hint text",
+          "label": "B",
+          "name": "auto_name__3"
+        },
+        {
+          "_id": "page.checkboxes--checkboxes--checkbox.auto_name__4",
+          "_type": "checkbox",
+          "hint": "C hint text",
+          "label": "C",
+          "name": "auto_name__4"
+        }
+      ],
+      "legend": "Checkboxes"
+    }
+  ],
+  "sectionHeading": "Checkboxes section heading",
+  "show": {
+    "identifier": "auto_name__1",
+    "operator": "is",
+    "value": "1"
+  },
+  "url": "checkboxes"
+}

@@ -1,5 +1,7 @@
 {
   "_id": "service",
   "_isa": "@ministryofjustice/fb-components=>service",
-  "_type": "config.service"
+  "_type": "config.service",
+  "name": "Fieldset Acceptance Test Service",
+  "phase": "none"
 }

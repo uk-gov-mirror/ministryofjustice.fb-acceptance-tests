@@ -7,7 +7,6 @@
       "_type": "email",
       "hint": "Tell us your email address",
       "label": "Your email address",
-      "label:cy": "Eich cyfeiriad e-bost",
       "name": "email_address",
       "validation": {
         "required": true

@@ -2,7 +2,6 @@
   "_id": "service",
   "_isa": "@ministryofjustice/fb-components=>service",
   "_type": "config.service",
-  "name": "JSON Output Acceptance Test Service",
-  "pdfHeading": "JSON Output Service PDF Heading",
+  "name": "Conditional Acceptance Test Service",
   "phase": "none"
 }

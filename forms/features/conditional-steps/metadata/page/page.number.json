@@ -1,0 +1,19 @@
+{
+  "_id": "page.number",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.number--number.auto_name__6",
+      "_type": "number",
+      "hint": "Number hint text",
+      "label": "Number",
+      "name": "auto_name__6"
+    }
+  ],
+  "sectionHeading": "Number section heading",
+  "show": {
+    "identifier": "auto_name__3",
+    "operator": "defined"
+  },
+  "url": "number"
+}

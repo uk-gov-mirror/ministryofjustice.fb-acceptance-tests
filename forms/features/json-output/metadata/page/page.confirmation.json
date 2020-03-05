@@ -2,6 +2,5 @@
   "_id": "page.confirmation",
   "_type": "page.confirmation",
   "heading": "You've sent us the answers about your cat!",
-  "heading:cy": "Anfonwyd eich cwyn",
   "url": "confirmation"
 }

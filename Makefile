@@ -52,7 +52,7 @@ serve: build
 	./scripts/wait_for_components_apps.sh
 	./scripts/setup_test_env.sh
 
-spec: .features .components serve
+spec: serve
 	docker-compose run tests bundle exec rspec
 
 clean:

@@ -11,7 +11,6 @@
       "_type": "text",
       "hint": "Tell us your first name",
       "label": "First name",
-      "label:cy": "Enw cyntaf",
       "name": "first_name"
     },
     {
@@ -23,12 +22,10 @@
       "_type": "text",
       "hint": "Tell us your last name",
       "label": "Last name",
-      "label:cy": "Enw olaf",
       "name": "last_name"
     }
   ],
   "heading": "Your name",
-  "heading:cy": "Eich enw",
   "hint": "Tell us your first and last name using **Text** components",
   "sectionHeading": "**Text** components",
   "url": "name"

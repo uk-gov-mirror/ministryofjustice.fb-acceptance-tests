@@ -2,12 +2,7 @@
   "_id": "service",
   "_isa": "@ministryofjustice/fb-components=>service",
   "_type": "config.service",
-  "languages": [
-    "en",
-    "cy"
-  ],
   "name": "Email Output Acceptance Test Service",
-  "name:cy": "Gwneud cwyn am lys neu dribiwnlys",
   "pdfHeading": "Email Output Service PDF Heading",
   "phase": "none"
 }

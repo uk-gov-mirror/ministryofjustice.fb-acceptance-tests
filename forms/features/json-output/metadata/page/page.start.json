@@ -2,11 +2,8 @@
   "_id": "page.start",
   "_type": "page.start",
   "body": "Your answers will be sent by email to the address you enter in the form",
-  "body:cy": "Ni ellir defnyddio'r ffurflen hon i gwyno am:\r\n\r\n* ganlyniad achos \r\n* barnwr, ynad, crwner neu aelod o dribiwnlys",
   "heading": "About your cat",
-  "heading:cy": "Gwneud cwyn am lys neu dribiwnlys",
   "lede": "This form asks about your cat in a series of steps, each using a different Form Builder component",
-  "lede:cy": "Ni fydd eich cwyn yn effeithio ar eich achos.",
   "steps": [
     "page.name",
     "page.email-contact",

@@ -7,18 +7,14 @@
       "_type": "fileupload",
       "errors": {
         "accept": {
-          "any": "The selected file must be a JPG, BMP, PNG, TIF, PDF, DOC or DOCX",
-          "any:cy": "Rhaid i'r ffeil fod yn JPG, BMP, PNG, TIF, PDF, DOC neu DOCX"
+          "any": "The selected file must be a JPG, BMP, PNG, TIF, PDF, DOC or DOCX"
         },
         "maxSize": {
-          "any": "too huge",
-          "any:cy": "Rhaid i'r ffeil fod yn llai na 5MB"
+          "any": "too huge"
         }
       },
       "hint": "Send us a picture of your cat",
-      "hint:cy": "Gallwch lwytho eich dogfennau fel copïau wedi eu sganio neu luniau o'r gwreiddiol",
       "label": "What does your cat look like?",
-      "label:cy": "Llwytho dogfennau",
       "name": "upload",
       "validation": {
         "maxSize": "5242880",
