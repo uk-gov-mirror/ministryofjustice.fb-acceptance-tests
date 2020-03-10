@@ -18,26 +18,32 @@ make setup
 make serve
 ```
 
+You can visit ports on localhost to see the _services_.
+
+- [10001](http://localhost:10001) Datastore
+- [10002](http://localhost:10002) Filestore
+- [10003](http://localhost:10003) Submitter
+
 You can visit ports on localhost to see the _Feature_ forms.
 
-- http://localhost:5080 Email output
-- http://localhost:5081 JSON output
-- http://localhost:5082 "Save and return" module
-- http://localhost:5083 Conditional steps
+- [3080](http://localhost:3080) Email output
+- [3081](http://localhost:3081) JSON output
+- [3082](http://localhost:3082) "Save and return" module
+- [3083](http://localhost:3083) Conditional steps
 
 You can visit ports on localhost to see the _Component_ forms.
 
-- http://localhost:3080 Autocomplete
-- http://localhost:3081 Checkboxes
-- http://localhost:3082 Date
-- http://localhost:3083 Email
-- http://localhost:3084 Fieldset
-- http://localhost:3085 Number
-- http://localhost:3086 Radios
-- http://localhost:3087 Select
-- http://localhost:3088 Text
-- http://localhost:3089 Textarea
-- http://localhost:3090 Upload
+- [5080](http://localhost:5080) Autocomplete
+- [5081](http://localhost:5081) Checkboxes
+- [5082](http://localhost:5082) Date
+- [5083](http://localhost:5083) Email
+- [5084](http://localhost:5084) Fieldset
+- [5085](http://localhost:5085) Number
+- [5086](http://localhost:5086) Radios
+- [5087](http://localhost:5087) Select
+- [5088](http://localhost:5088) Text
+- [5089](http://localhost:5089) Textarea
+- [5090](http://localhost:5089) Upload
 
 ### Run acceptance specs
 
