@@ -9,11 +9,11 @@ post '/email' do
   data = request.body.read
   parsed_data = JSON.generate(JSON.parse(data))
   if File.write(EMAIL_CONTENT_FILE, parsed_data)
-    status :ok
-    body "Ok"
+    status :created
+    json({})
   else
     status :bad_request
-    body "Unable to generate params"
+    json(name: 'bad-request.invalid-parameters')
   end
 end
 
