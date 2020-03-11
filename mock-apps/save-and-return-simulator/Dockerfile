@@ -25,4 +25,4 @@ EXPOSE $APP_PORT
 
 USER ${UID}
 
-CMD bundle exec ruby app.rb -p ${APP_PORT}
+CMD APP_ENV=production bundle exec ruby app.rb -p ${APP_PORT}
