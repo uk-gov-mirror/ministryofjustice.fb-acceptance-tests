@@ -455,6 +455,14 @@ services:
       AWS_SECRET_KEY: 'qwerty'
       AWS_SECRET_ACCESS_KEY: 'qwerty'
 
+  save-and-return-simulator:
+    container_name: save-and-return-simulator
+    build:
+      context: ./mock-apps/save-and-return-simulator
+      dockerfile: ./Dockerfile
+    ports:
+      - 3005:3000
+
   tests:
     build:
       context: tests
@@ -490,4 +498,5 @@ services:
       - datastore-app
       - filestore-app
       - pdf-generator
+      - save-and-return-simulator
       - output-recorder
