@@ -1,5 +1,6 @@
 require 'capybara/rspec'
 require 'selenium/webdriver'
+require 'site_prism'
 
 RSpec.configure do |c|
   Capybara.register_driver :selenium do |app|

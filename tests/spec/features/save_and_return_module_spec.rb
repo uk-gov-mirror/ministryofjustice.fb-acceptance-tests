@@ -1,107 +1,138 @@
 require 'capybara/rspec'
 require 'spec_helper'
 
-describe 'Using Save and Return' do
-  it 'puts a link onto the start page' do
-    visit 'http://features-save-and-return-app:3000'
+class SaveAndReturnApp < SitePrism::Page
+  set_url 'http://features-save-and-return-app:3000'
 
-    # Save and Return "Continue work on a saved form"
-    expect(page).to have_selector 'p a[href="/return"]', text: 'Continue work on a saved form'
+  element :start_button, :button, 'Start'
+  element :continue_work_on_a_saved_form_button, 'p a[href="/return"]'
+  element :save_and_come_back_later_button, 'button[name="setupReturn"]'
+  element :continue_button, :button, 'Continue'
+  element :email_field, :field, 'Email address'
+  element :email_error_summary, '.govuk-error-summary a[href="#return_start_email"]'
+  element :email_error_message, '.govuk-error-message'
+  element :continue_with_this_form_button, :link, 'Continue with this form'
+  element :back_link, :link, 'Back'
+
+  element :usn_field, :field, 'Unique submission number (USN)'
+
+  def has_sign_in_link?
+    page.has_selector? 'h1', text: 'Get a sign-in link'
+  end
+
+  def has_email_message?(message)
+    page.has_selector?('h1 + p', text: message)
+  end
+end
+
+describe 'Using Save and Return' do
+  let(:form) { SaveAndReturnApp.new }
+
+  before { form.load }
+
+  it 'puts a link onto the start page' do
+    expect(form).to have_continue_work_on_a_saved_form_button
+    expect(
+      form.continue_work_on_a_saved_form_button.text
+    ).to eq('Continue work on a saved form')
   end
 
   it 'puts a save and return button into the form' do
-    visit 'http://features-save-and-return-app:3000'
-    click_on 'Start'
-
-    expect(page).to have_selector 'button[name="setupReturn"]', text: 'Save and come back later'
+    form.start_button.click
+    expect(form).to have_save_and_come_back_later_button
+    expect(
+      form.save_and_come_back_later_button.text
+    ).to eq('Save and come back later')
   end
 
   it 'puts a save and return message into the page' do
-    visit 'http://features-save-and-return-app:3000'
-    click_on 'Start'
-
-    expect(page).to have_selector 'p', text: /Your session will time out after \d+ minutes of inactivity/
-    expect(page).to have_selector 'p', text: 'Save your details if you want to come back later'
+    form.start_button.click
+    expect(form).to have_content(
+      /Your session will time out after \d+ minutes of inactivity/
+    )
+    expect(form).to have_content(
+      'Save your details if you want to come back later'
+    )
   end
 
   it 'sets up save and return' do
-    visit 'http://features-save-and-return-app:3000'
-    click_on 'Start'
+    form.start_button.click
+    form.save_and_come_back_later_button.click
 
-    # Save and Return "Save and come back later"
-    find('button[name="setupReturn"]').click
-
-    expect(page).to have_selector 'h1', text: 'Saving your progress'
+    expect(form).to have_content('Saving your progress')
     continue
 
-    expect(page).to have_selector 'h1', text: 'Save your progress'
-    expect(page).to have_selector 'form label', text: 'Email address'
+    expect(form).to have_content('Save your progress')
+    expect(form).to have_email_field
 
-    # email
-    fill_in 'email', with: "form-builder-developers@digital.justice.gov.uk"
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
     continue
 
-    expect(page).to have_selector 'h1', text: 'Check your email'
-    expect(page).to have_selector 'h1 + p', text: 'We have sent an email to form-builder-developers@digital.justice.gov.uk.'
+    expect(form).to have_content('Check your email')
+    expect(form).to have_email_message(
+      'We have sent an email to form-builder-developers@digital.justice.gov.uk.'
+    )
   end
 
   it 'puts a continue link onto the start page' do
-    visit 'http://features-save-and-return-app:3000'
-
-    # Save and Return "Continue work on a saved form"
-    find('p a[href="/return"]').click
+    form.continue_work_on_a_saved_form_button.click
 
     # Save and Return start
-    expect(page).to have_selector 'h1', text: 'Get a sign-in link'
-    expect(page).to have_selector 'form label', text: 'Email address'
+    expect(form).to have_sign_in_link
+    expect(form).to have_email_field
   end
 
-  # it 'accepts an email address' do
-  #   visit 'http://features-save-and-return-app:3000'
+  it 'saves and retrieves form submission' do
+    form.start_button.click
+    form.usn_field.set('9876543')
+    form.continue_button.click
 
-  #   # Save and Return "Continue work on a saved form"
-  #   find('p a[href="/return"]').click
+    form.save_and_come_back_later_button.click
+    form.continue_button.click
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
+    form.continue_button.click
 
-  #   # Save and Return start
-  #   expect(page).to have_selector 'h1', text: 'Get a sign-in link'
-  #   expect(page).to have_selector 'form label', text: 'Email address'
+    ## Retrieves the link sent to submitter so we can recover the data
+    ## and test properly
+    visit('http://save-and-return-simulator:3000/email')
 
-  #   # email
-  #   fill_in 'email', with: "form-builder-developers@digital.justice.gov.uk"
-  #   continue
+    ## Get the token from the mocked submitter so we can visit and restore
+    ## the saved form
+    #
+    token = page.text.match(/token\/([\w|-]*)/)[1]
 
-  #   expect(page).to have_selector 'h1', text: 'Check your email'
-  #   expect(page).to have_selector 'h1 + p', text: "We’ve sent your sign-in link to form-builder-developers@digital.justice.gov.uk"
+    ## User clicking the email
+    #
+    visit("http://features-save-and-return-app:3000/return/setup/email/token/#{token}")
 
-  #   expect(page).to have_selector 'h2', text: 'Didn’t receive the email?'
-  #   expect(page).to have_selector 'ul li a[href="/return/form-builder-developers@digital.justice.gov.uk"]', text: 'resend the email'
-
-  #   find('ul li a[href="/return/form-builder-developers@digital.justice.gov.uk"]').click
-
-  #   expect(page).to have_selector 'h1', text: 'Get a sign-in link'
-  #   expect(page).to have_selector 'form label', text: 'Email address'
-  # end
+    form.continue_with_this_form_button.click
+    form.back_link.click
+    expect(form.usn_field).to be_visible
+    expect(form.usn_field.value).to eq('9876543')
+  end
 
   it 'rejects no email address' do
-    visit 'http://features-save-and-return-app:3000'
-
-    # Save and Return "Continue work on a saved form"
-    find('p a[href="/return"]').click
+    form.continue_work_on_a_saved_form_button.click
 
     # Save and Return start
-    expect(page).to have_selector 'h1', text: 'Get a sign-in link'
-    expect(page).to have_selector 'form label', text: 'Email address'
+    expect(form).to have_sign_in_link
+    expect(form).to have_email_field
 
     # email
-    fill_in 'email', with: "" # ensure empty
+    form.email_field.set('') # ensure empty
     continue
 
-    expect(page).to have_selector 'h1', text: 'Get a sign-in link'
-    expect(page).to have_selector '.govuk-error-summary a[href="#return_start_email"]', text: 'Enter an email address for Email address'
-    expect(page).to have_selector '.govuk-error-message', text: 'Enter an email address for Email address'
+    expect(form).to have_sign_in_link
+    expect(form.email_error_summary.text).to eq(
+      'Enter an email address for Email address'
+    )
+
+    expect(form.email_error_message.text).to include(
+      'Enter an email address for Email address'
+    )
   end
 
   def continue
-    click_on 'Continue'
+    form.continue_button.click
   end
 end
