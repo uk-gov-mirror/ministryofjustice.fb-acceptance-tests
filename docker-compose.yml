@@ -54,7 +54,7 @@ services:
       - 3082:3000
     environment:
       SERVICE_PATH: ./form
-      SUBMITTER_URL: http://submitter-app:3000
+      SUBMITTER_URL: http://save-and-return-simulator:3000
       USER_DATASTORE_URL: http://datastore-app:3000
       USER_FILESTORE_URL: http://filestore-app:3000
       SERVICE_SECRET: secret
