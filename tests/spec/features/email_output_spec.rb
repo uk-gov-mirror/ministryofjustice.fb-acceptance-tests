@@ -56,7 +56,11 @@ describe 'Filling out an Email output form' do
     continue
 
     # upload
-    attach_file("upload[1]", 'spec/fixtures/files/hello_world.txt')
+    attach_file("cat_picture[1]", 'spec/fixtures/files/hello_world.txt')
+    continue
+
+    # upload check
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     click_on 'Send complaint'
@@ -168,7 +172,7 @@ describe 'Filling out an Email output form' do
         'number_cats',
         'cat_spy',
         'cat_breed',
-        'upload'
+        'cat_picture'
       ])
 
       expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/) # guid

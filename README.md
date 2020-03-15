@@ -43,7 +43,7 @@ You can visit ports on localhost to see the _Component_ forms.
 - [5087](http://localhost:5087) Select
 - [5088](http://localhost:5088) Text
 - [5089](http://localhost:5089) Textarea
-- [5090](http://localhost:5089) Upload
+- [5090](http://localhost:5090) Upload
 
 ### Run acceptance specs
 

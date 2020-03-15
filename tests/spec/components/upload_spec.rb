@@ -19,7 +19,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -36,7 +36,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -52,7 +52,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Third - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -67,7 +67,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
@@ -75,7 +75,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Upload - Fourth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -85,7 +85,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
@@ -93,7 +93,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__key', text: 'Upload - Fourth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -103,7 +103,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
@@ -125,7 +125,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
@@ -133,7 +133,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Upload - Fifth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -143,7 +143,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
@@ -151,7 +151,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__key', text: 'Upload - Fifth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -161,7 +161,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
@@ -183,7 +183,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
@@ -191,7 +191,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Upload - Sixth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -201,7 +201,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
@@ -209,7 +209,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__key', text: 'Upload - Sixth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -219,7 +219,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
@@ -279,7 +279,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '4.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
@@ -371,7 +371,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -388,7 +388,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -404,7 +404,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Third - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -414,7 +414,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
@@ -431,7 +431,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
@@ -448,7 +448,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
