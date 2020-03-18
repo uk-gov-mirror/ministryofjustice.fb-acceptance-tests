@@ -1,7 +1,7 @@
 {
   "_id": "page.start",
   "_type": "page.start",
-  "heading": "Textarea - Automated",
+  "heading": "Acceptance Test - Textarea",
   "steps": [
     "page.textarea-first",
     "page.textarea-second",

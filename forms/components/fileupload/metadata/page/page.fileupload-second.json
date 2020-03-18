@@ -1,0 +1,16 @@
+{
+  "_id": "page.fileupload-second",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.fileupload-second--fileupload.auto_name__2",
+      "_type": "fileupload",
+      "hint": "File Upload - Second - hint text",
+      "label": "File Upload - Second",
+      "labelSummary": "File Upload - Second - summary version",
+      "name": "auto_name__2"
+    }
+  ],
+  "sectionHeading": "File Upload - Second - section heading",
+  "url": "fileupload-second"
+}

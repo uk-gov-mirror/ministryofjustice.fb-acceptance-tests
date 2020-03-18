@@ -1,0 +1,16 @@
+{
+  "_id": "page.fileupload-third",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.fileupload-third--fileupload.auto_name__3",
+      "_type": "fileupload",
+      "hint": "File Upload - Third - hint text",
+      "label": "File Upload - Third",
+      "labelSummary": "File Upload - Third - summary version",
+      "name": "fileupload-third"
+    }
+  ],
+  "sectionHeading": "File Upload - Third - section heading",
+  "url": "fileupload-third"
+}

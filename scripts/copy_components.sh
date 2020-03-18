@@ -5,6 +5,7 @@ cp -r .runner/* .components/checkboxes
 cp -r .runner/* .components/date
 cp -r .runner/* .components/email
 cp -r .runner/* .components/fieldset
+cp -r .runner/* .components/fileupload
 cp -r .runner/* .components/number
 cp -r .runner/* .components/radios
 cp -r .runner/* .components/select

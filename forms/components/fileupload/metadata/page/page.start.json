@@ -1,0 +1,16 @@
+{
+  "_id": "page.start",
+  "_type": "page.start",
+  "heading": "Acceptance Test - File Upload",
+  "steps": [
+    "page.fileupload-first",
+    "page.fileupload-second",
+    "page.fileupload-third",
+    "page.fileupload-fourth",
+    "page.fileupload-fifth",
+    "page.fileupload-sixth",
+    "page.fileupload-summary",
+    "page.fileupload-confirmation"
+  ],
+  "url": "/"
+}

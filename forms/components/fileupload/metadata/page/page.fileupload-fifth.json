@@ -1,0 +1,18 @@
+{
+  "_id": "page.fileupload-fifth",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.fileupload-fifth--fileupload.auto_name__5",
+      "_type": "fileupload",
+      "hint": "File Upload - Fifth - hint text",
+      "label": "File Upload - Fifth",
+      "labelSummary": "File Upload - Fifth - summary version",
+      "name": "auto_name__5",
+      "minFiles": 1,
+      "maxFiles": 3
+    }
+  ],
+  "sectionHeading": "File Upload - Fifth - section heading",
+  "url": "fileupload-fifth"
+}

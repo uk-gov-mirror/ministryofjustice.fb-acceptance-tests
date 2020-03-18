@@ -1,7 +1,7 @@
 {
   "_id": "page.start",
   "_type": "page.start",
-  "heading": "Automated - Upload",
+  "heading": "Acceptance Test - Upload",
   "steps": [
     "page.upload-first",
     "page.upload-second",
