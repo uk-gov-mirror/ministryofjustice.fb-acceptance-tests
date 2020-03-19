@@ -16,6 +16,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - First - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - First - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -69,6 +70,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -91,6 +93,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
@@ -113,6 +116,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
@@ -138,6 +142,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -160,6 +165,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
@@ -182,6 +188,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
@@ -207,6 +214,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -229,6 +237,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
@@ -251,6 +260,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
@@ -314,6 +324,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '4.jpg, 1.34MB'
 
@@ -412,6 +423,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - First - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - First - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -460,6 +472,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -480,6 +493,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
@@ -500,6 +514,7 @@ describe 'Upload' do
     continue
 
     # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
