@@ -1,7 +1,7 @@
 {
   "_id": "page.start",
   "_type": "page.start",
-  "heading": "Select - Automated",
+  "heading": "Acceptance Test - Select",
   "steps": [
     "page.select-first",
     "page.select-second",

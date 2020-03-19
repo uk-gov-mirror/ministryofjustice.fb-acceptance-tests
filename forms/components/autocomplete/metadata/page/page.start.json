@@ -1,7 +1,7 @@
 {
   "_id": "page.start",
   "_type": "page.start",
-  "heading": "Autocomplete - Automated",
+  "heading": "Acceptance Test - Autocomplete",
   "steps": [
     "page.autocomplete-first",
     "page.autocomplete-second",

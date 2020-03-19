@@ -65,7 +65,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # autocomplete
@@ -127,7 +127,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # autocomplete
@@ -189,7 +189,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # autocomplete
@@ -251,7 +251,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '4.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     ########################################
@@ -462,7 +462,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     ########################################
@@ -718,7 +718,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # second
@@ -764,7 +764,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # third
@@ -810,7 +810,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # fourth
@@ -856,7 +856,7 @@ describe 'Fieldset' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '4.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     ########################################

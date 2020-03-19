@@ -1,0 +1,15 @@
+{
+  "_id": "page.fileupload-first",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.fileupload-first--fileupload.auto_name__1",
+      "_type": "fileupload",
+      "hint": "File Upload - First - hint text",
+      "label": "File Upload - First",
+      "name": "auto_name__1"
+    }
+  ],
+  "sectionHeading": "File Upload - First - section heading",
+  "url": "fileupload-first"
+}

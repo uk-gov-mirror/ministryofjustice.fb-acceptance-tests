@@ -1,0 +1,17 @@
+{
+  "_id": "page.fileupload-fourth",
+  "_type": "page.singlequestion",
+  "components": [
+    {
+      "_id": "page.fileupload-fourth--fileupload.auto_name__4",
+      "_type": "fileupload",
+      "hint": "File Upload - Fourth - hint text",
+      "label": "File Upload - Fourth",
+      "name": "auto_name__4",
+      "minFiles": 1,
+      "maxFiles": 3
+    }
+  ],
+  "sectionHeading": "File Upload - Fourth - section heading",
+  "url": "fileupload-fourth"
+}

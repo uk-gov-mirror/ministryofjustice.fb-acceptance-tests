@@ -21,7 +21,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -39,7 +39,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -57,7 +57,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -75,7 +75,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -85,7 +85,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -98,7 +98,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -108,7 +108,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -121,7 +121,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -147,7 +147,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -157,7 +157,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -170,7 +170,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -180,7 +180,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -193,7 +193,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -219,7 +219,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -229,7 +229,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -242,7 +242,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -252,7 +252,7 @@ describe 'Upload' do
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'confirm', visible: false
+    choose 'upload-component-decision', option: 'confirm', visible: false
     continue
 
     # upload
@@ -265,7 +265,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -329,7 +329,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '4.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -345,6 +345,10 @@ describe 'Upload' do
     #   SUMMARY                            #
     #                                      #
     ########################################
+
+    # summary
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Summary - section heading'
+    expect(page).to have_selector 'h1', text: 'Summary'
 
     expect(page).to have_selector 'h2:nth-of-type(6)', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector '.govuk-summary-list:nth-of-type(6) .govuk-summary-list__key', text: 'Upload - Sixth'
@@ -424,7 +428,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -442,7 +446,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -460,7 +464,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # upload
@@ -473,7 +477,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -494,7 +498,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary
@@ -515,7 +519,7 @@ describe 'Upload' do
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
     # radios
-    choose 'decision', option: 'accept', visible: false
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     # summary

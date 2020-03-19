@@ -1,7 +1,7 @@
 {
   "_id": "page.start",
   "_type": "page.start",
-  "heading": "Number - Automated",
+  "heading": "Acceptance Test - Number",
   "steps": [
     "page.number-first",
     "page.number-second",

@@ -20,6 +20,10 @@ echo HEAD > .components/fieldset/APP_SHA
 mkdir -p .components/fieldset/form
 cp -r ./forms/components/fieldset/* .components/fieldset/form
 
+echo HEAD > .components/fileupload/APP_SHA
+mkdir -p .components/fileupload/form
+cp -r ./forms/components/fileupload/* .components/fileupload/form
+
 echo HEAD > .components/number/APP_SHA
 mkdir -p .components/number/form
 cp -r ./forms/components/number/* .components/number/form
