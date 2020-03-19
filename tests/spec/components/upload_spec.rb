@@ -15,6 +15,8 @@ describe 'Upload' do
     attach_file('auto_name__1[1]', 'spec/fixtures/files/1.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - First - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - First - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -27,6 +29,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1 label.govuk-label', text: 'Upload - Second'
     expect(page).to have_selector '.govuk-hint', text: 'Upload - Second - hint text'
 
+    # upload
     attach_file('auto_name__2[1]', 'spec/fixtures/files/2.jpg')
     continue
 
@@ -44,6 +47,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1 label.govuk-label', text: 'Upload - Third'
     expect(page).to have_selector '.govuk-hint', text: 'Upload - Third - hint text'
 
+    # upload
     attach_file('upload-third[1]', 'spec/fixtures/files/3.jpg')
     continue
 
@@ -52,6 +56,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Third - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
@@ -64,17 +69,22 @@ describe 'Upload' do
     attach_file('auto_name__4[1]', 'spec/fixtures/files/1.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Upload - Fourth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'confirm', visible: false
     continue
 
@@ -82,17 +92,22 @@ describe 'Upload' do
     attach_file('auto_name__4[2]', 'spec/fixtures/files/2.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__key', text: 'Upload - Fourth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'confirm', visible: false
     continue
 
@@ -100,12 +115,16 @@ describe 'Upload' do
     attach_file('auto_name__4[3]', 'spec/fixtures/files/3.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(3) .govuk-summary-list__key', text: 'Upload - Fourth'
@@ -122,17 +141,22 @@ describe 'Upload' do
     attach_file('auto_name__5[1]', 'spec/fixtures/files/1.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Upload - Fifth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'confirm', visible: false
     continue
 
@@ -140,17 +164,22 @@ describe 'Upload' do
     attach_file('auto_name__5[2]', 'spec/fixtures/files/2.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__key', text: 'Upload - Fifth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'confirm', visible: false
     continue
 
@@ -158,12 +187,16 @@ describe 'Upload' do
     attach_file('auto_name__5[3]', 'spec/fixtures/files/3.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(3) .govuk-summary-list__key', text: 'Upload - Fifth'
@@ -176,21 +209,26 @@ describe 'Upload' do
     expect(page).to have_selector 'h1 label.govuk-label', text: 'Upload - Sixth'
     expect(page).to have_selector '.govuk-hint', text: 'Upload - Sixth - hint text'
 
-    # # upload
+    # upload
     attach_file('upload-sixth[1]', 'spec/fixtures/files/1.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Upload - Sixth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'confirm', visible: false
     continue
 
@@ -198,17 +236,22 @@ describe 'Upload' do
     attach_file('upload-sixth[2]', 'spec/fixtures/files/2.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__key', text: 'Upload - Sixth'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(2) .govuk-summary-list__value', text: '2.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'confirm', visible: false
     continue
 
@@ -216,12 +259,16 @@ describe 'Upload' do
     attach_file('upload-sixth[3]', 'spec/fixtures/files/3.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(3) .govuk-summary-list__key', text: 'Upload - Sixth'
@@ -276,12 +323,16 @@ describe 'Upload' do
     attach_file('upload-sixth[3]', 'spec/fixtures/files/4.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '4.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(3) .govuk-summary-list__key', text: 'Upload - Sixth'
@@ -367,6 +418,8 @@ describe 'Upload' do
     attach_file('auto_name__1[1]', 'spec/fixtures/files/1.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - First - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - First - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
@@ -379,6 +432,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1 label.govuk-label', text: 'Upload - Second'
     expect(page).to have_selector '.govuk-hint', text: 'Upload - Second - hint text'
 
+    # upload
     attach_file('auto_name__2[1]', 'spec/fixtures/files/2.jpg')
     continue
 
@@ -396,6 +450,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1 label.govuk-label', text: 'Upload - Third'
     expect(page).to have_selector '.govuk-hint', text: 'Upload - Third - hint text'
 
+    # upload
     attach_file('upload-third[1]', 'spec/fixtures/files/3.jpg')
     continue
 
@@ -404,6 +459,7 @@ describe 'Upload' do
     expect(page).to have_selector 'h1', text: 'Upload - Third - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
@@ -411,12 +467,16 @@ describe 'Upload' do
     attach_file('auto_name__4[3]', 'spec/fixtures/files/1.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '1.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fourth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fourth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(3) .govuk-summary-list__key', text: 'Upload - Fourth'
@@ -428,12 +488,16 @@ describe 'Upload' do
     attach_file('auto_name__5[3]', 'spec/fixtures/files/2.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '2.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Fifth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Fifth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(3) .govuk-summary-list__key', text: 'Upload - Fifth'
@@ -445,12 +509,16 @@ describe 'Upload' do
     attach_file('upload-sixth[3]', 'spec/fixtures/files/3.jpg')
     continue
 
+    # check
+    expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Check'
     expect(page).to have_selector '.fb-upload-descriptions', text: '3.jpg, 1.34MB'
 
+    # radios
     choose 'decision', option: 'accept', visible: false
     continue
 
+    # summary
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - Sixth - section heading'
     expect(page).to have_selector 'h1', text: 'Upload - Sixth - Summary'
     expect(page).to have_selector '.govuk-summary-list .govuk-summary-list__row:nth-of-type(3) .govuk-summary-list__key', text: 'Upload - Sixth'
