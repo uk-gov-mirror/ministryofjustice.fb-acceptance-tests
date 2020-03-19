@@ -88,7 +88,6 @@ describe 'JSON Output' do
       checkbox_apples: 'Apples'
     )
 
-    expect(submission_answers_without_upload.size).to eql(10)
     expect(uploads.size).to eql(1)
 
     four_weeks = 28 * 24 * 60 * 60
