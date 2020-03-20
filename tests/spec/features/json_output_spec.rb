@@ -53,10 +53,10 @@ describe 'JSON Output' do
     continue
 
     # upload
-    attach_file("cat_picture[1]", 'spec/fixtures/files/hello_world.txt')
+    attach_file('cat_picture[1]', 'spec/fixtures/files/hello_world.txt')
     continue
 
-    # upload check
+    # upload check
     choose 'upload-component-decision', option: 'accept', visible: false
     continue
 

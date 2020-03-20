@@ -1,7 +1,7 @@
 {
   "_id": "page.upload-check",
   "_type": "page.uploadCheck",
-  "heading": "Check your cat",
-  "sectionHeading": "An **Upload** component **Check Step**",
+  "heading": "Upload - Check",
+  "sectionHeading": "An **Upload** component **Check** step",
   "url": "upload-check"
 }
