@@ -55,5 +55,9 @@ serve: build
 spec: serve
 	docker-compose run tests bundle exec rspec
 
+unit:
+	docker-compose up -d --build tests
+	docker-compose run tests bundle exec rspec spec/features/maintenance_mode_spec.rb
+
 clean:
 	rm -rf .runner .features .components .submitter .datastore .filestore .pdf-generator .service-token-cache
