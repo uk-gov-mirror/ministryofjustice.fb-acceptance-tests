@@ -53,7 +53,11 @@ describe 'JSON Output' do
     continue
 
     # upload
-    attach_file('upload[1]', 'spec/fixtures/files/hello_world.txt')
+    attach_file('cat_picture[1]', 'spec/fixtures/files/hello_world.txt')
+    continue
+
+    # upload check
+    choose 'upload-component-decision', option: 'accept', visible: false
     continue
 
     click_on 'Send complaint'
@@ -66,9 +70,9 @@ describe 'JSON Output' do
     encrypted_result = results.first
 
     result = JSON.parse(JWE.decrypt(encrypted_result, ENV.fetch('SERVICE_OUTPUT_JSON_KEY')), symbolize_names: true)
-    submission_answers_without_upload = result[:submissionAnswers].reject { |k, _| k == :upload }
-    uploads = result[:submissionAnswers][:upload]
-    upload = result[:submissionAnswers][:upload][0]
+    submission_answers_without_upload = result[:submissionAnswers].reject { |k, _| k == :cat_picture }
+    uploads = result[:submissionAnswers][:cat_picture]
+    upload = result[:submissionAnswers][:cat_picture][0]
 
     expect(result).to include(serviceSlug: 'slug')
     expect(submission_answers_without_upload).to eql(
@@ -90,7 +94,7 @@ describe 'JSON Output' do
     expect(Time.at(upload[:date])).to be_within(300).of(Time.at(Time.now.to_i + four_weeks))
     expect(upload[:destination]).to eql('/tmp/uploads')
     expect(upload[:encoding]).to eql('7bit')
-    expect(upload[:fieldname]).to eql('upload[1]')
+    expect(upload[:fieldname]).to eql('cat_picture[1]')
     expect(upload[:filename].size).to be > 0
     expect(upload[:fingerprint]).to eql('28d-a948904f2f0f479b8f8197694b30184b0d2ed1c1cd2a1ec0fb85d299a192a447')
     expect(upload[:maxSize]).to eql(5_242_880)
