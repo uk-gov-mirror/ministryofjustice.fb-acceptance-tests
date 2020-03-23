@@ -3,25 +3,20 @@
   "_type": "page.singlequestion",
   "components": [
     {
-      "_id": "page.document-upload--fileupload.auto_name__1",
-      "_type": "fileupload",
-      "errors": {
-        "accept": {
-          "any": "The selected file must be a JPG, BMP, PNG, TIF, PDF, DOC or DOCX"
-        },
-        "maxSize": {
-          "any": "too huge"
-        }
-      },
+      "_id": "page.upload--upload.auto_name__1",
+      "_type": "upload",
       "hint": "Send us a picture of your cat",
       "label": "What does your cat look like?",
-      "name": "upload",
+      "name": "cat_picture",
       "validation": {
         "maxSize": "5242880",
         "required": false
       }
     }
   ],
-  "sectionHeading": "A **File Upload** component",
-  "url": "/upload"
+  "sectionHeading": "An **Upload** component",
+  "url": "upload",
+  "steps": [
+    "page.upload-check"
+  ]
 }
