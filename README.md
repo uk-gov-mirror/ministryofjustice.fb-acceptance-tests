@@ -38,13 +38,12 @@ You can visit ports on localhost to see the _Component_ forms.
 - [5082](http://localhost:5082) Date
 - [5083](http://localhost:5083) Email
 - [5084](http://localhost:5084) Fieldset
-- [5084](http://localhost:5085) Fileupload
-- [5085](http://localhost:5086) Number
-- [5086](http://localhost:5087) Radios
-- [5087](http://localhost:5088) Select
-- [5088](http://localhost:5089) Text
-- [5089](http://localhost:5090) Textarea
-- [5090](http://localhost:5091) Upload
+- [5085](http://localhost:5085) Number
+- [5086](http://localhost:5086) Radios
+- [5087](http://localhost:5087) Select
+- [5088](http://localhost:5088) Text
+- [5089](http://localhost:5089) Textarea
+- [5090](http://localhost:5090) Upload
 
 ### Run acceptance specs
 
