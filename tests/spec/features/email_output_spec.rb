@@ -25,7 +25,7 @@ describe 'Filling out an Email output form' do
     continue
 
     # email
-    fill_in 'email_address', with: 'form-builder-developers@digital.justice.gov.uk'
+    fill_in 'Your email address', with: 'form-builder-developers@digital.justice.gov.uk'
     continue
 
     # text
