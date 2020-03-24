@@ -7,11 +7,9 @@ update_configs:
     default_reviewers:
     - tomas-stefano
     - brenetic
-    - sequencemedialimited
   - package_manager: "docker"
     directory: "/tests"
     update_schedule: "daily"
     default_reviewers:
     - tomas-stefano
     - brenetic
-    - sequencemedialimited
