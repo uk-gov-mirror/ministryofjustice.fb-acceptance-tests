@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class MaintenanceModeApp < SitePrism::Page
-  set_url 'http://features-maintenance-mode-app:3000'
+  set_url 'http://features-maintenance-mode-app:3000/{/url}'
 end
 
 class EmailApp < SitePrism::Page
@@ -10,14 +10,20 @@ end
 
 describe 'Maintenance mode' do
   let(:maintenance_content) do
-    'Maintenance Page'
+    'Sorry, the service is unavailable'
   end
 
   context 'when maintenance mode is on' do
     let(:form) { MaintenanceModeApp.new }
 
-    it 'redirects any request to the maintenance page' do
+    it 'redirects root page to the maintenance page' do
       form.load
+
+      expect(form.text).to include(maintenance_content)
+    end
+
+    it 'redirects any request to the maintenance page' do
+      form.load(url: '/step1')
 
       expect(form.text).to include(maintenance_content)
     end
