@@ -15,3 +15,8 @@ cp -r ./forms/features/save-and-return-module/* .features/save-and-return-module
 echo HEAD > .features/conditional-steps/APP_SHA
 mkdir -p .features/conditional-steps/form
 cp -r ./forms/features/conditional-steps/* .features/conditional-steps/form
+
+echo HEAD > .features/maintenance-mode/APP_SHA
+mkdir -p .features/maintenance-mode/form
+## Using any form to test the maintenance mode feature
+cp -r ./forms/features/conditional-steps/* .features/maintenance-mode/form

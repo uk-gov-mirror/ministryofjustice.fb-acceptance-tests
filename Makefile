@@ -47,13 +47,17 @@ build: stop setup
 
 serve: build
 	docker-compose up -d
+	./scripts/setup_test_env.sh
 	./scripts/wait_for_services_apps.sh
 	./scripts/wait_for_features_apps.sh
 	./scripts/wait_for_components_apps.sh
-	./scripts/setup_test_env.sh
 
 spec: serve
 	docker-compose run tests bundle exec rspec
+
+unit:
+	docker-compose up -d --build tests
+	docker-compose run tests bundle exec rspec spec/features/maintenance_mode_spec.rb
 
 clean:
 	rm -rf .runner .features .components .submitter .datastore .filestore .pdf-generator .service-token-cache
