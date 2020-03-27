@@ -51,6 +51,7 @@ serve: build
 	./scripts/wait_for_services_apps.sh
 	./scripts/wait_for_features_apps.sh
 	./scripts/wait_for_components_apps.sh
+	./scripts/setup_localstack.sh
 
 spec: serve
 	docker-compose run tests bundle exec rspec
