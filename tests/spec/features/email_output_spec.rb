@@ -6,26 +6,44 @@ require 'pdf-reader'
 require 'cgi'
 require 'csv'
 
+class FeaturesEmailApp < SitePrism::Page
+  set_url 'http://features-email-app:3000'
+
+  element :start_button, :button, 'Start'
+  element :first_name_field, :field, 'First name'
+  element :last_name_field, :field, 'Last name'
+  element :continue_button, :button, 'Continue'
+  element :has_email_field, :radio_button, 'Yes', visible: false
+  element :email_field, :field, 'Your email address'
+  element :apples_field, :checkbox, 'Apples', visible: false
+  element :pears_field, :checkbox, 'Pears', visible: false
+  element :day_field, :field, 'Day'
+  element :month_field, :field, 'Month'
+  element :year_field, :field, 'Year'
+  element :number_cats_field, :field, 'How many cats have chosen you?'
+  element :cat_spy_field, :select, 'Is your cat watching you now?'
+  element :autocomplete_field, '#page_autocomplete--autocomplete_autocomplete', visible: false
+  element :cat_picture_field, :file_field, 'What does your cat look like?'
+  element :confirm_upload_field, :radio_button, 'Yes, add this upload', visible: false
+end
+
 describe 'Filling out an Email output form' do
+  let(:form) { FeaturesEmailApp.new }
   before :each do
     OutputRecorder.cleanup_recorded_requests
   end
 
   it 'sends an email with the submission in a PDF' do
-    visit 'http://features-email-app:3000'
-    click_on 'Start'
-
-    # text
-    fill_in 'First name', with: 'Form'
-    fill_in 'Last name', with: 'Builders'
+    form.load
+    form.start_button.click
+    form.first_name_field.set('Form')
+    form.last_name_field.set('Builders')
     continue
 
-    # radio
-    choose 'has_email', option: 'yes', visible: false
+    form.has_email_field.choose
     continue
 
-    # email
-    fill_in 'Your email address', with: 'form-builder-developers@digital.justice.gov.uk'
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
     continue
 
     # text
@@ -33,26 +51,26 @@ describe 'Filling out an Email output form' do
     continue
 
     # checkbox
-    check 'Apples', visible: false
-    check 'Pears', visible: false
+    form.apples_field.check
+    form.pears_field.check
     continue
 
     # date
-    fill_in 'COMPOSITE.date-day', with: '12'
-    fill_in 'COMPOSITE.date-month', with: '11'
-    fill_in 'COMPOSITE.date-year', with: '2007'
+    form.day_field.set('12')
+    form.month_field.set('11')
+    form.year_field.set('2007')
     continue
 
     # number
-    fill_in 'number_cats', with: 28
+    form.number_cats_field.set(28)
     continue
 
     # select
-    select "I can't say (They can read)", from: 'cat_spy'
+    form.cat_spy_field.select("I can't say (They can read)")
     continue
 
     # autocomplete
-    fill_in 'page_autocomplete--autocomplete_autocomplete', with: "California Spangled\n" # the new line "presses enter" on the selected option
+    form.autocomplete_field.set("California Spangled\n") # the new line "presses enter" on the selected option
     continue
 
     # upload
@@ -60,25 +78,36 @@ describe 'Filling out an Email output form' do
     continue
 
     # upload check
-    choose 'upload-component-decision', option: 'accept', visible: false
+    form.confirm_upload_field.choose
     continue
 
     click_on 'Send complaint'
 
-    expect(page).to have_content("You've sent us the answers about your cat!")
+    expect(form.text).to include("You've sent us the answers about your cat!")
 
-    recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 3)
+    # expected 6 emails because the SERVICE_OUTPUT contains 2 emails
+    # 2 emails (submission & attachment) for the first service output
+    # 2 emails (submission & attachment) to the second service output
+    # 2 emails (CSV submission) to both on the Service Output
+    #
+    recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 6)
 
     assert_pdf_contents recorded_emails[0]
     assert_file_upload(
-        actual: recorded_emails[1],
-        expected: File.read("spec/fixtures/files/hello_world.txt")
+      actual: recorded_emails[1],
+      expected: File.read("spec/fixtures/files/hello_world.txt")
     )
-    assert_csv_contents recorded_emails[2]
+    assert_pdf_contents recorded_emails[2]
+    assert_file_upload(
+      actual: recorded_emails[3],
+      expected: File.read("spec/fixtures/files/hello_world.txt")
+    )
+    assert_csv_contents recorded_emails[4]
+    assert_csv_contents recorded_emails[5]
   end
 
   def continue
-    click_on 'Continue'
+    form.continue_button.click
   end
 
   def parse_email(email)
