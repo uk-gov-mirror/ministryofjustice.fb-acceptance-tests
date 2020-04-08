@@ -10,7 +10,7 @@ module OutputRecorder
     actual_requests = 0
     until actual_requests == expected_requests
       p "Waiting for requests to arrive at endpoint '#{url}'. Received #{actual_requests} of #{expected_requests} on try #{tries + 1} of #{max_tries}"
-      sleep 1
+      sleep 5
 
       actual_requests = request_count(url: url)
       raise 'callback assertion timeout' if tries >= max_tries
