@@ -1,4 +1,6 @@
-setup: .runner .features .components .submitter .datastore .filestore .pdf-generator .service-token-cache
+setup:
+	ls
+# .runner .features .components .submitter .datastore .filestore .pdf-generator .service-token-cache
 
 .datastore:
 	git clone git@github.com:ministryofjustice/fb-user-datastore.git .datastore
