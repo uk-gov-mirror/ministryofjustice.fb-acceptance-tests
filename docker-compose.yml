@@ -1,0 +1,181 @@
+version: '3'
+
+services:
+  datastore-db:
+    image: postgres:10.9-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: datastore_local
+
+  datastore-app:
+    container_name: datastore-app
+    build:
+      context: .datastore
+      dockerfile: ./Dockerfile
+      args:
+        BUNDLE_FLAGS: ''
+    ports:
+      - 10001:3000
+    links:
+      - datastore-db
+    environment:
+      DATABASE_URL: postgres://postgres:password@datastore-db/datastore_local
+      RAILS_ENV: development
+      SERVICE_TOKEN: token
+      SECRET_KEY_BASE: key-base
+      MAX_IAT_SKEW_SECONDS: 60
+      SERVICE_TOKEN_CACHE_ROOT_URL: http://service-token-cache-app:3000
+
+  filestore-app:
+    container_name: filestore-app
+    build:
+      context: .filestore
+      dockerfile: ./Dockerfile
+      args:
+        BUNDLE_FLAGS: ''
+    ports:
+      - 10002:3000
+    environment:
+      RAILS_ENV: development
+      AWS_ACCESS_KEY_ID: qwerty
+      AWS_SECRET_ACCESS_KEY: qwerty
+      AWS_S3_EXTERNAL_BUCKET_ACCESS_KEY_ID: qwerty
+      AWS_S3_EXTERNAL_BUCKET_SECRET_ACCESS_KEY: qwerty
+      AWS_S3_EXTERNAL_BUCKET_NAME: external-filestore-bucket
+      KEY_ENCRYPTION_IV: '1234567890123456'
+      AWS_S3_BUCKET_NAME: filestore-bucket
+      ENCRYPTION_KEY: '12345678901234561234567890123456'
+      ENCRYPTION_IV: '1234567890123456'
+      MAX_IAT_SKEW_SECONDS: 60
+      SERVICE_TOKEN_CACHE_ROOT_URL: http://service-token-cache-app:3000
+    depends_on:
+      - localstack
+
+  submitter-db:
+    image: postgres:10.9-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: submitter_local
+
+  submitter-app:
+    container_name: submitter-app
+    build:
+      context: .submitter
+      dockerfile: ./docker/api/Dockerfile
+      args:
+        BUNDLE_ARGS: ''
+    ports:
+      - 10003:3000
+    environment:
+      DATABASE_URL: postgres://postgres:password@submitter-db/submitter_local
+      NOTIFY_EMAIL_GENERIC: 46a72b64-9541-4000-91a7-fa8a3fa10bf9
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_TOKEN: 38f6a1cd-a810-4f59-8899-2c300236c5b4
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_VERIFIED: ''
+      NOTIFY_EMAIL_RETURN_SETUP_MOBILE_VERIFIED: 54dcaad7-4967-431d-8606-72b0b80b5c6a
+      NOTIFY_EMAIL_RETURN_SIGNIN_EMAIL: ''
+      NOTIFY_EMAIL_RETURN_SIGNIN_SUCCESS: ''
+      NOTIFY_SMS_GENERIC: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+      NOTIFY_SMS_RETURN_SETUP_MOBILE: 54dcaad7-4967-431d-8606-72b0b80b5c6a
+      NOTIFY_SMS_RETURN_SIGNIN_MOBILE: "something"
+      FB_ENVIRONMENT_SLUG: "test"
+      SECRET_KEY_BASE: key-base
+      PDF_GENERATOR_ROOT_URL: http://pdf-generator-app:3000
+      RAILS_ENV: development
+      SERVICE_TOKEN_CACHE_ROOT_URL: http://service-token-cache-app:3000
+      RUNNER_CALLBACK_URL_OVERRIDE: runner-app
+      EMAIL_ENDPOINT_OVERRIDE: http://output-recorder:8080/email
+      ENCRYPTION_KEY: i6USnzeRKljfLMPbRlB2E9oikURx4ou3
+      ENCRYPTION_SALT: lGlcn9HabIducdpwlSHcM06e9gFuIfS1Ogg5krtn1Fw=
+      MAX_IAT_SKEW_SECONDS: 60
+    depends_on:
+      - submitter-worker
+      - submitter-db
+
+  submitter-worker:
+    container_name: submitter-worker
+    build:
+      context: .submitter
+      dockerfile: ./docker/worker/Dockerfile
+      args:
+        BUNDLE_ARGS: ''
+    environment:
+      DATABASE_URL: postgres://postgres:password@submitter-db/submitter_local
+      NOTIFY_EMAIL_GENERIC: 46a72b64-9541-4000-91a7-fa8a3fa10bf9
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_TOKEN: 38f6a1cd-a810-4f59-8899-2c300236c5b4
+      NOTIFY_EMAIL_RETURN_SETUP_EMAIL_VERIFIED: ''
+      NOTIFY_EMAIL_RETURN_SETUP_MOBILE_VERIFIED: 54dcaad7-4967-431d-8606-72b0b80b5c6a
+      NOTIFY_EMAIL_RETURN_SIGNIN_EMAIL: ''
+      NOTIFY_EMAIL_RETURN_SIGNIN_SUCCESS: ''
+      NOTIFY_SMS_GENERIC: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+      NOTIFY_SMS_RETURN_SETUP_MOBILE: 54dcaad7-4967-431d-8606-72b0b80b5c6a
+      NOTIFY_SMS_RETURN_SIGNIN_MOBILE: signin-mobile
+      FB_ENVIRONMENT_SLUG: test
+      SECRET_KEY_BASE: key-base
+      PDF_GENERATOR_ROOT_URL: http://pdf-generator-app:3000
+      SERVICE_TOKEN_CACHE_ROOT_URL: http://service-token-cache-app:3000
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: 'true'
+      RUNNER_CALLBACK_URL_OVERRIDE: runner-app
+      EMAIL_ENDPOINT_OVERRIDE: http://output-recorder:8080/email
+      ENCRYPTION_KEY: i6USnzeRKljfLMPbRlB2E9oikURx4ou3
+      ENCRYPTION_SALT: lGlcn9HabIducdpwlSHcM06e9gFuIfS1Ogg5krtn1Fw=
+    command: bundle exec rake jobs:work
+    depends_on:
+      - submitter-db
+
+  pdf-generator-app:
+    container_name: pdf-generator-app
+    build:
+      context: .pdf-generator
+      dockerfile: ./Dockerfile
+      args:
+        BUNDLE_ARGS: '--path vendor/bundle'
+    environment:
+      SERVICE_TOKEN_CACHE_ROOT_URL: http://service-token-cache-app:3000
+      SENTRY_DSN: "whatever"
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: 'true'
+    ports:
+      - 3002:3000
+
+  output-recorder:
+    container_name: output-recorder
+    build:
+      context: ./output-recorder
+    ports:
+      - 3003:8080
+
+  service-token-cache-app:
+    container_name: service-token-cache-app
+    build:
+      context: .service-token-cache
+      dockerfile: ./Dockerfile
+    environment:
+      SENTRY_DSN: sentry-dsn
+      RAILS_ENV: development
+      RAILS_LOG_TO_STDOUT: 'true'
+      REDIS_URL: service-token-cache-redis
+      SERVICE_TOKEN_CACHE_TTL: 999999
+    depends_on:
+      - service-token-cache-redis
+    ports:
+      - 3004:3000
+
+  service-token-cache-redis:
+    container_name: service-token-cache-redis
+    image: redis:5.0.6-alpine
+
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:0.10.7
+    ports:
+      - 4572:4572
+    environment:
+      SERVICES: s3
+      AWS_ACCESS_KEY_ID: qwerty
+      AWS_SECRET_KEY: qwerty
+      AWS_SECRET_ACCESS_KEY: qwerty

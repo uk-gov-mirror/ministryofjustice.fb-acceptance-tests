@@ -11,3 +11,5 @@
 .pdf-generator
 .service-token-cache
 mock-apps/save-and-return-simulator/tmp/email_content.json
+procodile.log
+pids

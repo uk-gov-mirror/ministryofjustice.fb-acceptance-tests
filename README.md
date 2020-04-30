@@ -1,70 +1,68 @@
-# Form Builder Feature and Component Acceptance Tests
+# Fb Acceptance tests
 
-This will spin up the Form Builder environment for regression testing and debugging.
+This is a repo that spin up the form builder platform containers.
 
-## Usage
+1. Submitter
+2. Filestore
+3. Datastore
+4. Service token cache
+5. Pdf generator
 
-### Setup
+## Clone
 
-Run the following command to clone all the necessary repositories:
+    $ git clone git@github.com:ministryofjustice/fb-integration.git
 
-```
-make setup
-```
+Install dependencies with:
 
-### Serve
+    $ bundle
 
-```
-make serve
-```
+## Setup all containers
 
-You can visit ports on localhost to see the _services_.
+    $ ./bin/platform --install --all
 
-- [10001](http://localhost:10001) Datastore
-- [10002](http://localhost:10002) Filestore
-- [10003](http://localhost:10003) Submitter
+## Update a specific container
 
-You can visit ports on localhost to see the _Feature_ forms.
+The following command will just rebuild the container:
 
-- [3080](http://localhost:3080) Email output
-- [3081](http://localhost:3081) JSON output
-- [3082](http://localhost:3082) "Save and return" module
-- [3083](http://localhost:3083) Conditional steps
+    $ ./bin/platform --submitter
 
-You can visit ports on localhost to see the _Component_ forms.
+## Local
 
-- [5080](http://localhost:5080) Autocomplete
-- [5081](http://localhost:5081) Checkboxes
-- [5082](http://localhost:5082) Date
-- [5083](http://localhost:5083) Email
-- [5084](http://localhost:5084) Fieldset
-- [5085](http://localhost:5085) Number
-- [5086](http://localhost:5086) Radios
-- [5087](http://localhost:5087) Select
-- [5088](http://localhost:5088) Text
-- [5089](http://localhost:5089) Textarea
-- [5090](http://localhost:5090) Upload
+There are times when we made a change and we want to update the local
 
-### Run acceptance specs
+The following command will install a copy local submitter and rebuild the container:
 
-```
-make spec
-```
+    $ ./bin/platform --submitter-local --install
 
-### Ensuring dependent repositories are up-to-date
+The following command will only rebuild the container:
 
-`make setup` clones the `HEAD` from the `master` branch of dependent repositories to your development environment.
+    $ ./bin/platform --submitter-local
 
-To delete them and clone them again run:
+## Remote
 
-```sh
-make clean setup
-```
+The following command will install a copy of submitter from github and
+rebuild the container:
 
-To delete them without cloning them again run:
+    $ ./bin/platform --submitter --install
 
-```sh
-make destroy
-```
+## Help
 
-Assuming an otherwise clean installation, the `make setup` target clones the dependent repositories. The `make spec` target starts any services described in the `docker-compose.yml` and executes the specs, leaving services running. The `make destroy` target shuts down those services and deletes the dependent repositories from your development environment.
+For other options run:
+
+    $ ./bin/platform --help
+
+## Configuration file
+
+In order for the repo knows the container name and the github repo, it was
+create with a config file as fundamental. For more details see
+config_file.rb.sample.
+
+## Testing
+
+And then execute:
+
+    $ bundle exec rspec
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

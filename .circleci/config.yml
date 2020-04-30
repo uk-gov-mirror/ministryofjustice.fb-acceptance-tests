@@ -8,11 +8,8 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: setup
-          command: make setup
-      - run:
           name: run tests
-          command: make spec
+          command: ./bin/acceptance-tests --run --setup
 
 workflows:
   version: 2
