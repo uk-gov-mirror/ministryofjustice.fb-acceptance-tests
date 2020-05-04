@@ -4,7 +4,7 @@ module Fb
   module Integration
     class FormsCLI
       include Command
-      attr_reader :setup_type
+      attr_reader :setup_type, :start, :stop, :status
 
       def initialize(args)
         @args = args
@@ -26,9 +26,31 @@ module Fb
           ).execute(setup_type: setup_type)
           run_command(command: 'cd .runner && npm install')
         end
+
+        if status.present?
+          run_status
+        end
+
+        if start.present?
+          run_command(command: 'cp Procfile .runner')
+          run_command(command: 'cp Procfile.local .runner')
+          run_command(command: 'cp -R forms .runner')
+          run_command(command: 'procodile stop --procfile .runner/Procfile')
+          run_command(command: 'procodile start --procfile .runner/Procfile')
+          run_status
+        end
+
+        if stop.present?
+          run_command(command: 'procodile stop')
+          run_status
+        end
       end
 
       private
+
+      def run_status
+        run_command(command: 'procodile status --procfile .runner/Procfile')
+      end
 
       def options
         OptionParser.new do |option|
@@ -38,6 +60,18 @@ module Fb
 
           option.on('--remote', 'Clone fb-runner from Github.') do
             @setup_type = 'remote'
+          end
+
+          option.on('--start', 'Start all forms') do
+            @start = true
+          end
+
+          option.on('--stop', 'Stop all forms') do
+            @stop = true
+          end
+
+          option.on('--status', 'Stop all forms') do
+            @status = true
           end
 
           option.on_tail('--help', "You're looking at it.") do

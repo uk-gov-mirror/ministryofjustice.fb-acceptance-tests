@@ -1,6 +1,7 @@
-features-email-app: cd .runner && SERVICE_PATH=../forms/features/email-output PORT=3080 npm start
-features-json-app: cd .runner && SERVICE_PATH=../forms/features/json-output PORT=3081 npm start
-features-maintenance-mode-app: cd .runner && SERVICE_PATH=../forms/features/email-output MAINTENANCE_MODE=true PORT=3084 npm start
+# See Procfile.local for each app env configuration.
+features-json-app: npm start
+features-email-app: npm start
+features-maintenance-mode-app: npm start
 #features-save-and-return-app:
 #features-conditional-steps-app:
 #components-autocomplete-app:

@@ -16,8 +16,8 @@ module Fb
         if options.setup.present?
           run_command(command: 'bundle install')
           run_command(command: './bin/platform --install --all')
-          run_command(command: './bin/runner-install --local')
-          run_command(command: 'procodile start')
+          run_command(command: './bin/runner --local')
+          run_command(command: './bin/runner --start')
         end
 
         if options.run.present?

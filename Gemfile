@@ -3,7 +3,6 @@ ruby '2.7.0'
 
 gem 'activesupport'
 gem 'capybara'
-gem 'foreman'
 gem 'httparty'
 gem 'jwe'
 gem 'mail'
