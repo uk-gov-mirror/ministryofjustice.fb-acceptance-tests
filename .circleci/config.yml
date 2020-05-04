@@ -8,11 +8,14 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
+        name: Setup chrome webdriver
+        command: apk add chromium-chromedriver chromium
+      - run:
           name: Setup the repository
           command: bundle install
       - run:
           name: Run tests
-          command: ./bin/acceptance-tests --setup
+          command: ./bin/acceptance-tests --setup --run
 
 workflows:
   version: 2

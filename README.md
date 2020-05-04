@@ -10,11 +10,15 @@ This is a repo that spin up the form builder platform containers.
 
 ## Clone
 
-    $ git clone git@github.com:ministryofjustice/fb-integration.git
+    $ git clone git@github.com:ministryofjustice/fb-acceptance-tests.git
 
 Install dependencies with:
 
     $ bundle
+
+## Install dependencies
+
+    $ brew cask install chromedriver chromium
 
 ## Run acceptance tests using runner from github
 
