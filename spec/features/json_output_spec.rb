@@ -5,12 +5,14 @@ require 'jwe'
 require 'open-uri'
 
 describe 'JSON Output' do
+  let(:form) { FeaturesJSONApp.new }
+
   before :each do
-    OutputRecorder.cleanup_recorded_requests
+#    OutputRecorder.cleanup_recorded_requests
   end
 
   it 'sends the JSON payload to the specified endpoint' do
-    visit 'http://features-json-app:3000'
+    form.load
     click_on 'Start'
 
     # text

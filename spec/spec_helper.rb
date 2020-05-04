@@ -18,5 +18,7 @@ RSpec.configure do |c|
   Capybara.app_host = 'http://localhost:3003'
   c.include Capybara::DSL
 
-  Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
+  Dir[
+    File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))
+  ].each { |f| require f }
 end
