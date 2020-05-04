@@ -1,3 +1,3 @@
 class MaintenanceModeApp < SitePrism::Page
-  set_url 'http://features-maintenance-mode-app:3000/{/url}'
+  set_url "#{ENV.fetch('FEATURES_MAINTENANCE_MODE_APP')}/{/url}"
 end

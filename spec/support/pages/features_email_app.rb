@@ -1,5 +1,5 @@
 class FeaturesEmailApp < SitePrism::Page
-  set_url ENV.fetch('FEATURES_EMAIL_APP_PORT')
+  set_url ENV.fetch('FEATURES_EMAIL_APP')
 
   element :start_button, :button, 'Start'
   element :first_name_field, :field, 'First name'
