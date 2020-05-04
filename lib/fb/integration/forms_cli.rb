@@ -32,21 +32,25 @@ module Fb
         end
 
         if start.present?
-          run_command(command: 'cp Procfile .runner')
-          run_command(command: 'cp Procfile.local .runner')
-          run_command(command: 'cp -R forms .runner')
-          run_command(command: 'procodile stop --procfile .runner/Procfile')
+          run_command(command: 'cp Procfile .runner/Procfile')
+          run_command(command: 'cp Procfile.local .runner/Procfile.local')
+          run_command(command: 'cp -R forms .runner/forms')
+          run_stop
           run_command(command: 'procodile start --procfile .runner/Procfile')
           run_status
         end
 
         if stop.present?
-          run_command(command: 'procodile stop')
+          run_stop
           run_status
         end
       end
 
       private
+
+      def run_stop
+        run_command(command: 'procodile stop --procfile .runner/Procfile')
+      end
 
       def run_status
         run_command(command: 'procodile status --procfile .runner/Procfile')
