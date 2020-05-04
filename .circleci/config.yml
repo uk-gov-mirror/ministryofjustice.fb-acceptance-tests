@@ -8,7 +8,10 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: run tests
+          name: Setup the repository
+          command: bundle install
+      - run:
+          name: Run tests
           command: ./bin/acceptance-tests --setup
 
 workflows:
