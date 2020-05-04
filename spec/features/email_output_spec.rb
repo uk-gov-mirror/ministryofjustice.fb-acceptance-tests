@@ -7,7 +7,7 @@ require 'cgi'
 require 'csv'
 
 class FeaturesEmailApp < SitePrism::Page
-  set_url 'http://features-email-app:3000'
+  set_url ENV.fetch('FEATURES_EMAIL_APP_PORT')
 
   element :start_button, :button, 'Start'
   element :first_name_field, :field, 'First name'
@@ -30,7 +30,7 @@ end
 describe 'Filling out an Email output form' do
   let(:form) { FeaturesEmailApp.new }
   before :each do
-    OutputRecorder.cleanup_recorded_requests
+#    OutputRecorder.cleanup_recorded_requests
   end
 
   it 'sends an email with the submission in a PDF' do
