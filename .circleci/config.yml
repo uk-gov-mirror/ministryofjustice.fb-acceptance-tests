@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
           name: run tests
-          command: ./bin/acceptance-tests --run --setup
+          command: ./bin/acceptance-tests --setup
 
 workflows:
   version: 2
