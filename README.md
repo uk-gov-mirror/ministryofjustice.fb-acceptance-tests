@@ -16,11 +16,19 @@ Install dependencies with:
 
     $ bundle
 
-## Setup all containers
+## Run acceptance tests using runner from github
+
+    $ ./bin/acceptance-tests --run
+
+## Run acceptance tests using local runner
+
+    $ ./bin/acceptance-tests --run --local
+
+### Setup all containers
 
     $ ./bin/platform --install --all
 
-## Update a specific container
+### Update a specific container
 
 The following command will just rebuild the container:
 

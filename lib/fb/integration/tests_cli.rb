@@ -16,7 +16,13 @@ module Fb
         if options.setup.present?
           run_command(command: 'bundle install')
           run_command(command: './bin/platform --install --all')
-          run_command(command: './bin/runner --local')
+
+          if options.local.present?
+            run_command(command: './bin/runner --local')
+          else
+            run_command(command: './bin/runner --remote')
+          end
+
           run_command(command: './bin/runner --start')
         end
 
@@ -37,9 +43,13 @@ module Fb
             @options.setup = true
           end
 
-        	option_parser.on_tail('--help', "You're looking at it.") do
-          	puts option_parser.help
-          	exit
+          option_parser.on('--local', 'Setup the whole platform.') do
+            @options.local = true
+          end
+
+          option_parser.on_tail('--help', "You're looking at it.") do
+            puts option_parser.help
+            exit
           end
         end
       end
