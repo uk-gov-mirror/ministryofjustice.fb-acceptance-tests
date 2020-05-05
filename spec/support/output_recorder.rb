@@ -1,3 +1,6 @@
+require 'json'
+require 'active_support/all'
+
 module OutputRecorder
   def self.cleanup_recorded_requests
     HTTParty.delete(ENV.fetch('OUTPUT_RECORDER_ENDPOINT') + '/__admin/requests')
@@ -10,10 +13,20 @@ module OutputRecorder
     actual_requests = 0
     until actual_requests == expected_requests
       p "Waiting for requests to arrive at endpoint '#{url}'. Received #{actual_requests} of #{expected_requests} on try #{tries + 1} of #{max_tries}"
-      sleep 5
+      sleep 3
 
       actual_requests = request_count(url: url)
-      raise 'callback assertion timeout' if tries >= max_tries
+
+      if tries >= max_tries
+        submitter_script = File.expand_path(
+          File.join(
+            File.dirname(__FILE__), '..', '..', 'bin', 'submitter-failed-jobs'
+          )
+        )
+        system("#{submitter_script}")
+
+        raise "OutputRecorder app did not recorded the expected requests. Expected: #{expected_requests}. Got #{actual_requests}. *Maybe* the reason is because there are failing jobs on submitter (see output above)."
+      end
 
       tries += 1
     end

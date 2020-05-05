@@ -69,6 +69,20 @@ In order for the repo knows the container name and the github repo, it was
 create with a config file as fundamental. For more details see
 config_file.rb.sample.
 
+## Output recorder
+
+There is a script that shows the amount of emails that output recorder did
+record. You can run:
+
+    $ ./bin/output-recorder
+
+## Submitter failed jobs
+
+There is a script that shows the amount of jobs that failed to process during
+the tests. The tests will output this but you can also run if you like:
+
+    $ ./bin/submitter-failed-jobs
+
 ## Testing
 
 And then execute:

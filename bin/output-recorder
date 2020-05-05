@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+set -u
+echo "---------------Emails recorded size---------------------"
+curl -X POST localhost:3003/__admin/requests/count --data '{"method": "POST", "url": "/email" }'
+echo "\n--------------------------------------------------------"
+
+echo "---------------Emails recorded--------------------------"
+curl -X POST localhost:3003/__admin/requests/find --data '{"method": "POST", "url": "/email" }'
+echo "\n--------------------------------------------------------"

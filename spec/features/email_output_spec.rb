@@ -9,7 +9,7 @@ require 'csv'
 describe 'Filling out an Email output form' do
   let(:form) { FeaturesEmailApp.new }
   before :each do
-#    OutputRecorder.cleanup_recorded_requests
+    OutputRecorder.cleanup_recorded_requests
   end
 
   it 'sends an email with the submission in a PDF' do
