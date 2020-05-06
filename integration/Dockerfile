@@ -9,3 +9,5 @@ RUN gem update --system && gem install bundler
 RUN bundle check || BUNDLE_JOBS=2 bundle install
 
 COPY . .
+
+RUN ./bin/runner --remote --start

@@ -181,3 +181,17 @@ services:
       AWS_ACCESS_KEY_ID: qwerty
       AWS_SECRET_KEY: qwerty
       AWS_SECRET_ACCESS_KEY: qwerty
+
+  tests:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        BUNDLE_FLAGS: ''
+    environment:
+      OUTPUT_RECORDER_ENDPOINT: http://output-recorder:8080
+      EMAIL_PATH: /email
+      JSON_PATH: /json
+      SERVICE_OUTPUT_JSON_KEY: 19a56ee0e50dd83g
+    depends_on:
+      - output-recorder
