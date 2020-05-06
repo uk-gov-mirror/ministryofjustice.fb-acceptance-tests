@@ -2,9 +2,9 @@
 app_name: Acceptance tests
 
 env:
-  SUBMITTER_URL: http://0.0.0.0:10003
-  USER_DATASTORE_URL: http://0.0.0.0:10001
-  USER_FILESTORE_URL: http://0.0.0.0:10002
+  SUBMITTER_URL: 'http://submitter-app:3000'
+  USER_DATASTORE_URL: 'http://datastore-app:3000'
+  USER_FILESTORE_URL: 'http://filestore-app:3000'
   SERVICE_SECRET: secret
   SERVICE_TOKEN: token
   SERVICE_SLUG: slug

@@ -188,6 +188,10 @@ services:
       dockerfile: Dockerfile
       args:
         BUNDLE_FLAGS: ''
+    ports:
+      - 16080:16080
+      - 16081:16081
+      - 16082:16082
     environment:
       OUTPUT_RECORDER_ENDPOINT: http://output-recorder:8080
       EMAIL_PATH: /email
