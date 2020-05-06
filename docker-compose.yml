@@ -182,10 +182,10 @@ services:
       AWS_SECRET_KEY: qwerty
       AWS_SECRET_ACCESS_KEY: qwerty
 
-  tests:
+  integration:
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: integration
+      dockerfile: Dockerfile
       args:
         BUNDLE_FLAGS: ''
     environment:

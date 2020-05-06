@@ -8,11 +8,11 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: Setup the repository
+          name: Prepare the repository
           command: bundle install
       - run:
-          name: Run tests
-          command: ./bin/acceptance-tests --setup --run
+          name: Setup the repository
+          command: make setup
 
 workflows:
   version: 2

@@ -36,7 +36,7 @@ module Fb
           run_command(command: 'cp Procfile.local .runner/Procfile.local')
           run_command(command: 'cp -R forms .runner/forms')
           run_stop
-          run_command(command: 'procodile start --procfile .runner/Procfile')
+          run_command(command: 'procodile start -f --procfile .runner/Procfile')
           run_status
         end
 
