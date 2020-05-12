@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Fieldset' do
+  let(:form) { ComponentsFieldsetApp.new }
+
+  before { form.load }
+
   it 'Renders Fieldset components' do
-    visit 'http://components-fieldset-app:3000'
     click_on 'Start'
 
     # autocomplete

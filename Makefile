@@ -12,4 +12,5 @@ stop:
 	docker-compose down
 
 spec:
-	docker-compose run integration bundle exec rspec spec/features/email_output_spec.rb
+	docker-compose up -d --build integration
+	docker-compose run integration bundle exec rspec spec

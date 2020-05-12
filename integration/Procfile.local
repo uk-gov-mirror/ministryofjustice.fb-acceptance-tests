@@ -34,3 +34,81 @@ processes:
       SERVICE_PATH: ./forms/features/email-output
       MAINTENANCE_MODE: 'true'
       PORT: 16084
+  features-conditional-steps-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/features/conditional-steps
+      PORT: 16085
+  components-autocomplete-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/autocomplete
+      PORT: 16086
+  components-checkboxes-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/checkboxes
+      PORT: 16087
+  components-date-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/date
+      PORT: 16088
+  components-email-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/email
+      PORT: 16089
+  components-fieldset-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/fieldset
+      PORT: 16090
+  components-number-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/number
+      PORT: 16091
+  components-radios-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/radios
+      PORT: 16092
+  components-select-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/select
+      PORT: 16093
+  components-text-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/text
+      PORT: 16094
+  components-textarea-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/textarea
+      PORT: 16095
+  components-upload-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/upload
+      PORT: 16096
+  components-upload-with-conditional-app:
+    quantity: 1
+    respawn_window: 20
+    env:
+      SERVICE_PATH: ./forms/components/conditional-with-upload
+      PORT: 16097

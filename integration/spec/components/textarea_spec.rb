@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Textarea' do
+  let(:form) { ComponentsTextareaApp.new }
+
+  before { form.load }
+
   it 'Renders Textarea components' do
-    visit 'http://components-textarea-app:3000'
     click_on 'Start'
 
     # textarea

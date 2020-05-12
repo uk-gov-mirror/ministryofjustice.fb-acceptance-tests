@@ -2,6 +2,10 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Number' do
+  let(:form) { ComponentsNumberApp.new }
+
+  before { form.load }
+
   it 'Renders Number components' do
     visit 'http://components-number-app:3000'
     click_on 'Start'

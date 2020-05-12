@@ -13,8 +13,6 @@ describe 'Filling out an Email output form' do
   end
 
   it 'sends an email with the submission in a PDF' do
-    require 'pry'
-    binding.pry
     form.load
     form.start_button.click
     form.first_name_field.set('Form')

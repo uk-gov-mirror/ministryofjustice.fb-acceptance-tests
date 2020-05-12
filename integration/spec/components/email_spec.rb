@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Email' do
+  let(:form) { ComponentsEmailApp.new }
+
+  before { form.load }
+
   it 'Renders Email components' do
-    visit 'http://components-email-app:3000'
     click_on 'Start'
 
     # email

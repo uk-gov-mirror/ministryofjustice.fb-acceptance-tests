@@ -2,8 +2,10 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Checkboxes' do
+  let(:form) { ComponentsAutoCheckboxesApp.new }
+  before { form.load }
+
   it 'Renders Checkboxes components' do
-    visit 'http://components-checkboxes-app:3000'
     click_on 'Start'
 
     # checkboxes

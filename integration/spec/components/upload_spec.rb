@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Upload' do
+  let(:form) { ComponentsUploadApp.new }
+
+  before { form.load }
+
   it 'Renders Upload components' do
-    visit 'http://components-upload-app:3000'
     click_on 'Start'
 
     # upload

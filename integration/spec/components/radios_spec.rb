@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Radios' do
+  let(:form) { ComponentsRadiosApp.new }
+
+  before { form.load }
+
   it 'Renders Radios components' do
-    visit 'http://components-radios-app:3000'
     click_on 'Start'
 
     # radios

@@ -2,8 +2,10 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Autocomplete' do
+  let(:form) { ComponentsAutoCompleteApp.new }
+  before { form.load }
+
   it 'Renders Autocomplete components' do
-    visit 'http://components-autocomplete-app:3000'
     click_on 'Start'
 
     # autocomplete

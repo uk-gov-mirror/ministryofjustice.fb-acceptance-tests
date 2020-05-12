@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Date' do
+  let(:form) { ComponentsDateApp.new }
+
+  before { form.load }
+
   it 'Renders Date components' do
-    visit 'http://components-date-app:3000'
     click_on 'Start'
 
     # date

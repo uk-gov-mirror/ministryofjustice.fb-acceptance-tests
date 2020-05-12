@@ -2,8 +2,10 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Conditional steps' do
+  let(:form) { FeaturesConditionalSteps.new }
+  before { form.load }
+
   it 'Renders conditional steps (one)' do
-    visit 'http://features-conditional-steps-app:3000'
     click_on 'Start'
 
     # radios
@@ -89,7 +91,6 @@ describe 'Conditional steps' do
   end
 
   it 'Renders conditional steps (two)' do
-    visit 'http://features-conditional-steps-app:3000'
     click_on 'Start'
 
     # radios
@@ -122,7 +123,6 @@ describe 'Conditional steps' do
   end
 
   it 'Renders conditional steps (one) with change' do
-    visit 'http://features-conditional-steps-app:3000'
     click_on 'Start'
 
     # radios
@@ -336,7 +336,6 @@ describe 'Conditional steps' do
   end
 
   it 'Renders conditional steps (one) with back' do
-    visit 'http://features-conditional-steps-app:3000'
     click_on 'Start'
 
     # radios
@@ -652,7 +651,6 @@ describe 'Conditional steps' do
   end
 
   it 'Renders conditional steps (two) with change' do
-    visit 'http://features-conditional-steps-app:3000'
     click_on 'Start'
 
     # radios
@@ -835,7 +833,6 @@ describe 'Conditional steps' do
   end
 
   it 'Renders conditional steps (two) with back' do
-    visit 'http://features-conditional-steps-app:3000'
     click_on 'Start'
 
     # radios

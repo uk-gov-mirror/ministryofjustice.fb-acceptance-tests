@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Text' do
+  let(:form) { ComponentsTextApp.new }
+
+  before { form.load }
+
   it 'Renders Text components' do
-    visit 'http://components-text-app:3000'
     click_on 'Start'
 
     # text

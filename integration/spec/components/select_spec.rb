@@ -2,8 +2,11 @@ require 'capybara/rspec'
 require 'spec_helper'
 
 describe 'Select' do
+  let(:form) { ComponentsSelectApp.new }
+
+  before { form.load }
+
   it 'Renders Select components' do
-    visit 'http://components-select-app:3000'
     click_on 'Start'
 
     # select
