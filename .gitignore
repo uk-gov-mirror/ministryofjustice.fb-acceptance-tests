@@ -14,3 +14,4 @@ mock-apps/save-and-return-simulator/tmp/email_content.json
 procodile.log
 pids
 capybara*.html
+tests.env

@@ -1,5 +1,5 @@
 class FeaturesSaveAndReturnApp < SitePrism::Page
-  set_url 'http://features-save-and-return-app:3000'
+  set_url ENV.fetch('FEATURES_SAVE_AND_RETURN_APP')
 
   element :start_button, :button, 'Start'
   element :continue_work_on_a_saved_form_button, 'p a[href="/return"]'

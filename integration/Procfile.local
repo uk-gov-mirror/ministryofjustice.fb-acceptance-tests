@@ -70,52 +70,52 @@ processes:
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/email
-      PORT: 18002
+      PORT: 18003
   components-fieldset-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/fieldset
-      PORT: 18003
+      PORT: 18004
   components-number-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/number
-      PORT: 18004
+      PORT: 18005
   components-radios-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/radios
-      PORT: 18005
+      PORT: 18006
   components-select-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/select
-      PORT: 18006
+      PORT: 18007
   components-text-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/text
-      PORT: 18007
+      PORT: 18008
   components-textarea-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/textarea
-      PORT: 18008
+      PORT: 18009
   components-upload-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/upload
-      PORT: 18009
+      PORT: 18010
   components-upload-with-conditional-app:
     quantity: 1
     respawn_window: 20
     env:
       SERVICE_PATH: ./forms/components/conditional-with-upload
-      PORT: 18010
+      PORT: 18011

@@ -3,13 +3,14 @@ platform:
 
 forms:
 	./integration/bin/runner --remote
-	cp -R .runner integration
+	cp -R .runner integration/.runner
+	cp ./integration/tests.env.sample cp ./integration/tests.env
 
 setup: platform forms start
 
 start:
 	docker-compose up -d
-	sleep 3 # waiting for containers to spin up
+	sleep 5 # waiting for containers to spin up
 	./integration/bin/post_install
 
 stop:

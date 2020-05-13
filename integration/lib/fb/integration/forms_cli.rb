@@ -24,7 +24,6 @@ module Fb
           Fb::Integration::SetupRepository.new(
             repository: repository
           ).execute(setup_type: setup_type)
-          run_command(command: 'cd .runner && npm install')
         end
 
         if status.present?
