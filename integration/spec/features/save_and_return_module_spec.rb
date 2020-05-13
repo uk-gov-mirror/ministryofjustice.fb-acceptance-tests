@@ -70,7 +70,7 @@ describe 'Using Save and Return' do
 
     ## Retrieves the link sent to submitter so we can recover the data
     ## and test properly
-    visit('http://save-and-return-simulator:3000/email')
+    visit("#{ENV.fetch('FEATURES_SAVE_AND_RETURN_APP')}/email")
 
     ## Get the token from the mocked submitter so we can visit and restore
     ## the saved form
@@ -79,7 +79,7 @@ describe 'Using Save and Return' do
 
     ## User clicking the email
     #
-    visit("http://features-save-and-return-app:3000/return/setup/email/token/#{token}")
+    visit("#{ENV.fetch('FEATURES_SAVE_AND_RETURN_APP')}/return/setup/email/token/#{token}")
 
     form.continue_with_this_form_button.click
     form.back_link.click
