@@ -1,4 +1,4 @@
-class ComponentsConditionalsWithUploadApp < SitePrism::Page
+class ComponentsConditionalsWithUploadApp < ServiceApp
   set_url ENV.fetch('COMPONENTS_UPLOAD_WITH_CONDITIONAL_APP')
 
   element :start_button, :button, 'Start'

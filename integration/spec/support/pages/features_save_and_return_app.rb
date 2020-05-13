@@ -1,4 +1,4 @@
-class FeaturesSaveAndReturnApp < SitePrism::Page
+class FeaturesSaveAndReturnApp < ServiceApp
   set_url ENV.fetch('FEATURES_SAVE_AND_RETURN_APP')
 
   element :start_button, :button, 'Start'

@@ -7,7 +7,7 @@ services:
 	cp Dockerfile.forms .runner
 	cp Gemfile .runner/Gemfile
 	cp -R ./integration .runner/integration
-	cp -R forms .runner/integration
+	cp -R forms .runner/forms
 
 setup: services platform start
 

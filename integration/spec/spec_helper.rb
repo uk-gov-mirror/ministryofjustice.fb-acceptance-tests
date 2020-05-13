@@ -22,6 +22,7 @@ RSpec.configure do |c|
     save_and_open_page if example_group.exception.present?
   end
 
+  require File.join(File.dirname(__FILE__), 'support', 'service_app')
   Dir[
     File.expand_path(File.join(File.dirname(__FILE__), 'support', '**', '*.rb'))
   ].each { |f| require f }

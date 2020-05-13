@@ -1,4 +1,4 @@
-class FeaturesEmailApp < SitePrism::Page
+class FeaturesEmailApp < ServiceApp
   set_url ENV.fetch('FEATURES_EMAIL_APP')
 
   element :start_button, :button, 'Start'
