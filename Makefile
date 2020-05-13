@@ -10,19 +10,18 @@ services:
 	docker-compose up -d --build services
 #	./integration/bin/runner --remote
 
-setup: platform services acceptance-tests start
+setup: platform services start
 
-start:
+local-env-vars:
+	cp integration/tests.env.local integration/tests.env
+
+start: local-env-vars
 	docker-compose up -d
 	sleep 5 # waiting for containers to spin up
 	./integration/bin/post_install
 
 stop:
 	docker-compose down
-
-acceptance-tests:
-	cp integration/tests.env.local integration/tests.env
-	docker-compose up -d --build integration
 
 spec-lib:
 	docker-compose run integration bundle exec rspec spec/lib
