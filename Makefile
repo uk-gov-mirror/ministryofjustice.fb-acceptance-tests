@@ -2,13 +2,13 @@ platform:
 	./integration/bin/platform --install --all
 
 services:
+	./integration/bin/runner --remote
 	cp Procfil* .runner
 	cp Dockerfile.forms .runner
 	cp Gemfile .runner/Gemfile
 	cp -R ./integration .runner/integration
 	cp -R forms .runner/integration
 	docker-compose up -d --build services
-#	./integration/bin/runner --remote
 
 setup: platform services start
 
