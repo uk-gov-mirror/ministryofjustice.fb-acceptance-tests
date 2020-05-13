@@ -7,7 +7,6 @@ describe 'Number' do
   before { form.load }
 
   it 'Renders Number components' do
-    visit 'http://components-number-app:3000'
     click_on 'Start'
 
     # number
