@@ -46,11 +46,13 @@ module Fb
       private
 
       def run_stop
-        run_command(command: 'procodile stop --procfile .runner/Procfile')
+        run_command(command: 'procodile stop --procfile Procfile')
       end
 
       def run_status
-        run_command(command: 'procodile status --procfile .runner/Procfile')
+        run_command(
+          command: "docker-compose exec services sh -c 'procodile status --procfile Procfile'"
+        )
       end
 
       def options

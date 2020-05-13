@@ -18,7 +18,9 @@ start: local-env-vars
 	docker-compose up -d
 	sleep 5 # waiting for containers to spin up
 	./integration/bin/post_install
-	sleep 10 # waiting for services to spin up
+	sleep 5
+	./integration/bin/runner --status
+	docker-compose logs services
 
 stop:
 	docker-compose down
