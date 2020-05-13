@@ -4,7 +4,7 @@ platform:
 forms:
 	./integration/bin/runner --remote
 	cp -R .runner integration/.runner
-	cp ./integration/tests.env.sample cp ./integration/tests.env
+	cp ./integration/tests.env.sample ./integration/tests.env
 
 setup: platform forms start
 
