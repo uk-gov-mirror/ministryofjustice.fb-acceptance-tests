@@ -15,9 +15,9 @@ jobs:
           command: make platform
       - run:
           name: Setup the forms
-          command: make forms
+          command: make services
       - run:
-          name: Start the acceptance tests container
+          name: Start all containers
           command: make start
       - run:
           name: Run acceptance tests

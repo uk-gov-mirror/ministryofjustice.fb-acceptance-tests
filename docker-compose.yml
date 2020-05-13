@@ -196,6 +196,20 @@ services:
       dockerfile: Dockerfile
       args:
         BUNDLE_FLAGS: ''
+    environment:
+      OUTPUT_RECORDER_ENDPOINT: http://output-recorder:8080
+      EMAIL_PATH: /email
+      JSON_PATH: /json
+      SERVICE_OUTPUT_JSON_KEY: 19a56ee0e50dd83g
+    depends_on:
+      - output-recorder
+      - save-and-return-simulator
+      - services
+
+  services:
+    build:
+      context: .runner
+      dockerfile: Dockerfile.forms
     ports:
       - 16080:16080
       - 16081:16081
@@ -215,11 +229,3 @@ services:
       - 18009:18009
       - 18010:18010
       - 18011:18011
-    environment:
-      OUTPUT_RECORDER_ENDPOINT: http://output-recorder:8080
-      EMAIL_PATH: /email
-      JSON_PATH: /json
-      SERVICE_OUTPUT_JSON_KEY: 19a56ee0e50dd83g
-    depends_on:
-      - output-recorder
-      - save-and-return-simulator

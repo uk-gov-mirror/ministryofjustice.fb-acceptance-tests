@@ -1,12 +1,16 @@
 platform:
 	./integration/bin/platform --install --all
 
-forms:
-	./integration/bin/runner --remote
-	cp -R .runner integration/.runner
-	cp ./integration/tests.env.sample ./integration/tests.env
+services:
+	cp Procfil* .runner
+	cp Dockerfile.forms .runner
+	cp Gemfile .runner/Gemfile
+	cp -R ./integration .runner/integration
+	cp -R forms .runner/integration
+	docker-compose up -d --build services
+#	./integration/bin/runner --remote
 
-setup: platform forms start
+setup: platform services acceptance-tests start
 
 start:
 	docker-compose up -d
@@ -16,7 +20,8 @@ start:
 stop:
 	docker-compose down
 
-build-tests:
+acceptance-tests:
+	cp integration/tests.env.local integration/tests.env
 	docker-compose up -d --build integration
 
 spec-lib:
@@ -28,4 +33,4 @@ spec-components:
 spec-features:
 	docker-compose run integration bundle exec rspec spec/features
 
-spec: build-tests spec-lib spec-features spec-components
+spec: spec-lib spec-features spec-components
