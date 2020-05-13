@@ -8,9 +8,8 @@ services:
 	cp Gemfile .runner/Gemfile
 	cp -R ./integration .runner/integration
 	cp -R forms .runner/integration
-	docker-compose up -d --build services
 
-setup: platform services start
+setup: services platform start
 
 local-env-vars:
 	cp integration/tests.env.local integration/tests.env
@@ -32,4 +31,4 @@ spec-components:
 spec-features:
 	docker-compose run integration bundle exec rspec spec/features
 
-spec: spec-lib spec-features spec-components
+spec: spec-lib spec-components spec-features

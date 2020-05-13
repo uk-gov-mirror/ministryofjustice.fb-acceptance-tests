@@ -11,11 +11,11 @@ jobs:
           name: Prepare the repository
           command: bundle install
       - run:
-          name: Setup the platform
-          command: make platform
-      - run:
           name: Setup the forms
           command: make services
+      - run:
+          name: Setup the platform
+          command: make platform
       - run:
           name: Start all containers
           command: make start
