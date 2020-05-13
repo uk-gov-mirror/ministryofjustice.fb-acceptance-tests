@@ -11,8 +11,14 @@ jobs:
           name: Prepare the repository
           command: bundle install
       - run:
-          name: Setup the repository
-          command: make setup
+          name: Setup the platform
+          command: make platform
+      - run:
+          name: Setup the forms
+          command: make forms
+      - run:
+          name: Start the acceptance tests container
+          command: make start
       - run:
           name: Run acceptance tests
           command: make spec
