@@ -32,7 +32,7 @@ module Fb
 
         if start.present?
           run_stop
-          run_command(command: 'cd .runner && npm install')
+          run_command(command: 'npm install')
           run_command(command: 'procodile start -f')
           run_status
         end

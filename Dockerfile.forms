@@ -13,7 +13,7 @@ WORKDIR /app
 #RUN chown appuser:appgroup /app
 #USER appuser
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json forms ./
 
 ARG NPM_CMD='ci --ignore-optional --ignore-scripts'
 RUN npm ${NPM_CMD}

@@ -8,6 +8,7 @@ services:
 	cp Gemfile .runner/Gemfile
 	cp -R ./integration .runner/integration
 	cp -R forms .runner/forms
+	echo HEAD > .runner/APP_SHA
 
 setup: services platform start
 
@@ -16,9 +17,9 @@ local-env-vars:
 
 start: local-env-vars
 	docker-compose up -d
-	sleep 5 # waiting for containers to spin up
+	./integration/bin/wait_for_platform
 	./integration/bin/post_install
-	sleep 5
+	./integration/bin/wait_for_services
 	./integration/bin/runner --status
 	docker-compose logs services
 

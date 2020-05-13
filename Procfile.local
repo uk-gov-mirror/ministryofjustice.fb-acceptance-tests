@@ -15,7 +15,7 @@ env:
 processes:
   features-email-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       PORT: 16080
       SERVICE_PATH: ./forms/features/email-output
@@ -23,99 +23,99 @@ processes:
       SERVICE_OUTPUT_EMAIL: 'form-builder-developers@digital.justice.gov.uk,form-builder-team@digital.justice.gov.uk'
   features-json-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/features/json-output
       PORT: 16081
   features-maintenance-mode-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/features/email-output
       MAINTENANCE_MODE: 'true'
-      PORT: 16084
+      PORT: 16082
   features-conditional-steps-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/features/conditional-steps
-      PORT: 16085
+      PORT: 16083
   features-save-and-return:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/features/save-and-return-module
       SUBMITTER_URL: 'http://save-and-return-simulator:3000'
-      PORT: 16086
+      PORT: 16084
   components-autocomplete-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/autocomplete
       PORT: 18000
   components-checkboxes-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/checkboxes
       PORT: 18001
   components-date-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/date
       PORT: 18002
   components-email-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/email
       PORT: 18003
   components-fieldset-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/fieldset
       PORT: 18004
   components-number-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/number
       PORT: 18005
   components-radios-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/radios
       PORT: 18006
   components-select-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/select
       PORT: 18007
   components-text-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/text
       PORT: 18008
   components-textarea-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/textarea
       PORT: 18009
   components-upload-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/upload
       PORT: 18010
   components-upload-with-conditional-app:
     quantity: 1
-    respawn_window: 20
+    respawn_window: 3
     env:
       SERVICE_PATH: ./forms/components/conditional-with-upload
       PORT: 18011
