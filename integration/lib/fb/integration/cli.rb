@@ -10,8 +10,7 @@ module Fb
       def run
         if @options.setup_repositories.present?
           setup_repositories if @options.install?
-          build_containers
-          post_install if @options.install?
+          build_containers unless @options.no_build?
         end
       end
 

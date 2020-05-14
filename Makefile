@@ -1,5 +1,8 @@
+platform-clone:
+	./integration/bin/platform --install --all --no-build
+
 platform:
-	./integration/bin/platform --install --all
+	./integration/bin/platform --submitter --filestore --datastore --pdf-generator --service-token-cache
 	$(MAKE) platform-post-install
 
 ## Everything in one. Better for performance.
@@ -28,7 +31,9 @@ platform-post-install:
 	./integration/bin/wait_for_platform
 	./integration/bin/post_install
 
-services:
+# platform clone is needed because docker compose read the docker-compose.yml
+# and complains that the context for other containers doesn't exist
+services: platform-clone
 	./integration/bin/runner --remote
 	$(MAKE) services-post-install
 	$(MAKE) services-build

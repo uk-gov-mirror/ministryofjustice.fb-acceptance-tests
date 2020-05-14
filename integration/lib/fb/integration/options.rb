@@ -3,7 +3,7 @@ require 'optparse'
 module Fb
   module Integration
     class Options
-      attr_accessor :args, :install, :setup_repositories, :verbose
+      attr_accessor :args, :install, :setup_repositories, :verbose, :no_build
 
       def initialize(*args)
         @args = args.flatten.clone
@@ -12,6 +12,10 @@ module Fb
 
       def install?
         @install.present?
+      end
+
+      def no_build?
+        @no_build.present?
       end
 
       def parse
@@ -73,6 +77,10 @@ module Fb
               @install = true
               @setup_repositories << { name: repository.name, type: 'remote' }
             end
+          end
+
+          option.on('--no-build') do
+            @no_build = true
           end
 
           option.on('-v') do
