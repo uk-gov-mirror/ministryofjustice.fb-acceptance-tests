@@ -11,17 +11,11 @@ jobs:
           name: Prepare the repository
           command: bundle install
       - run:
-          name: Setup the forms
-          command: make services
-      - run:
-          name: Setup the platform
-          command: make platform
-      - run:
-          name: Start all containers
-          command: make start
+          name: Setup the tests
+          command: make setup-ci
       - run:
           name: Run acceptance tests
-          command: make spec
+          command: make spec-ci
 
 workflows:
   version: 2

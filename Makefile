@@ -72,7 +72,7 @@ ci-env-vars:
 
 ## Experimental ##
 start-ci: ci-env-vars
-	docker-compose up -d --build integration
+	docker-compose -f docker-compose.ci.yml up -d --build integration
 
 setup-ci: start-ci
 
@@ -85,3 +85,7 @@ stop:
 
 spec:
 	docker-compose run integration bundle exec rspec spec
+
+## Experimental ##
+spec-ci:
+	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb
