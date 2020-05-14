@@ -6,6 +6,6 @@ WORKDIR /usr/src/app
 
 COPY Gemfile* ./
 RUN gem update --system && gem install bundler
-RUN bundle check || BUNDLE_JOBS=2 bundle install
+RUN bundle check || BUNDLE_JOBS=4 bundle install
 
 COPY . .

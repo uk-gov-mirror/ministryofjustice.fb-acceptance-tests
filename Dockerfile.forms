@@ -21,7 +21,7 @@ RUN npm ${NPM_CMD}
 COPY . .
 
 RUN gem install bundler
-RUN bundle check || BUNDLE_JOBS=2 bundle install
+RUN bundle check || BUNDLE_JOBS=4 bundle install
 
 EXPOSE 3000
 CMD ./integration/bin/runner --start

@@ -19,13 +19,14 @@ setup: services platform start
 local-env-vars:
 	cp integration/tests.env.local integration/tests.env
 
+# This is repetead because of performance.
 start: local-env-vars
-	docker-compose up -d
+	docker-compose up -d --build services
+	docker-compose up -d --build integration
 	./integration/bin/wait_for_platform
 	./integration/bin/post_install
 	./integration/bin/wait_for_services
 	./integration/bin/runner --status
-	docker-compose logs services
 
 stop:
 	docker-compose down
