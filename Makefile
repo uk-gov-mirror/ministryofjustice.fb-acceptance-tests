@@ -23,8 +23,8 @@ local-env-vars:
 
 # This is repetead because of performance.
 start: local-env-vars
-	docker-compose up -d --build services
-	docker-compose up -d --build integration
+	docker-compose build --parallel services integration
+	docker-compose up -d services integration
 	./integration/bin/wait_for_services
 	./integration/bin/runner --status
 
