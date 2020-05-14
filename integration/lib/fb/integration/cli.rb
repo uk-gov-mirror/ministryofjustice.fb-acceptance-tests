@@ -33,11 +33,8 @@ module Fb
         @options.setup_repositories.each do |setup_repository|
           repository = Fb::Integration.find_repository(setup_repository[:name])
 
-          Process.fork do
-            DockerCompose.new(repository: repository).execute
-          end
+          DockerCompose.new(repository: repository).execute
         end
-        Process.waitall
       end
 
       def post_install
