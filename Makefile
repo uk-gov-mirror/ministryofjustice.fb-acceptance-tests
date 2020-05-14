@@ -26,7 +26,6 @@ start: local-env-vars
 	docker-compose build --parallel services integration
 	docker-compose up -d services integration
 	./integration/bin/wait_for_services
-	./integration/bin/runner --status
 
 stop:
 	docker-compose down
