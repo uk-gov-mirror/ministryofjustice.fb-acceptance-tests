@@ -10,6 +10,10 @@ services:
 	cp -R forms .runner/forms
 	echo HEAD > .runner/APP_SHA
 
+services-refresh:
+	docker-compose up -d --build services
+	./integration/bin/wait_for_services
+
 setup: services platform start
 
 local-env-vars:

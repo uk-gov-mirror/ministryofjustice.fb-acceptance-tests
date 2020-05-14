@@ -1,0 +1,17 @@
+.git
+.DS_Store
+.gitignore
+README.md
+scripts
+Makefile
+Guardfile
+LICENSE
+deploy/
+scripts/
+tmp/
+!tmp/.keep
+node_modules/
+package.json
+package-lock.json
+test/
+log/*.log

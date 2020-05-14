@@ -26,6 +26,8 @@ processes:
     respawn_window: 3
     env:
       SERVICE_PATH: ./forms/features/json-output
+      SERVICE_OUTPUT_JSON_ENDPOINT: http://output-recorder:8080/json
+      SERVICE_OUTPUT_JSON_KEY: 19a56ee0e50dd83g
       PORT: 16081
   features-maintenance-mode-app:
     quantity: 1

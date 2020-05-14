@@ -70,7 +70,7 @@ describe 'Using Save and Return' do
 
     ## Retrieves the link sent to submitter so we can recover the data
     ## and test properly
-    visit("#{ENV.fetch('FEATURES_SAVE_AND_RETURN_APP')}/email")
+    visit("#{ENV.fetch('SAVE_AND_RETURN_SIMULATOR_APP')}/email")
 
     ## Get the token from the mocked submitter so we can visit and restore
     ## the saved form

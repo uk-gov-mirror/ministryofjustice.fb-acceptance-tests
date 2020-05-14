@@ -8,7 +8,7 @@ describe 'JSON Output' do
   let(:form) { FeaturesJSONApp.new }
 
   before :each do
-#    OutputRecorder.cleanup_recorded_requests
+    OutputRecorder.cleanup_recorded_requests
   end
 
   it 'sends the JSON payload to the specified endpoint' do
