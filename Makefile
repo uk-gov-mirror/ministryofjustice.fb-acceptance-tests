@@ -30,16 +30,8 @@ start: local-env-vars
 stop:
 	docker-compose down
 
-spec-lib:
-	docker-compose run integration bundle exec rspec spec/lib
-
-spec-components:
-	docker-compose run integration bundle exec rspec spec/components
-
-spec-features:
-	docker-compose run integration bundle exec rspec spec/features
-
-spec: spec-lib spec-components spec-features
+spec:
+	docker-compose run integration bundle exec rspec spec
 
 tests:
 	docker-compose up -d --build integration
