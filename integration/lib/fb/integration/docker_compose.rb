@@ -2,17 +2,18 @@ module Fb
   module Integration
     class DockerCompose
       include Command
+      attr_reader :repositories
 
-      attr_reader :repository
-
-      delegate :destination, to: :repository
-
-      def initialize(repository:)
-        @repository = repository
+      def initialize(repositories)
+        @repositories = repositories
       end
 
       def execute
-        run_command(command: "docker-compose up -d --build #{destination}-app")
+        containers = repositories.map do |repository|
+          "#{repository.destination}-app"
+        end.join(' ')
+        run_command(command: "docker-compose build --parallel #{containers}")
+        run_command(command: "docker-compose up -d #{containers}")
       end
     end
   end

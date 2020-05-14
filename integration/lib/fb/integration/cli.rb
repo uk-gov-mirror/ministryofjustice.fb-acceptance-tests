@@ -30,11 +30,11 @@ module Fb
       end
 
       def build_containers
-        @options.setup_repositories.each do |setup_repository|
-          repository = Fb::Integration.find_repository(setup_repository[:name])
-
-          DockerCompose.new(repository: repository).execute
+        repositories = @options.setup_repositories.map do |setup_repository|
+          Fb::Integration.find_repository(setup_repository[:name])
         end
+
+        DockerCompose.new(repositories).execute
       end
 
       def post_install

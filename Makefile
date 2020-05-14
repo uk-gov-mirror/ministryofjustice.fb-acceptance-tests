@@ -1,5 +1,7 @@
 platform:
 	./integration/bin/platform --install --all
+	./integration/bin/wait_for_platform
+	./integration/bin/post_install
 
 services:
 	./integration/bin/runner --remote
@@ -23,8 +25,6 @@ local-env-vars:
 start: local-env-vars
 	docker-compose up -d --build services
 	docker-compose up -d --build integration
-	./integration/bin/wait_for_platform
-	./integration/bin/post_install
 	./integration/bin/wait_for_services
 	./integration/bin/runner --status
 
@@ -41,3 +41,6 @@ spec-features:
 	docker-compose run integration bundle exec rspec spec/features
 
 spec: spec-lib spec-components spec-features
+
+tests:
+	docker-compose up -d --build integration
