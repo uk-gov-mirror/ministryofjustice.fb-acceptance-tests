@@ -18,6 +18,10 @@ module Fb
         @no_build.present?
       end
 
+      def update?
+        @update.present?
+      end
+
       def parse
         option_parser.parse!(args)
 
@@ -65,6 +69,7 @@ module Fb
 
             if repository
               @install = false
+              @update = true
               add_local_repository(repository)
             else
               repositories = Fb::Integration.repositories.map(&:name)

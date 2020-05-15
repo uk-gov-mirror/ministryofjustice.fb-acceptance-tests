@@ -54,6 +54,21 @@ service-token-cache-local:
 	./integration/bin/platform --install --service-token-cache-local
 	$(MAKE) platform-post-install
 
+submitter-refresh:
+	./integration/bin/platform --update submitter --no-build
+
+datastore-refresh:
+	./integration/bin/platform --update datastore --no-build
+
+pdf-generator-referesh:
+	./integration/bin/platform --update pdf-generator --no-build
+
+filestore-refresh:
+	./integration/bin/platform --update filestore --no-build
+
+service-token-cache-refresh:
+	./integration/bin/platform --update service-token-cache --no-build
+
 platform-post-install:
 	./integration/bin/wait_for_platform
 	./integration/bin/post_install

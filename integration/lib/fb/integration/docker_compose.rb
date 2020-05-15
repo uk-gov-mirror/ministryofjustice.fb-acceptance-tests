@@ -9,11 +9,18 @@ module Fb
       end
 
       def execute
-        containers = repositories.map do |repository|
+        run_command(command: "docker-compose build --parallel #{containers}")
+        update_containers
+      end
+
+      def update_containers
+        run_command(command: "docker-compose up -d #{containers}")
+      end
+
+      def containers
+        repositories.map do |repository|
           "#{repository.destination}-app"
         end.join(' ')
-        run_command(command: "docker-compose build --parallel #{containers}")
-        run_command(command: "docker-compose up -d #{containers}")
       end
     end
   end

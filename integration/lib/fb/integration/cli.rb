@@ -11,6 +11,7 @@ module Fb
         if @options.setup_repositories.present?
           setup_repositories if @options.install?
           build_containers unless @options.no_build?
+          update_containers if @options.update?
         end
       end
 
@@ -34,6 +35,14 @@ module Fb
         end
 
         DockerCompose.new(repositories).execute
+      end
+
+      def update_containers
+        repositories = @options.setup_repositories.map do |setup_repository|
+          Fb::Integration.find_repository(setup_repository[:name])
+        end
+
+        DockerCompose.new(repositories).update_containers
       end
 
       def post_install
