@@ -201,6 +201,9 @@ services:
       EMAIL_PATH: /email
       JSON_PATH: /json
       SERVICE_OUTPUT_JSON_KEY: 19a56ee0e50dd83g
+    depends_on:
+      - save-and-return-simulator
+      - output-recorder
 
   services:
     build:
