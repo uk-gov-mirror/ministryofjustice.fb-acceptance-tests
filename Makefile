@@ -1,6 +1,33 @@
 platform-clone:
 	./integration/bin/platform --install --all --no-build
 
+# platform clone is needed because docker compose read the docker-compose.yml
+# and complains that the context for other containers doesn't exist
+services: platform-clone
+	./integration/bin/runner --remote
+	$(MAKE) services-post-install
+	$(MAKE) services-build
+
+services-post-install:
+	cp Procfil* .runner
+	cp Dockerfile.forms .runner
+	cp Gemfile .runner/Gemfile
+	cp -R ./integration .runner/integration
+	cp -R forms .runner/forms
+	echo HEAD > .runner/APP_SHA
+
+services-build:
+	docker-compose up -d --build services
+
+services-post-build:
+	./integration/bin/wait_for_services
+
+services-local:
+	./integration/bin/runner --local
+	$(MAKE) services-post-install
+	$(MAKE) services-build
+	$(MAKE) services-post-build
+
 platform:
 	./integration/bin/platform --submitter --filestore --datastore --pdf-generator --service-token-cache
 	$(MAKE) platform-post-install
@@ -31,40 +58,16 @@ platform-post-install:
 	./integration/bin/wait_for_platform
 	./integration/bin/post_install
 
-# platform clone is needed because docker compose read the docker-compose.yml
-# and complains that the context for other containers doesn't exist
-services: platform-clone
-	./integration/bin/runner --remote
-	$(MAKE) services-post-install
-	$(MAKE) services-build
-
-services-local:
-	./integration/bin/runner --local
-	$(MAKE) services-post-install
-	$(MAKE) services-build
-
-services-post-install:
-	cp Procfil* .runner
-	cp Dockerfile.forms .runner
-	cp Gemfile .runner/Gemfile
-	cp -R ./integration .runner/integration
-	cp -R forms .runner/forms
-	echo HEAD > .runner/APP_SHA
-
-services-build:
-	docker-compose up -d --build services
-
 services-refresh:
 	docker-compose up -d --build services
-	./integration/bin/wait_for_services
+	$(MAKE) services-post-build
 
 local-env-vars:
 	cp integration/tests.env.local integration/tests.env
 
-# This is repetead because of performance.
-start: local-env-vars
+prepare: local-env-vars
 	docker-compose up -d --build integration
-	./integration/bin/wait_for_services
+	$(MAKE) services-post-build
 
 ## Experimental ##
 ci-env-vars:
@@ -76,12 +79,21 @@ start-ci: ci-env-vars
 
 setup-ci: start-ci
 
-setup: services platform start
+setup: services platform prepare
 
-setup-local: services-local platform-local start
+setup-local: services-local platform-local prepare
+
+start:
+	docker-compose up -d
+	$(MAKE) platform-post-install
+	$(MAKE) services-post-build
 
 stop:
 	docker-compose down
+
+restart:
+	$(MAKE) stop
+	$(MAKE) start
 
 spec:
 	docker-compose run integration bundle exec rspec spec
