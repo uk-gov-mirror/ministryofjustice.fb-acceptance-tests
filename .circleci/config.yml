@@ -12,10 +12,10 @@ jobs:
           command: bundle install
       - run:
           name: Setup the tests
-          command: make setup-ci
+          command: make setup
       - run:
           name: Run acceptance tests
-          command: make spec-ci
+          command: make spec
 
 workflows:
   version: 2
