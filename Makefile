@@ -1,64 +1,118 @@
-setup: .runner .features .components .submitter .datastore .filestore .pdf-generator .service-token-cache
+platform-clone:
+	./integration/bin/platform --install --all --no-build
 
-.datastore:
-	git clone git@github.com:ministryofjustice/fb-user-datastore.git .datastore
+# platform clone is needed because docker compose read the docker-compose.yml
+# and complains that the context for other containers doesn't exist
+services: platform-clone
+	./integration/bin/runner --remote
+	$(MAKE) services-post-install
+	$(MAKE) services-build
 
-.filestore:
-	git clone git@github.com:ministryofjustice/fb-user-filestore.git .filestore
+services-post-install:
+	cp Procfil* .runner
+	cp Dockerfile.forms .runner
+	cp Gemfile .runner/Gemfile
+	cp -R ./integration .runner/integration
+	cp -R forms .runner/forms
+	echo HEAD > .runner/APP_SHA
 
-.runner:
-	git clone git@github.com:ministryofjustice/fb-runner-node.git .runner
+services-build:
+	docker-compose up -d --build services
 
-.features: make-features copy-features
+services-post-build:
+	./integration/bin/wait_for_services
 
-.components: make-components copy-components
+services-local:
+	./integration/bin/runner --local
+	$(MAKE) services-post-install
+	$(MAKE) services-build
+	$(MAKE) services-post-build
 
-.submitter:
-	git clone git@github.com:ministryofjustice/fb-submitter.git .submitter
+platform:
+	./integration/bin/platform --submitter --filestore --datastore --pdf-generator --service-token-cache
+	$(MAKE) platform-post-install
 
-.pdf-generator:
-	git clone git@github.com:ministryofjustice/fb-pdf-generator.git .pdf-generator
+## Everything in one. Better for performance.
+platform-local:
+	./integration/bin/platform --install --submitter-local --filestore-local --datastore-local --pdf-generator-local --service-token-cache-local
+	$(MAKE) platform-post-install
 
-.service-token-cache:
-	git clone git@github.com:ministryofjustice/fb-service-token-cache.git .service-token-cache
+submitter-local:
+	./integration/bin/platform --install --submitter-local
 
-destroy: stop clean
+datastore-local:
+	./integration/bin/platform --install --datastore-local
 
-make-features:
-	./scripts/make_features.sh
+pdf-generator-local:
+	./integration/bin/platform --install --pdf-generator-local
 
-copy-features:
-	./scripts/copy_features.sh
+filestore-local:
+	./integration/bin/platform --install --filestore-local
+	$(MAKE) platform-post-install
 
-make-components:
-	./scripts/make_components.sh
+service-token-cache-local:
+	./integration/bin/platform --install --service-token-cache-local
+	$(MAKE) platform-post-install
 
-copy-components:
-	./scripts/copy_components.sh
+submitter-refresh:
+	./integration/bin/platform --update submitter --no-build
+
+datastore-refresh:
+	./integration/bin/platform --update datastore --no-build
+
+pdf-generator-referesh:
+	./integration/bin/platform --update pdf-generator --no-build
+
+filestore-refresh:
+	./integration/bin/platform --update filestore --no-build
+
+service-token-cache-refresh:
+	./integration/bin/platform --update service-token-cache --no-build
+
+platform-post-install:
+	./integration/bin/wait_for_platform
+	./integration/bin/post_install
+
+services-refresh:
+	docker-compose up -d --build services
+	$(MAKE) services-post-build
+
+local-env-vars:
+	cp integration/tests.env.local integration/tests.env
+
+prepare: local-env-vars
+	docker-compose up -d --build integration
+	$(MAKE) services-post-build
+
+## Experimental ##
+ci-env-vars:
+	cp integration/tests.env.ci integration/tests.env
+
+## Experimental ##
+start-ci: ci-env-vars
+	docker-compose -f docker-compose.ci.yml up -d --build integration
+
+setup-ci: start-ci
+
+setup: services platform prepare
+
+setup-local: services-local platform-local prepare
+
+start:
+	docker-compose up -d
+	$(MAKE) platform-post-install
+	$(MAKE) services-post-build
 
 stop:
 	docker-compose down
-	./scripts/teardown.sh
 
-build: stop setup
-	./scripts/setup_features.sh
-	./scripts/setup_components.sh
-	docker-compose build --parallel
+restart:
+	$(MAKE) stop
+	$(MAKE) start
 
-serve: build
-	docker-compose up -d
-	./scripts/setup_test_env.sh
-	./scripts/wait_for_services_apps.sh
-	./scripts/wait_for_features_apps.sh
-	./scripts/wait_for_components_apps.sh
-	./scripts/setup_localstack.sh
+spec:
+	docker-compose run integration bundle exec rspec spec
 
-spec: serve
-	docker-compose run tests bundle exec rspec
-
-unit:
-	docker-compose up -d --build tests
-	docker-compose run tests bundle exec rspec spec/components/conditionals_and_upload_spec.rb
-
-clean:
-	rm -rf .runner .features .components .submitter .datastore .filestore .pdf-generator .service-token-cache
+## Experimental ##
+spec-ci:
+	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb

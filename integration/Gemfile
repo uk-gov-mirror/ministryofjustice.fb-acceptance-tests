@@ -1,0 +1,13 @@
+source 'http://rubygems.org'
+
+gem 'activesupport'
+gem 'capybara'
+gem 'dotenv'
+gem 'httparty'
+gem 'jwe'
+gem 'mail'
+gem 'pdf-reader'
+gem 'pry'
+gem 'rspec'
+gem 'selenium-webdriver'
+gem 'site_prism'

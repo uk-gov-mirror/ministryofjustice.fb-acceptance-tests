@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+echo "---------------Failed Submitter jobs---------------------"
+docker-compose exec submitter-app sh -c "bundle exec rails runner \"puts Delayed::Job.count\""
+echo "---------------------------------------------------------"
+
+echo "-----------Reason Failed Submitter jobs------------------"
+docker-compose exec submitter-app sh -c "bundle exec rails runner \"puts Delayed::Job.all.map { |d| d.last_error.to_s[0..255] }.uniq \""
+echo "---------------------------------------------------------"

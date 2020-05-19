@@ -1,70 +1,109 @@
-# Form Builder Feature and Component Acceptance Tests
+# Fb Acceptance tests
 
-This will spin up the Form Builder environment for regression testing and debugging.
+This is a repo that run all of our acceptance tests.
 
-## Usage
+## Clone
 
-### Setup
+    $ git clone git@github.com:ministryofjustice/fb-acceptance-tests.git
 
-Run the following command to clone all the necessary repositories:
+Install dependencies with:
 
-```
-make setup
-```
+    $ bundle
 
-### Serve
+### Setup all containers
 
-```
-make serve
-```
+The following command will spin up all form builder platform containers and
+services. It takes approximatelly 13 minutes:
 
-You can visit ports on localhost to see the _services_.
+    $ make setup
 
-- [10001](http://localhost:10001) Datastore
-- [10002](http://localhost:10002) Filestore
-- [10003](http://localhost:10003) Submitter
+### Run the tests
 
-You can visit ports on localhost to see the _Feature_ forms.
+After all containers are setup, you can run the tests:
 
-- [3080](http://localhost:3080) Email output
-- [3081](http://localhost:3081) JSON output
-- [3082](http://localhost:3082) "Save and return" module
-- [3083](http://localhost:3083) Conditional steps
+    $ make spec
 
-You can visit ports on localhost to see the _Component_ forms.
+### Setup the tests to run to point to the test environment
 
-- [5080](http://localhost:5080) Autocomplete
-- [5081](http://localhost:5081) Checkboxes
-- [5082](http://localhost:5082) Date
-- [5083](http://localhost:5083) Email
-- [5084](http://localhost:5084) Fieldset
-- [5085](http://localhost:5085) Number
-- [5086](http://localhost:5086) Radios
-- [5087](http://localhost:5087) Select
-- [5088](http://localhost:5088) Text
-- [5089](http://localhost:5089) Textarea
-- [5090](http://localhost:5090) Upload
+    $ make setup-ci && make spec-ci
 
-### Run acceptance specs
+## Useful commands
 
-```
-make spec
-```
+### Start, stop, restart
 
-### Ensuring dependent repositories are up-to-date
+Commands to start, stop or restart the containers:
 
-`make setup` clones the `HEAD` from the `master` branch of dependent repositories to your development environment.
+    $ make start
+    $ make stop
+    $ make restart
 
-To delete them and clone them again run:
+## Glossary
 
-```sh
-make clean setup
-```
+The acceptance tests uses a glossary of terms:
 
-To delete them without cloning them again run:
+1. Platform
+2. Services
 
-```sh
-make destroy
-```
+### Platform
 
-Assuming an otherwise clean installation, the `make setup` target clones the dependent repositories. The `make spec` target starts any services described in the `docker-compose.yml` and executes the specs, leaving services running. The `make destroy` target shuts down those services and deletes the dependent repositories from your development environment.
+The following are the apps that we have on our platform:
+
+1. Submitter
+2. Filestore
+3. Datastore
+4. Service token cache
+5. Pdf generator
+
+### Services
+
+The services layer contain N forms with the Runner booting up them.
+
+### Update a specific container
+
+The following command will just rebuild the container:
+
+    $ ./bin/platform --submitter
+
+Or in case of the services:
+
+    $ make services-refresh
+
+## Local
+
+There are times when we made a change and we want to test against our changes.
+
+The following command will install a copy local submitter from your '..' directory,
+so please make sure the path is right before running the command:
+
+    $ ls ../fb-submitter # you should have submitter code here
+    $ make submitter-local
+
+## Remote
+
+The following command will install a copy of submitter from github and
+rebuild the container:
+
+    $ make submitter
+
+This applies for all other containers in the platform (e.g make filestore, etc).
+
+## Configuration file
+
+There is a configuration file which contain information about where to locate
+what repos to clone and the container names to build.
+This is done automagically but for more details see
+integration/config_file.rb.sample.
+
+## Output recorder
+
+There is a script that shows the amount of emails or json requests
+send by the submitter, which the output recorder did record. You can run:
+
+    $ ./integration/bin/output-recorder
+
+## Submitter failed jobs
+
+There is a script that shows the amount of jobs that failed to process during
+the tests. The tests will output this but you can also run if you like:
+
+    $ ./integration/bin/submitter-failed-jobs

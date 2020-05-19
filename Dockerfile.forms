@@ -1,0 +1,27 @@
+FROM alpine:edge
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
+RUN apk add bash openssh git
+RUN apk add nodejs npm
+RUN apk add build-base
+RUN apk add openssl-dev ruby ruby-dev ruby-bigdecimal
+
+WORKDIR /app
+
+#RUN addgroup -g ${UID} -S appgroup && \
+#  adduser -u ${UID} -S appuser -G appgroup
+#RUN chown appuser:appgroup /app
+#USER appuser
+
+COPY package.json package-lock.json forms ./
+
+ARG NPM_CMD='ci --ignore-optional --ignore-scripts'
+RUN npm ${NPM_CMD}
+
+COPY . .
+
+RUN gem install bundler
+RUN BUNDLE_JOBS=4 bundle install --verbose
+
+EXPOSE 3000
+CMD ./integration/bin/runner --start
