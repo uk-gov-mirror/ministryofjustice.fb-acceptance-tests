@@ -12,8 +12,8 @@ services-post-install:
 	cp Procfil* .runner
 	cp Dockerfile.forms .runner
 	cp Gemfile .runner/Gemfile
-	cp -R ./integration .runner/integration
-	cp -R forms .runner/forms
+	cp -R ./integration/ .runner/integration/
+	cp -R forms/ .runner/forms/
 	echo HEAD > .runner/APP_SHA
 
 services-build:
