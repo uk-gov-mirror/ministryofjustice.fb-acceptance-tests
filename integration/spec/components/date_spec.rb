@@ -6,6 +6,40 @@ describe 'Date' do
 
   before { form.load }
 
+  context 'validation' do
+    before { form.start_button.click }
+
+    it 'validating presence' do
+      form.continue_button.click
+      expect(form.error_summary).to include('Enter an answer for Date - First')
+    end
+
+    it 'validating day' do
+      form.day_field.set('40')
+      form.month_field.set('12')
+      form.year_field.set('2020')
+
+      form.continue_button.click
+      expect(form.error_summary).to include('Enter a valid date for Date - First')
+    end
+
+    it 'validating month' do
+      form.day_field.set('01')
+      form.month_field.set('FEB')
+      form.year_field.set('2020')
+      form.continue_button.click
+      expect(form.error_summary).to include('Enter a valid date for Date - First')
+    end
+
+    it 'validating year' do
+      form.day_field.set('01')
+      form.month_field.set('02')
+      form.year_field.set('TwentyTwenty')
+      form.continue_button.click
+      expect(form.error_summary).to include('Enter a valid date for Date - First')
+    end
+  end
+
   it 'Renders Date components' do
     click_on 'Start'
 
