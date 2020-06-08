@@ -113,6 +113,18 @@ restart:
 spec:
 	docker-compose run integration bundle exec rspec spec
 
+feature:
+ifndef FEATURE
+	$(error FEATURE is required)
+endif
+	docker-compose run integration bundle exec rspec spec/features/$(FEATURE)_spec.rb
+
+component:
+ifndef COMPONENT
+	$(error COMPONENT is required)
+endif
+	docker-compose run integration bundle exec rspec spec/components/$(COMPONENT)_spec.rb
+
 ## Experimental ##
 spec-ci:
 	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb

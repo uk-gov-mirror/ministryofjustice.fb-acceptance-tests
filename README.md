@@ -37,6 +37,39 @@ Commands to start, stop or restart the containers:
     $ make stop
     $ make restart
 
+### Features and Components
+
+It is possible to fun a set of feature or component specs instead of the whole suite:
+
+    $ make feature FEATURE=save_and_return_module
+
+or
+
+    $ make component COMPONENT=autocomplete
+
+Available features:
+
+- conditional_steps
+- email_output
+- json_output
+- maintenance_mode
+- save_and_return_module
+
+Available components:
+
+- autocomplete
+- checkboxes
+- conditionals_and_upload
+- date
+- email
+- fieldset
+- number
+- radios
+- select
+- text
+- textarea
+- upload
+
 ## Glossary
 
 The acceptance tests uses a glossary of terms:
