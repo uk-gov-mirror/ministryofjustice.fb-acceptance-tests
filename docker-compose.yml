@@ -95,7 +95,14 @@ services:
       - submitter-worker
       - submitter-db
       - output-recorder
-
+  
+  adapter-test-app:
+    container_name: adapter-test
+    build:
+      context: adapter-test 
+    ports:
+      - 10004:3000
+ 
   submitter-worker:
     container_name: submitter-worker
     build:
