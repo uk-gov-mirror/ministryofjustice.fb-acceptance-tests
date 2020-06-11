@@ -108,6 +108,18 @@ describe 'Using Save and Return' do
     )
   end
 
+  it 'shows the correct error message when the email does not exist in the datastore' do
+    form.continue_work_on_a_saved_form_button.click
+
+    form.email_field.set('idontexistinthedatabase@gmail.com')
+    continue
+
+    expect(form).to_not have_content(
+      "Sorry, we’re currently experiencing technical difficulties"
+    )
+    expect(form).to have_content('The email was not found')
+  end
+
   def continue
     form.continue_button.click
   end
