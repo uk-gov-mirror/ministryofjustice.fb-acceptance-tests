@@ -17,9 +17,6 @@ class ComponentsConditionalsWithUploadApp < ServiceApp
           option: 'no'
   element :confirm_upload_field, :radio_button, 'Yes, add this upload', visible: false
   element :continue_button, :button, 'Continue'
-  elements :summaries, 'dl .govuk-summary-list__value'
-  elements :headings, '.govuk-heading-xl'
-  elements :change_links, '.govuk-summary-list__actions a.govuk-link'
 
   def change_tuesday_answer_link
     change_links.first
@@ -37,4 +34,3 @@ class ComponentsConditionalsWithUploadApp < ServiceApp
     summaries.last.text
   end
 end
-

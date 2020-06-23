@@ -36,13 +36,13 @@ describe 'Using Save and Return' do
     form.save_and_come_back_later_button.click
 
     expect(form).to have_content('Saving your progress')
-    continue
+    form.continue_button.click
 
     expect(form).to have_content('Save your progress')
     expect(form).to have_email_field
 
     form.email_field.set('form-builder-developers@digital.justice.gov.uk')
-    continue
+    form.continue_button.click
 
     expect(form).to have_content('Check your email')
     expect(form).to have_email_message(
