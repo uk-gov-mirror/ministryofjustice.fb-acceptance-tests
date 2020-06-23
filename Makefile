@@ -83,8 +83,7 @@ local-env-vars:
 integration-refresh:
 	docker-compose up -d --build integration
 
-prepare: local-env-vars integration-refresh
-	$(MAKE) services-post-build
+prepare: local-env-vars integration-refresh services-post-build
 
 ## Experimental ##
 ci-env-vars:
