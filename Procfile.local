@@ -121,3 +121,9 @@ processes:
     env:
       SERVICE_PATH: ./forms/components/conditional-with-upload
       PORT: 18011
+  components-exit-page-app:
+    quantity: 1
+    respawn_window: 3
+    env:
+      SERVICE_PATH: ./forms/components/exit-page
+      PORT: 18012

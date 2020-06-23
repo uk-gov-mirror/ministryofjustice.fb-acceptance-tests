@@ -1,0 +1,6 @@
+{
+  "_id": "page._confirmation",
+  "_type": "page.confirmation",
+  "heading": "Thank you",
+  "url": "/confirmation"
+}

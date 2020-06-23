@@ -1,0 +1,12 @@
+{
+  "_id": "page._exit-page",
+  "_type": "page.exit",
+  "heading": "Sorry - exit page",
+  "lede": "You are not eligible.",
+  "show": {
+    "identifier": "auto_name__1",
+    "operator": "is",
+    "value": "Yes"
+  },
+  "url": "/exit-page"
+}

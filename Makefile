@@ -80,8 +80,10 @@ services-refresh:
 local-env-vars:
 	cp integration/tests.env.local integration/tests.env
 
-prepare: local-env-vars
+integration-refresh:
 	docker-compose up -d --build integration
+
+prepare: local-env-vars integration-refresh
 	$(MAKE) services-post-build
 
 ## Experimental ##

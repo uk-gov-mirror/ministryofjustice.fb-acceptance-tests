@@ -16,3 +16,4 @@ components-text-app: npm start
 components-textarea-app: npm start
 components-upload-app: npm start
 components-upload-with-conditional-app: npm start
+components-exit-page-app: npm start
