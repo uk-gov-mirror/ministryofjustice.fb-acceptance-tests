@@ -4,11 +4,30 @@ require 'spec_helper'
 describe 'Upload' do
   let(:form) { ComponentsUploadApp.new }
 
-  before { form.load }
+  before do
+    form.load
+    form.start_button.click
+  end
+
+  it 'does not allow cross site scripting on upload' do
+    attach_file(
+      'auto_name__1[1]',
+      "spec/fixtures/files/<img src=a onerror=alert(document.domain)>.txt"
+    )
+
+    ## Expect to not raise any error even alert error
+    ## Then it means that our app is secure.
+    expect {
+      form.continue_button.click
+      form.upload_description
+    }.to_not raise_error
+
+    expect(form.upload_description.text).to eq(
+      '<img src=a onerror=alert(document.domain)>.txt, 4B'
+    )
+  end
 
   it 'Renders Upload components' do
-    click_on 'Start'
-
     # upload
     expect(page).to have_selector '.fb-sectionHeading', text: 'Upload - First - section heading'
     expect(page).to have_selector 'h1 label.govuk-label', text: 'Upload - First'
