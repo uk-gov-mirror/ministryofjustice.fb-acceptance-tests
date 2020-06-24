@@ -22,7 +22,7 @@ describe 'Upload' do
       form.upload_description
     }.to_not raise_error
 
-    expect(form.upload_description).to eq(
+    expect(form.upload_description.text).to eq(
       '<img src=a onerror=alert(document.domain)>.txt, 4B'
     )
   end
