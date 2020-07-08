@@ -3,103 +3,13 @@ require 'spec_helper'
 
 describe 'Conditional steps' do
   let(:form) { FeaturesConditionalSteps.new }
-  before { form.load }
-
-  it 'Renders conditional steps (one)' do
-    click_on 'Start'
-
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
-
-    choose 'auto_name__1', option: '1', visible: false
-    continue
-
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    check 'auto_name__4', visible: false
-    continue
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-
-    fill_in 'auto_name__5', with: "form-builder-developers@digital.justice.gov.uk"
-    continue
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-
-    fill_in 'auto_name__6', with: "1"
-    continue
-
-    # text
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Text section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Text'
-    expect(page).to have_selector '.govuk-hint', text: 'Text hint text'
-
-    fill_in 'auto_name__7', with: "a"
-    continue
-
-    ########################################
-    #                                      #
-    #   SUMMARY                            #
-    #                                      #
-    ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B\s*C/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
-
-    expect(page).to have_selector 'h2:nth-of-type(5)', text: 'Text section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Text'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'a'
-    click_on 'Accept and send application'
-
-    # confirmation
-    expect(page).to have_selector 'h1.govuk-panel__title', text: 'Confirmation'
+  before do
+    form.load
+    form.start_button.click
   end
 
-  it 'Renders conditional steps (two)' do
-    click_on 'Start'
-
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
-
-    choose 'auto_name__1', option: '2', visible: false
-    continue
+  it 'when answer directly all questions' do
+    given_I_answer_all_questions
 
     ########################################
     #                                      #
@@ -107,65 +17,26 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
+    expect(form.all_headings).to include('Summary')
 
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
+    expect(form.summary_answers.size).to be(5)
 
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Two'
+    expect(form.first_answer).to include('Radios One')
+    expect(form.second_answer).to include("Checkboxes\nA\nB\nC")
+    expect(form.third_answer).to include(
+      'Email form-builder-developers@digital.justice.gov.uk'
+    )
+    expect(form.fourth_answer).to include('Number 1')
+    expect(form.fifth_answer).to include('Text a Change')
 
-    click_on 'Accept and send application'
+    form.send_application_button.click
 
-    # confirmation
-    expect(page).to have_selector 'h1.govuk-panel__title', text: 'Confirmation'
+    expect(form.confirmation_header).to have_text('Confirmation')
   end
 
-  it 'Renders conditional steps (one) with change' do
-    click_on 'Start'
-
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
-
-    choose 'auto_name__1', option: '1', visible: false
-    continue
-
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    check 'auto_name__4', visible: false
-    continue
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-
-    fill_in 'auto_name__5', with: "form-builder-developers@digital.justice.gov.uk"
-    continue
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-
-    fill_in 'auto_name__6', with: "1"
-    continue
-
-    # text
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Text section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Text'
-    expect(page).to have_selector '.govuk-hint', text: 'Text hint text'
-
-    fill_in 'auto_name__7', with: "a"
-    continue
+  it 'when answers go to another conditional branch' do
+    form.second_option.choose
+    form.continue_button.click
 
     ########################################
     #                                      #
@@ -173,34 +44,16 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
+    expect(form.all_headings).to include('Summary')
+    expect(form.summary_answers.size).to be(1)
+    expect(form.first_answer).to include('Radios Two')
 
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
+    form.send_application_button.click
+    expect(form.confirmation_header).to have_text('Confirmation')
+  end
 
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B\s*C/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
-
-    expect(page).to have_selector 'h2:nth-of-type(5)', text: 'Text section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Text'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'a'
+  it 'when answer all pages then change answers on summary page' do
+    given_I_answer_all_questions
 
     ########################################
     #                                      #
@@ -208,18 +61,23 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # change
-    find('.govuk-summary-list:nth-of-type(2) .govuk-summary-list__actions a').click
+    expect(form.all_headings).to include('Summary')
+    expect(form.summary_answers.size).to be(5)
+    expect(form.second_answer).to include("Checkboxes\nA\nB\nC")
 
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
+    # change second answer
+    form.change_links[1].click
 
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
+    form.c_field.uncheck
+    form.continue_button.click
+
+    ## Navigating again to the conditional pages
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.continue_button.click
+
+    ## Navigating again to the conditional pages
+    expect(form.section_heading.text).to eq('Number section heading')
+    form.continue_button.click
 
     ########################################
     #                                      #
@@ -227,29 +85,8 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
+    expect(form.section_heading.text).to eq('Summary section heading')
+    expect(form.all_headings).to include('Summary')
 
     ########################################
     #                                      #
@@ -257,18 +94,16 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # change
-    find('.govuk-summary-list:nth-of-type(2) .govuk-summary-list__actions a').click
+    # change second answer again
+    form.change_links[1].click
 
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
+    form.b_field.uncheck
+    form.c_field.uncheck
+    form.continue_button.click
 
-    check 'auto_name__2', visible: false
-    uncheck 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
+    ## Navigating again to the conditional pages
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.continue_button.click
 
     ########################################
     #                                      #
@@ -276,19 +111,9 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'A'
+    expect(form.section_heading.text).to eq('Summary section heading')
+    expect(form.all_headings).to include('Summary')
+    expect(form.second_answer).to include("Checkboxes A Change\nYour answer")
 
     ########################################
     #                                      #
@@ -296,18 +121,13 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # change
-    find('.govuk-summary-list:nth-of-type(2) .govuk-summary-list__actions a').click
+    # change second answer again
+    form.change_links[1].click
 
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    uncheck 'auto_name__2', visible: false
-    uncheck 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
+    form.a_field.uncheck
+    form.b_field.uncheck
+    form.c_field.uncheck
+    form.continue_button.click
 
     ########################################
     #                                      #
@@ -315,366 +135,157 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
+    expect(form.section_heading.text).to eq('Summary section heading')
+    expect(form.all_headings).to include('Summary')
+    expect(form.second_answer).to include(
+      "Checkboxes Not answered Change\nYour answer"
+    )
 
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Not answered'
-
-    click_on 'Accept and send application'
-
-    # confirmation
-    expect(page).to have_selector 'h1.govuk-panel__title', text: 'Confirmation'
+    form.send_application_button.click
+    expect(form.confirmation_header).to have_text('Confirmation')
   end
 
-  it 'Renders conditional steps (one) with back' do
-    click_on 'Start'
+  it 'when I going back the conditional pages that I answered' do
+    given_I_answer_all_questions
 
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
+    ########################################
+    #                                      #
+    #   BACK                               #
+    #                                      #
+    ########################################
+    back
 
-    choose 'auto_name__1', option: '1', visible: false
-    continue
+    expect(form.section_heading.text).to eq('Text section heading')
 
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
+    ########################################
+    #                                      #
+    #   BACK                               #
+    #                                      #
+    ########################################
+    back
 
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    check 'auto_name__4', visible: false
-    continue
+    expect(form.section_heading.text).to eq('Number section heading')
 
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
+    ########################################
+    #                                      #
+    #   BACK                               #
+    #                                      #
+    ########################################
+    back
 
-    fill_in 'auto_name__5', with: "form-builder-developers@digital.justice.gov.uk"
-    continue
+    expect(form.section_heading.text).to eq('Email section heading')
 
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
+    ########################################
+    #                                      #
+    #   BACK                               #
+    #                                      #
+    ########################################
+    back
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
 
-    fill_in 'auto_name__6', with: "1"
-    continue
+    form.a_field.check
+    form.b_field.check
+    form.c_field.uncheck
+    form.continue_button.click
 
-    # text
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Text section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Text'
-    expect(page).to have_selector '.govuk-hint', text: 'Text hint text'
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.continue_button.click
 
-    fill_in 'auto_name__7', with: "a"
-    continue
+    expect(form.section_heading.text).to eq('Number section heading')
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B\s*C/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
-
-    expect(page).to have_selector 'h2:nth-of-type(5)', text: 'Text section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Text'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'a'
+    expect(form.section_heading.text).to eq('Summary section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
 
-    # text
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Text section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Text'
-    expect(page).to have_selector '.govuk-hint', text: 'Text hint text'
+    expect(form.section_heading.text).to eq('Number section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
+    expect(form.section_heading.text).to eq('Email section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
 
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
 
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
+    form.a_field.check
+    form.b_field.uncheck
+    form.c_field.uncheck
+    form.continue_button.click
 
-    # back
-    back
-
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-    continue
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-    continue
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
+    expect(form.section_heading.text).to eq('Summary section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
 
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
+    expect(form.section_heading.text).to eq('Email section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
 
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
 
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
-    back
-
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    check 'auto_name__2', visible: false
-    uncheck 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-    continue
+    form.a_field.uncheck
+    form.b_field.uncheck
+    form.c_field.uncheck
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
+    expect(form.section_heading.text).to eq('Summary section heading')
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'A'
-
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
-    back
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
-    back
-
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    uncheck 'auto_name__2', visible: false
-    uncheck 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
-
-    ########################################
-    #                                      #
-    #   SUMMARY                            #
-    #                                      #
-    ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Not answered'
-
-    click_on 'Accept and send application'
-
-    # confirmation
-    expect(page).to have_selector 'h1.govuk-panel__title', text: 'Confirmation'
+    form.send_application_button.click
+    expect(form.confirmation_header).to have_text('Confirmation')
   end
 
-  it 'Renders conditional steps (two) with change' do
-    click_on 'Start'
-
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
-
-    choose 'auto_name__1', option: '2', visible: false
-    continue
+  it 'when I answer without entering conditional pages & I change my answers' do
+    form.second_option.choose
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Two'
+    expect(form.section_heading.text).to eq('Summary section heading')
 
     ########################################
     #                                      #
@@ -682,506 +293,187 @@ describe 'Conditional steps' do
     #                                      #
     ########################################
 
-    # change
-    find('.govuk-summary-list:nth-of-type(1) .govuk-summary-list__actions a').click
+    # change first answer
+    form.change_links[0].click
 
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
+    form.first_option.choose
+    form.continue_button.click
 
-    choose 'auto_name__1', option: '1', visible: false
-    continue
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
 
-    ########################################
-    #                                      #
-    #   SUMMARY                            #
-    #                                      #
-    ########################################
+    form.a_field.check
+    form.b_field.check
+    form.c_field.check
+    form.continue_button.click
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
+    form.continue_button.click
 
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
+    expect(form.section_heading.text).to eq('Number section heading')
+    form.number_field.set('1')
+    form.continue_button.click
 
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Not answered'
-
-    # change
-    find('.govuk-summary-list:nth-of-type(2) .govuk-summary-list__actions a').click
-
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    check 'auto_name__4', visible: false
-    continue
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-
-    fill_in 'auto_name__5', with: "form-builder-developers@digital.justice.gov.uk"
-    continue
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-
-    fill_in 'auto_name__6', with: "1"
-    continue
-
-    # text
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Text section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Text'
-    expect(page).to have_selector '.govuk-hint', text: 'Text hint text'
-
-    fill_in 'auto_name__7', with: "a"
-    continue
+    expect(form.section_heading.text).to eq('Text section heading')
+    form.text_field.set('Foo')
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
+    expect(form.section_heading.text).to eq('Summary section heading')
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
+    # change first answer
+    form.change_links[0].click
 
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
+    form.second_option.choose
+    form.continue_button.click
 
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B\s*C/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
-
-    expect(page).to have_selector 'h2:nth-of-type(5)', text: 'Text section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Text'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'a'
-
-    # change
-    find('.govuk-summary-list:nth-of-type(1) .govuk-summary-list__actions a').click
-
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
-
-    choose 'auto_name__1', option: '2', visible: false
-    continue
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.continue_button.click
+    expect(form.section_heading.text).to eq('Number section heading')
+    form.continue_button.click
+    expect(form.section_heading.text).to eq('Text section heading')
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
+    expect(form.section_heading.text).to eq('Summary section heading')
 
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
+    expect(form.first_answer).to include('Radios Two')
 
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Two'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Text section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Text'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'a'
-
-    click_on 'Accept and send application'
-
-    # confirmation
-    expect(page).to have_selector 'h1.govuk-panel__title', text: 'Confirmation'
+    form.send_application_button.click
+    expect(form.confirmation_header).to have_text('Confirmation')
   end
 
-  it 'Renders conditional steps (two) with back' do
-    click_on 'Start'
-
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
-
-    choose 'auto_name__1', option: '2', visible: false
-    continue
+  it 'when I am going back and enter conditional pages' do
+    form.second_option.choose
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Two'
+    expect(form.section_heading.text).to eq('Summary section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
 
-    # radios
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Radios section heading'
-    expect(page).to have_selector 'h1', text: 'Radios'
-    expect(page).to have_selector '.govuk-hint', text: 'Radios hint text'
+    expect(form.section_heading.text).to eq('Radios section heading')
+    form.first_option.choose
+    form.continue_button.click
 
-    choose 'auto_name__1', option: '1', visible: false
-    continue
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
+    form.a_field.check
+    form.b_field.check
+    form.c_field.check
+    form.continue_button.click
 
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
+    form.continue_button.click
 
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    check 'auto_name__4', visible: false
-    continue
+    expect(form.section_heading.text).to eq('Number section heading')
+    form.number_field.set('1')
+    form.continue_button.click
 
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-
-    fill_in 'auto_name__5', with: "form-builder-developers@digital.justice.gov.uk"
-    continue
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-
-    fill_in 'auto_name__6', with: "1"
-    continue
-
-    # text
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Text section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Text'
-    expect(page).to have_selector '.govuk-hint', text: 'Text hint text'
-
-    fill_in 'auto_name__7', with: "a"
-    continue
+    expect(form.section_heading.text).to eq('Text section heading')
+    form.text_field.set('Foo')
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B\s*C/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
-
-    expect(page).to have_selector 'h2:nth-of-type(5)', text: 'Text section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Text'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(5) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'a'
+    expect(form.section_heading.text).to eq('Summary section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
-
-    # text
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Text section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Text'
-    expect(page).to have_selector '.govuk-hint', text: 'Text hint text'
-
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
+    expect(form.section_heading.text).to eq('Text section heading')
     back
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
+    expect(form.section_heading.text).to eq('Number section heading')
     back
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
+    expect(form.section_heading.text).to eq('Email section heading')
     back
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
 
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
+    form.a_field.check
+    form.b_field.check
+    form.c_field.uncheck
+    form.continue_button.click
 
-    check 'auto_name__2', visible: false
-    check 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-    continue
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-    continue
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.continue_button.click
+    expect(form.section_heading.text).to eq('Number section heading')
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: /A\s*B/
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
-
-    expect(page).to have_selector 'h2:nth-of-type(4)', text: 'Number section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Number'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(4) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: '1'
+    expect(form.section_heading.text).to eq('Summary section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
     back
-
-    # number
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Number section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Number'
-    expect(page).to have_selector '.govuk-hint', text: 'Number hint text'
-
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
+    expect(form.section_heading.text).to eq('Number section heading')
     back
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
+    expect(form.section_heading.text).to eq('Email section heading')
     back
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
 
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
+    form.a_field.check
+    form.b_field.uncheck
+    form.c_field.uncheck
+    form.continue_button.click
 
-    check 'auto_name__2', visible: false
-    uncheck 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
-
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
-    continue
+    expect(form.section_heading.text).to eq('Email section heading')
+    form.continue_button.click
 
     ########################################
     #                                      #
     #   SUMMARY                            #
     #                                      #
     ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'A'
-
-    expect(page).to have_selector 'h2:nth-of-type(3)', text: 'Email section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Email'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(3) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'form-builder-developers@digital.justice.gov.uk'
+    expect(form.section_heading.text).to eq('Summary section heading')
 
     ########################################
     #                                      #
     #   BACK                               #
     #                                      #
     ########################################
-
-    # back
+    back
+    expect(form.section_heading.text).to eq('Email section heading')
     back
 
-    # email
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Email section heading'
-    expect(page).to have_selector 'h1 label.govuk-label', text: 'Email'
-    expect(page).to have_selector '.govuk-hint', text: 'Email hint text'
+    expect(form.section_heading.text).to eq('Checkboxes section heading')
+    form.a_field.uncheck
+    form.b_field.uncheck
+    form.c_field.uncheck
+    form.continue_button.click
 
-    ########################################
-    #                                      #
-    #   BACK                               #
-    #                                      #
-    ########################################
-
-    # back
-    back
-
-    # checkboxes
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Checkboxes section heading'
-    expect(page).to have_selector 'h1', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-hint', text: 'Checkboxes hint text'
-
-    uncheck 'auto_name__2', visible: false
-    uncheck 'auto_name__3', visible: false
-    uncheck 'auto_name__4', visible: false
-    continue
-
-    ########################################
-    #                                      #
-    #   SUMMARY                            #
-    #                                      #
-    ########################################
-
-    # summary
-    expect(page).to have_selector '.fb-sectionHeading', text: 'Summary section heading'
-    expect(page).to have_selector 'h1', text: 'Summary'
-
-    expect(page).to have_selector 'h2:nth-of-type(1)', text: 'Radios section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Radios'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(1) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'One'
-
-    expect(page).to have_selector 'h2:nth-of-type(2)', text: 'Checkboxes section heading'
-
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__key', text: 'Checkboxes'
-    expect(page).to have_selector '.govuk-summary-list:nth-of-type(2) .govuk-summary-list__row:nth-of-type(1) .govuk-summary-list__value', text: 'Not answered'
-
-    click_on 'Accept and send application'
-
-    # confirmation
-    expect(page).to have_selector 'h1.govuk-panel__title', text: 'Confirmation'
+    expect(form.section_heading.text).to eq('Summary section heading')
+    form.send_application_button.click
+    expect(form.confirmation_header).to have_text('Confirmation')
   end
 
   def back
@@ -1190,5 +482,24 @@ describe 'Conditional steps' do
 
   def continue
     click_on 'Continue'
+  end
+
+  def given_I_answer_all_questions
+    form.first_option.choose
+    form.continue_button.click
+
+    form.a_field.check
+    form.b_field.check
+    form.c_field.check
+    form.continue_button.click
+
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
+    form.continue_button.click
+
+    form.number_field.set('1')
+    form.continue_button.click
+
+    form.text_field.set('a')
+    form.continue_button.click
   end
 end
