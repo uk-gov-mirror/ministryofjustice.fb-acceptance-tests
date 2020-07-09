@@ -8,7 +8,7 @@ describe 'Conditional steps' do
     form.start_button.click
   end
 
-  it 'when answer directly all questions' do
+  it 'all questions are answered' do
     given_I_answer_all_questions
 
     ########################################
@@ -145,7 +145,7 @@ describe 'Conditional steps' do
     expect(form.confirmation_header).to have_text('Confirmation')
   end
 
-  it 'when I going back the conditional pages that I answered' do
+  it 'when going back to the conditional pages that I answered' do
     given_I_answer_all_questions
 
     ########################################
