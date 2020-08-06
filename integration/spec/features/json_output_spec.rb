@@ -7,72 +7,57 @@ require 'open-uri'
 describe 'JSON Output' do
   let(:form) { FeaturesJSONApp.new }
 
-  before :each do
-    OutputRecorder.cleanup_recorded_requests
-  end
-
   it 'sends the JSON payload to the specified endpoint' do
     form.load
-    click_on 'Start'
+    form.start_button.click
 
-    # text
-    fill_in 'First name', with: 'Form'
-    fill_in 'Last name', with: 'Builders'
+    form.first_name_field.set('Form')
+    form.last_name_field.set('Builders')
     continue
 
-    # radio
-    choose 'has_email', option: 'yes', visible: false
+    form.has_email_field.choose
     continue
 
-    # email
-    fill_in 'Your email address', with: 'form-builder-developers@digital.justice.gov.uk'
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
     continue
 
-    # text
     fill_in 'cat_details', with: 'My cat is a fluffy killer'
     continue
 
-    # checkbox
-    check 'Apples', visible: false
+    form.apples_field.check
     continue
 
-    # date
-    fill_in 'COMPOSITE.date-day', with: '12'
-    fill_in 'COMPOSITE.date-month', with: '11'
-    fill_in 'COMPOSITE.date-year', with: '2007'
+    form.day_field.set('12')
+    form.month_field.set('11')
+    form.year_field.set('2007')
     continue
 
-    # number
-    fill_in 'number_cats', with: 28
+    form.number_cats_field.set(28)
     continue
 
-    # select
-    select "I can't say (They can read)", from: 'cat_spy'
+    form.cat_spy_field.select("I can't say (They can read)")
     continue
 
-    # autocomplete
-    fill_in 'page_autocomplete--autocomplete_autocomplete', with: "California Spangled\n" # the new line "presses enter" on the selected option
+    form.autocomplete_field.set("California Spangled\n") # the new line "presses enter" on the selected option
     continue
 
     # upload
-    attach_file('cat_picture[1]', 'spec/fixtures/files/hello_world.txt')
+    attach_file("cat_picture[1]", 'spec/fixtures/files/hello_world.txt')
     continue
 
-    # upload check
-    choose 'upload-component-decision', option: 'accept', visible: false
+    # upload check
+    form.confirm_upload_field.choose
     continue
 
     click_on 'Send complaint'
 
-    expect(page).to have_content("You've sent us the answers about your cat!")
+    expect(form.text).to include("You've sent us the answers about your cat!")
 
-    results = OutputRecorder.wait_for_result(url: '/json')
-    expect(results.size).to eq(1)
+    result = wait_for_request(ENV.fetch('FORM_BUILDER_BASE_ADAPTER_ENDPOINT'))
 
-    encrypted_result = results.first
+    submission_answers_without_upload =
+      result[:submissionAnswers].reject { |k, _| k == :cat_picture }
 
-    result = JSON.parse(JWE.decrypt(encrypted_result, ENV.fetch('SERVICE_OUTPUT_JSON_KEY')), symbolize_names: true)
-    submission_answers_without_upload = result[:submissionAnswers].reject { |k, _| k == :cat_picture }
     uploads = result[:submissionAnswers][:cat_picture]
     upload = result[:submissionAnswers][:cat_picture][0]
 
@@ -125,6 +110,31 @@ describe 'JSON Output' do
     expect(decrypted_file_contents).to eql("hello world\n")
 
     expect(result).to have_key(:submissionId)
+  end
+
+  def wait_for_request(uri)
+    tries = 0
+    max_tries = 20
+
+    until tries > max_tries
+      response = HTTParty.get("#{uri}/submission")
+
+      if response.code == 200
+        break
+      else
+        sleep 3
+        tries += 1
+      end
+    end
+
+    if tries == max_tries || response.code != 200
+      raise "Base adapter didn't receive the submission: Adapter response: '#{response.body}'"
+    else
+      JSON.parse(
+        response.body,
+        symbolize_names: true
+      )
+    end
   end
 
   def continue
