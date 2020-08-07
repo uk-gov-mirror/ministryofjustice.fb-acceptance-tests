@@ -120,11 +120,13 @@ describe 'JSON Output' do
   end
 
   def wait_for_request
+    submission_path = "#{base_adapter_domain}/submission"
     tries = 0
     max_tries = 20
 
     until tries > max_tries
-      response = HTTParty.get("#{base_adapter_domain}/submission")
+      puts "GET #{submission_path}"
+      response = HTTParty.get(submission_path)
 
       if response.code == 200
         break
