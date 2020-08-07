@@ -215,6 +215,7 @@ services:
     depends_on:
       - save-and-return-simulator
       - output-recorder
+      - base-adapter-app
 
   services:
     build:
