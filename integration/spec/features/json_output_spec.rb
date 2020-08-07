@@ -101,7 +101,6 @@ describe 'JSON Output' do
     expect(result[:attachments][0][:encryption_key].size).to eql(44)
     expect(result[:attachments][0][:filename]).to eql('hello_world.txt')
     expect(result[:attachments][0][:mimetype]).to eql('text/plain')
-    expect(result[:attachments][0][:url].size).to eql(337)
 
     file_contents = open(result[:attachments][0][:url], 'rb').read
 
