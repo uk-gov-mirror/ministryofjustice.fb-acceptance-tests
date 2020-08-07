@@ -92,7 +92,9 @@ describe 'JSON Output' do
     expect(upload[:path]).to match(%r{/tmp/uploads/\S{32}})
     expect(upload[:size]).to eql(12)
     expect(upload[:type]).to eql('text/plain')
-    expect(upload[:url]).to match(%r{http://filestore-app:3000/service/slug/user/\S{36}/28d-\S{64}})
+    expect(upload[:url]).to match(
+      %r{/service/(slug|acceptance-tests-json-output)/user/\S{36}/28d-\S{64}}
+    )
     expect(upload[:uuid]).to match(/\S{36}/)
 
     expect(result[:attachments].size).to eql(1)
