@@ -79,8 +79,7 @@ describe 'JSON Output' do
 
     expect(uploads.size).to eql(1)
 
-    four_weeks = 28 * 24 * 60 * 60
-    expect(Time.at(upload[:date])).to be_within(300).of(Time.at(Time.now.to_i + four_weeks))
+    expect(Time.at(upload[:date])).to be_within(60.minutes).of(4.weeks.from_now)
     expect(upload[:destination]).to eql('/tmp/uploads')
     expect(upload[:encoding]).to eql('7bit')
     expect(upload[:fieldname]).to eql('cat_picture[1]')
