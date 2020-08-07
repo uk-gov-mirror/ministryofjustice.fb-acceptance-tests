@@ -7,6 +7,9 @@ require 'open-uri'
 describe 'JSON Output' do
   let(:form) { FeaturesJSONApp.new }
 
+  before { delete_adapter_submissions }
+  after { delete_adapter_submissions }
+
   it 'sends the JSON payload to the specified endpoint' do
     form.load
     form.start_button.click
@@ -53,7 +56,7 @@ describe 'JSON Output' do
 
     expect(form.text).to include("You've sent us the answers about your cat!")
 
-    result = wait_for_request(ENV.fetch('FORM_BUILDER_BASE_ADAPTER_ENDPOINT'))
+    result = wait_for_request
 
     submission_answers_without_upload =
       result[:submissionAnswers].reject { |k, _| k == :cat_picture }
@@ -104,8 +107,10 @@ describe 'JSON Output' do
 
     file_contents = open(result[:attachments][0][:url], 'rb').read
 
-    crypto = Cryptography.new(encryption_key: Base64.strict_decode64(result[:attachments][0][:encryption_key]),
-                              encryption_iv: Base64.strict_decode64(result[:attachments][0][:encryption_iv]))
+    crypto = Cryptography.new(
+      encryption_key: Base64.strict_decode64(result[:attachments][0][:encryption_key]),
+      encryption_iv: Base64.strict_decode64(result[:attachments][0][:encryption_iv])
+    )
 
     decrypted_file_contents = crypto.decrypt(file: file_contents)
 
@@ -114,12 +119,12 @@ describe 'JSON Output' do
     expect(result).to have_key(:submissionId)
   end
 
-  def wait_for_request(uri)
+  def wait_for_request
     tries = 0
     max_tries = 20
 
     until tries > max_tries
-      response = HTTParty.get("#{uri}/submission")
+      response = HTTParty.get("#{base_adapter_domain}/submission")
 
       if response.code == 200
         break
@@ -137,6 +142,14 @@ describe 'JSON Output' do
         symbolize_names: true
       )
     end
+  end
+
+  def delete_adapter_submissions
+    HTTParty.delete("#{base_adapter_domain}/submissions")
+  end
+
+  def base_adapter_domain
+    ENV.fetch('FORM_BUILDER_BASE_ADAPTER_ENDPOINT')
   end
 
   def continue
