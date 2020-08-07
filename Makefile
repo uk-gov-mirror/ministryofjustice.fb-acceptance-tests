@@ -34,7 +34,7 @@ platform:
 
 ## Everything in one. Better for performance.
 platform-local:
-	./integration/bin/platform --install --submitter-local --filestore-local --datastore-local --pdf-generator-local --service-token-cache-local
+	./integration/bin/platform --install --submitter-local --filestore-local --datastore-local --pdf-generator-local --service-token-cache-local --base-adapter-local
 	$(MAKE) platform-post-install
 
 submitter-local:
