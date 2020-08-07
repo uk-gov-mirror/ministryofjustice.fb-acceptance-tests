@@ -61,7 +61,9 @@ describe 'JSON Output' do
     uploads = result[:submissionAnswers][:cat_picture]
     upload = result[:submissionAnswers][:cat_picture][0]
 
-    expect(result).to include(serviceSlug: 'slug')
+    ## For running locally or in the CI
+    expect(result[:serviceSlug]).to eq('slug').or eq('acceptance-tests-json-output')
+
     expect(submission_answers_without_upload).to eql(
       first_name: 'Form',
       last_name: 'Builders',
