@@ -128,4 +128,4 @@ endif
 
 ## Experimental ##
 spec-ci:
-	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb
+	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb spec/features/json_output_spec.rb
