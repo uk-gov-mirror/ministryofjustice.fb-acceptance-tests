@@ -143,7 +143,7 @@ the tests. The tests will output this but you can also run if you like:
 
 ## Updating the tests and running them
 
-Every time you change a spec file you need to run in order to the container
-be updated:
+Every time you change a spec file you need to run this in order for the
+container to be updated:
 
     $ make integration-refresh && docker-compose run integration bundle exec rspec spec
