@@ -4,6 +4,17 @@ require 'site_prism'
 require 'fb/integration'
 require 'dotenv'
 Dotenv.load('tests.env')
+require 'active_support/core_ext'
+
+if ENV['CI_MODE'].present?
+  Dotenv.require_keys(
+    'GOOGLE_REFRESH_TOKEN',
+    'GOOGLE_ACCESS_TOKEN',
+    'GOOGLE_CLIENT_ID',
+    'GOOGLE_PROJECT_ID',
+    'GOOGLE_CLIENT_SECRET'
+  )
+end
 
 RSpec.configure do |c|
   Capybara.register_driver :selenium do |app|

@@ -1,9 +1,10 @@
 version: '3'
 
 services:
-  integration:
+  integration_ci:
     build:
       context: integration
       dockerfile: Dockerfile
     environment:
       FORM_BUILDER_BASE_ADAPTER_ENDPOINT: https://formbuilder-base-adapter-test.apps.live-1.cloud-platform.service.justice.gov.uk
+      CI_MODE: 'true'
