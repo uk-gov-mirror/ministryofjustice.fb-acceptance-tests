@@ -140,3 +140,10 @@ There is a script that shows the amount of jobs that failed to process during
 the tests. The tests will output this but you can also run if you like:
 
     $ ./integration/bin/submitter-failed-jobs
+
+## Updating the tests and running them
+
+Every time you change a spec file you need to run this in order for the
+container to be updated:
+
+    $ make integration-refresh && docker-compose run integration bundle exec rspec spec

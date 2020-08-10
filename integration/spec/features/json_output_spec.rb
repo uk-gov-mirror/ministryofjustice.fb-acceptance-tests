@@ -7,76 +7,66 @@ require 'open-uri'
 describe 'JSON Output' do
   let(:form) { FeaturesJSONApp.new }
 
-  before :each do
-    OutputRecorder.cleanup_recorded_requests
-  end
+  before { delete_adapter_submissions }
+  after { delete_adapter_submissions }
 
   it 'sends the JSON payload to the specified endpoint' do
     form.load
-    click_on 'Start'
+    form.start_button.click
 
-    # text
-    fill_in 'First name', with: 'Form'
-    fill_in 'Last name', with: 'Builders'
+    form.first_name_field.set('Form')
+    form.last_name_field.set('Builders')
     continue
 
-    # radio
-    choose 'has_email', option: 'yes', visible: false
+    form.has_email_field.choose
     continue
 
-    # email
-    fill_in 'Your email address', with: 'form-builder-developers@digital.justice.gov.uk'
+    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
     continue
 
-    # text
     fill_in 'cat_details', with: 'My cat is a fluffy killer'
     continue
 
-    # checkbox
-    check 'Apples', visible: false
+    form.apples_field.check
     continue
 
-    # date
-    fill_in 'COMPOSITE.date-day', with: '12'
-    fill_in 'COMPOSITE.date-month', with: '11'
-    fill_in 'COMPOSITE.date-year', with: '2007'
+    form.day_field.set('12')
+    form.month_field.set('11')
+    form.year_field.set('2007')
     continue
 
-    # number
-    fill_in 'number_cats', with: 28
+    form.number_cats_field.set(28)
     continue
 
-    # select
-    select "I can't say (They can read)", from: 'cat_spy'
+    form.cat_spy_field.select("I can't say (They can read)")
     continue
 
-    # autocomplete
-    fill_in 'page_autocomplete--autocomplete_autocomplete', with: "California Spangled\n" # the new line "presses enter" on the selected option
+    form.autocomplete_field.set("California Spangled\n") # the new line "presses enter" on the selected option
     continue
 
     # upload
-    attach_file('cat_picture[1]', 'spec/fixtures/files/hello_world.txt')
+    attach_file("cat_picture[1]", 'spec/fixtures/files/hello_world.txt')
     continue
 
-    # upload check
-    choose 'upload-component-decision', option: 'accept', visible: false
+    # upload check
+    form.confirm_upload_field.choose
     continue
 
     click_on 'Send complaint'
 
-    expect(page).to have_content("You've sent us the answers about your cat!")
+    expect(form.text).to include("You've sent us the answers about your cat!")
 
-    results = OutputRecorder.wait_for_result(url: '/json')
-    expect(results.size).to eq(1)
+    result = wait_for_request
 
-    encrypted_result = results.first
+    submission_answers_without_upload =
+      result[:submissionAnswers].reject { |k, _| k == :cat_picture }
 
-    result = JSON.parse(JWE.decrypt(encrypted_result, ENV.fetch('SERVICE_OUTPUT_JSON_KEY')), symbolize_names: true)
-    submission_answers_without_upload = result[:submissionAnswers].reject { |k, _| k == :cat_picture }
     uploads = result[:submissionAnswers][:cat_picture]
     upload = result[:submissionAnswers][:cat_picture][0]
 
-    expect(result).to include(serviceSlug: 'slug')
+    ## For running locally or in the CI
+    expect(result[:serviceSlug]).to eq('slug').or eq('acceptance-tests-json-output')
+
     expect(submission_answers_without_upload).to eql(
       first_name: 'Form',
       last_name: 'Builders',
@@ -92,8 +82,7 @@ describe 'JSON Output' do
 
     expect(uploads.size).to eql(1)
 
-    four_weeks = 28 * 24 * 60 * 60
-    expect(Time.at(upload[:date])).to be_within(300).of(Time.at(Time.now.to_i + four_weeks))
+    expect(Time.at(upload[:date])).to be_within(60.minutes).of(4.weeks.from_now)
     expect(upload[:destination]).to eql('/tmp/uploads')
     expect(upload[:encoding]).to eql('7bit')
     expect(upload[:fieldname]).to eql('cat_picture[1]')
@@ -105,7 +94,9 @@ describe 'JSON Output' do
     expect(upload[:path]).to match(%r{/tmp/uploads/\S{32}})
     expect(upload[:size]).to eql(12)
     expect(upload[:type]).to eql('text/plain')
-    expect(upload[:url]).to match(%r{http://filestore-app:3000/service/slug/user/\S{36}/28d-\S{64}})
+    expect(upload[:url]).to match(
+      %r{/service/(slug|acceptance-tests-json-output)/user/\S{36}/28d-\S{64}}
+    )
     expect(upload[:uuid]).to match(/\S{36}/)
 
     expect(result[:attachments].size).to eql(1)
@@ -113,18 +104,54 @@ describe 'JSON Output' do
     expect(result[:attachments][0][:encryption_key].size).to eql(44)
     expect(result[:attachments][0][:filename]).to eql('hello_world.txt')
     expect(result[:attachments][0][:mimetype]).to eql('text/plain')
-    expect(result[:attachments][0][:url].size).to eql(337)
 
     file_contents = open(result[:attachments][0][:url], 'rb').read
 
-    crypto = Cryptography.new(encryption_key: Base64.strict_decode64(result[:attachments][0][:encryption_key]),
-                              encryption_iv: Base64.strict_decode64(result[:attachments][0][:encryption_iv]))
+    crypto = Cryptography.new(
+      encryption_key: Base64.strict_decode64(result[:attachments][0][:encryption_key]),
+      encryption_iv: Base64.strict_decode64(result[:attachments][0][:encryption_iv])
+    )
 
     decrypted_file_contents = crypto.decrypt(file: file_contents)
 
     expect(decrypted_file_contents).to eql("hello world\n")
 
     expect(result).to have_key(:submissionId)
+  end
+
+  def wait_for_request
+    submission_path = "#{base_adapter_domain}/submission"
+    tries = 0
+    max_tries = 20
+
+    until tries > max_tries
+      puts "GET #{submission_path}"
+      response = HTTParty.get(submission_path)
+
+      if response.code == 200
+        break
+      else
+        sleep 3
+        tries += 1
+      end
+    end
+
+    if tries == max_tries || response.code != 200
+      raise "Base adapter didn't receive the submission: Adapter response: '#{response.body}'"
+    else
+      JSON.parse(
+        response.body,
+        symbolize_names: true
+      )
+    end
+  end
+
+  def delete_adapter_submissions
+    HTTParty.delete("#{base_adapter_domain}/submissions")
+  end
+
+  def base_adapter_domain
+    ENV.fetch('FORM_BUILDER_BASE_ADAPTER_ENDPOINT')
   end
 
   def continue

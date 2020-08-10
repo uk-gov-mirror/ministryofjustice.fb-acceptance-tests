@@ -34,7 +34,7 @@ platform:
 
 ## Everything in one. Better for performance.
 platform-local:
-	./integration/bin/platform --install --submitter-local --filestore-local --datastore-local --pdf-generator-local --service-token-cache-local
+	./integration/bin/platform --install --submitter-local --filestore-local --datastore-local --pdf-generator-local --service-token-cache-local --base-adapter-local
 	$(MAKE) platform-post-install
 
 submitter-local:
@@ -128,4 +128,4 @@ endif
 
 ## Experimental ##
 spec-ci:
-	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb
+	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb spec/features/json_output_spec.rb

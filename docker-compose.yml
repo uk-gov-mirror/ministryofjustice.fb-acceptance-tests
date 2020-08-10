@@ -171,6 +171,16 @@ services:
     container_name: service-token-cache-redis
     image: redis:5.0.6-alpine
 
+  base-adapter-app:
+    container_name: base-adapter-app
+    build:
+      context: .base-adapter
+      dockerfile: ./Dockerfile
+    environment:
+      ENCRYPTION_KEY: 19a56ee0e50dd83g
+    ports:
+      - 3006:4567
+
   localstack:
     container_name: localstack
     image: localstack/localstack:0.10.7
@@ -201,9 +211,11 @@ services:
       EMAIL_PATH: /email
       JSON_PATH: /json
       SERVICE_OUTPUT_JSON_KEY: 19a56ee0e50dd83g
+      FORM_BUILDER_BASE_ADAPTER_ENDPOINT: http://base-adapter-app:4567
     depends_on:
       - save-and-return-simulator
       - output-recorder
+      - base-adapter-app
 
   services:
     build:

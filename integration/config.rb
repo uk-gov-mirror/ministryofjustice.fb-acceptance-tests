@@ -6,7 +6,8 @@ Fb::Integration.configure do |config|
     { name: 'fb-user-filestore', destination: 'filestore' },
     { name: 'fb-user-datastore', destination: 'datastore' },
     { name: 'fb-pdf-generator', destination: 'pdf-generator' },
-    { name: 'fb-service-token-cache', destination: 'service-token-cache' }
+    { name: 'fb-service-token-cache', destination: 'service-token-cache' },
+    { name: 'fb-base-adapter', destination: 'base-adapter' }
   ]
 
   config.form_repository = Fb::Integration::Repository.new(
