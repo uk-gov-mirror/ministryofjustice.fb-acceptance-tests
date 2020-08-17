@@ -9,20 +9,23 @@ require 'csv'
 describe 'Filling out an Email output form' do
   let(:form) { FeaturesEmailApp.new }
   before :each do
-    OutputRecorder.cleanup_recorded_requests
+    OutputRecorder.cleanup_recorded_requests if ENV['CI_MODE'].blank?
+  end
+  let(:generated_first_name) do
+    SecureRandom.uuid
   end
 
   it 'sends an email with the submission in a PDF' do
     form.load
     form.start_button.click
-    form.first_name_field.set('Form')
+    form.first_name_field.set(generated_first_name)
     form.last_name_field.set('Builders')
     continue
 
     form.has_email_field.choose
     continue
 
-    form.email_field.set('form-builder-developers@digital.justice.gov.uk')
+    form.email_field.set('fb-acceptance-tests@digital.justice.gov.uk')
     continue
 
     # text
@@ -69,22 +72,17 @@ describe 'Filling out an Email output form' do
     # 1 email (submission & attachment) to the second service output
     # 2 emails (CSV submission) to both on the Service Output
     #
-    recorded_emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 4)
+    attachments = find_attachments(
+      pdf_filename: '-answers.pdf',
+      user_attachment_filename: 'hello_world.txt'
+    )
 
-    recorded_emails[0..1].each do |email|
-      attachments = parse_email(email).attachments
-      pdf_answers = attachments.detect { |attachment| attachment.filename.include?('-answers.pdf') }
-      file_upload = attachments.detect { |attachment| attachment.filename.include?('hello_world.txt') }
-
-      assert_pdf_contents(pdf_answers)
-      assert_file_upload(
-        actual: file_upload,
-        expected: File.read("spec/fixtures/files/hello_world.txt")
-      )
-    end
-
-    assert_csv_contents(recorded_emails[2])
-    assert_csv_contents(recorded_emails[3])
+    assert_pdf_contents(attachments[:pdf_answers])
+    assert_file_upload(
+      actual: attachments[:file_upload],
+      expected: File.read("spec/fixtures/files/hello_world.txt")
+    )
+    attachments[:csvs].each { |csv| assert_csv_contents(csv) }
   end
 
   def continue
@@ -99,7 +97,7 @@ describe 'Filling out an Email output form' do
   def assert_pdf_contents(attachment)
     pdf_path = '/tmp/submission.pdf'
 
-    File.open(pdf_path, 'w') { |file| file.write(attachment.decoded) }
+    File.open(pdf_path, 'w') { |file| file.write(attachment) }
     result = PDF::Reader.new(pdf_path).pages.map { |page| page.text }.join(' ')
 
     p 'Asserting PDF contents'
@@ -108,7 +106,7 @@ describe 'Filling out an Email output form' do
 
     # text
     expect(result).to include('Your name')
-    expect(result).to match(/First name[\n\r\s]+Form/)
+    expect(result).to match(/First name[\n\r\s]+#{generated_first_name}/)
     expect(result).to match(/Last name[\n\r\s]+Builders/)
 
     # radio
@@ -118,7 +116,7 @@ describe 'Filling out an Email output form' do
 
     # email
     expect(result).to include('Your email address')
-    expect(result).to include('form-builder-developers@digital.justice.gov.uk')
+    expect(result).to include('fb-acceptance-tests@digital.justice.gov.uk')
 
     # textarea
     expect(result).to include('Your cat')
@@ -153,54 +151,82 @@ describe 'Filling out an Email output form' do
     expect(result).to include('hello_world.txt (12B)')
   end
 
-  def assert_csv_contents(email)
+  def assert_csv_contents(attachment)
     path_to_file = '/tmp/submission.csv'
 
-    parsed_message = parse_email(email)
+    File.open(path_to_file, 'w') { |file| file.write(attachment) }
+    rows = CSV.read(path_to_file)
 
-    parsed_message.attachments.each do |attachment|
-      File.open(path_to_file, 'w') { |file| file.write(attachment.decoded) }
-      rows = CSV.read(path_to_file)
+    p 'Asserting CSV contents'
 
-      p 'Asserting CSV contents'
+    expect(rows[0]).to eql([
+      'submission_id',
+      'submission_at',
+      'first_name',
+      'last_name',
+      'has_email',
+      'email_address',
+      'cat_details',
+      'checkbox_apples',
+      'checkbox_pears',
+      'date',
+      'number_cats',
+      'cat_spy',
+      'cat_breed',
+      'cat_picture'
+    ])
 
-      expect(rows[0]).to eql([
-        'submission_id',
-        'submission_at',
-        'first_name',
-        'last_name',
-        'has_email',
-        'email_address',
-        'cat_details',
-        'checkbox_apples',
-        'checkbox_pears',
-        'date',
-        'number_cats',
-        'cat_spy',
-        'cat_breed',
-        'cat_picture'
-      ])
+    expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/) # guid
+    expect(rows[1][1]).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/) # iso timestamp
+    expect(rows[1][2..-1]).to eql([
+      generated_first_name,
+      'Builders',
+      'yes',
+      'fb-acceptance-tests@digital.justice.gov.uk',
+      'My cat is a fluffy killer',
+      'Apples',
+      'Pears',
+      '2007-11-12',
+      '28',
+      'machine answer 3',
+      'California Spangled',
+      'data not available in CSV format'
+    ])
+  end
 
-      expect(rows[1][0]).to match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/) # guid
-      expect(rows[1][1]).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/) # iso timestamp
-      expect(rows[1][2..-1]).to eql([
-        'Form',
-        'Builders',
-        'yes',
-        'form-builder-developers@digital.justice.gov.uk',
-        'My cat is a fluffy killer',
-        'Apples',
-        'Pears',
-        '2007-11-12',
-        '28',
-        'machine answer 3',
-        'California Spangled',
-        'data not available in CSV format'
-      ])
+  def find_attachments(pdf_filename:, user_attachment_filename:)
+    if ENV['CI_MODE'].present?
+      EmailAttachmentExtractor.find(
+        id: generated_first_name,
+        pdf_filename: pdf_filename,
+        user_attachment_filename: user_attachment_filename
+      )
+    else
+      all_attachments = {}
+
+      emails = OutputRecorder.wait_for_result(url: '/email', expected_requests: 4)
+      emails[0..1].each do |email|
+        attachments = parse_email(email).attachments
+        pdf_answers = attachments.detect do |attachment|
+          attachment.filename.include?(pdf_filename)
+        end
+        file_upload = attachments.detect do |attachment|
+          attachment.filename.include?(user_attachment_filename)
+        end
+
+        all_attachments[:pdf_answers] = pdf_answers.decoded
+        all_attachments[:file_upload] = file_upload.decoded
+      end
+
+      all_attachments[:csvs] = emails[2..3].map do |email|
+        parse_email(email).attachments.map(&:decoded)
+      end.flatten
+
+      all_attachments
     end
   end
 
   def assert_file_upload(actual:, expected:)
-    expect(actual.decoded).to eq(expected)
+    expect(actual).to eq(expected)
   end
 end

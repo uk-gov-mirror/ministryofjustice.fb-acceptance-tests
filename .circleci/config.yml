@@ -12,10 +12,10 @@ jobs:
           command: bundle install
       - run:
           name: Setup the tests
-          command: make setup
+          command: make setup-ci -s # -s hides output of environment variables in logs
       - run:
           name: Run acceptance tests
-          command: make spec
+          command: make spec-ci
 
 workflows:
   version: 2

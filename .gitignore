@@ -16,3 +16,7 @@ procodile.log
 pids
 capybara*.html
 integration/tests.env
+
+# Google authentication
+credentials.json
+token.yaml

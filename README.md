@@ -27,6 +27,10 @@ After all containers are setup, you can run the tests:
 
     $ make setup-ci && make spec-ci
 
+Emails in CI tests are sent to fb-acceptance-tests@digital.justice.gov.uk.
+
+Credentials for interacting with the Gmail API may need refreshing every now and then. Follow instructions on how to do this in the runbook.
+
 ## Useful commands
 
 ### Start, stop, restart

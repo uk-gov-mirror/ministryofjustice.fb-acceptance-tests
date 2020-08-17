@@ -85,13 +85,21 @@ integration-refresh:
 
 prepare: local-env-vars integration-refresh services-post-build
 
+## Extra experimental
+ci-google-envars:
+	echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> ./integration/tests.env
+	echo "GOOGLE_PROJECT_ID=${GOOGLE_PROJECT_ID}" >> ./integration/tests.env
+	echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> ./integration/tests.env
+	echo "GOOGLE_ACCESS_TOKEN=${GOOGLE_ACCESS_TOKEN}" >> ./integration/tests.env
+	echo "GOOGLE_REFRESH_TOKEN='${GOOGLE_REFRESH_TOKEN}'" >> ./integration/tests.env
+
 ## Experimental ##
 ci-env-vars:
 	cp integration/tests.env.ci integration/tests.env
 
 ## Experimental ##
-start-ci: ci-env-vars
-	docker-compose -f docker-compose.ci.yml up -d --build integration
+start-ci: ci-env-vars ci-google-envars
+	docker-compose -f docker-compose.ci.yml up -d --build integration_ci
 
 setup-ci: start-ci
 
@@ -128,4 +136,4 @@ endif
 
 ## Experimental ##
 spec-ci:
-	docker-compose -f docker-compose.ci.yml run integration bundle exec rspec spec/components/text_spec.rb spec/features/json_output_spec.rb
+	docker-compose -f docker-compose.ci.yml run integration_ci bundle exec rspec spec/components/text_spec.rb spec/features/json_output_spec.rb spec/features/email_output_spec.rb
