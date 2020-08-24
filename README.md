@@ -29,7 +29,44 @@ After all containers are setup, you can run the tests:
 
 Emails in CI tests are sent to fb-acceptance-tests@digital.justice.gov.uk.
 
+The following environment variables need to be set in order to authorize against the Google Gmail API:
+
+- GOOGLE_CLIENT_ID
+- GOOGLE_PROJECT_ID
+- GOOGLE_CLIENT_SECRET
+- GOOGLE_ACCESS_TOKEN
+- GOOGLE_REFRESH_TOKEN
+
 Credentials for interacting with the Gmail API may need refreshing every now and then. Follow instructions on how to do this in the runbook.
+
+The tests run against forms published to the `test-dev` environment. Currently these are:
+
+Features:
+
+- acceptance-tests-conditional-steps
+- acceptance-tests-email-output
+- acceptance-tests-json-output
+- acceptance-tests-maintenance-mode
+
+There will also be a save and return service to test against but it is not currently published
+
+Components:
+
+- acceptance-tests-autocomplete
+- acceptance-tests-checkboxes
+- acceptance-tests-conditional-with-upload
+- acceptance-tests-date
+- acceptance-tests-email-component-form
+- acceptance-tests-exit-page
+- acceptance-tests-fieldset
+- acceptance-tests-number
+- acceptance-tests-radios
+- acceptance-tests-select
+- acceptance-tests-text
+- acceptance-tests-textarea
+- acceptance-tests-upload
+
+Tests for the JSON output are run against the acceptance-tests-json-output form which sends a encrypted JSON payload the fb-base-adapter. This decrypts it and makes it available to be checked.
 
 ## Useful commands
 

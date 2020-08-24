@@ -25,7 +25,7 @@ describe 'Maintenance mode' do
     let(:form) { FeaturesEmailApp.new }
 
     context 'when visiting any page' do
-      it 'redirects any request to the maintenance page' do
+      it 'does not redirect requests to the maintenance page' do
         form.load
 
         expect(form.text).to_not include(maintenance_content)
@@ -33,7 +33,7 @@ describe 'Maintenance mode' do
     end
 
     context 'when visiting the maintenance page' do
-      it 'redirects any request to the maintenance page' do
+      it 'does not redirect requests to the maintenance page' do
         form.load('restricted/maintenance')
 
         expect(form.text).to_not include(maintenance_content)
