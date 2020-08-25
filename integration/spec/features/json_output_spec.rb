@@ -147,7 +147,7 @@ describe 'JSON Output' do
   end
 
   def delete_adapter_submissions
-    HTTParty.delete("#{base_adapter_domain}/submissions")
+    HTTParty.delete("#{base_adapter_domain}/submissions", { open_timeout: 5 })
   end
 
   def base_adapter_domain
