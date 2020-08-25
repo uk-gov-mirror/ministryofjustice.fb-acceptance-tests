@@ -126,7 +126,7 @@ describe 'JSON Output' do
 
     until tries > max_tries
       puts "GET #{submission_path}"
-      response = HTTParty.get(submission_path)
+      response = HTTParty.get(submission_path, { open_timeout: 10, read_timeout: 5 })
 
       if response.code == 200
         break
@@ -147,7 +147,10 @@ describe 'JSON Output' do
   end
 
   def delete_adapter_submissions
-    HTTParty.delete("#{base_adapter_domain}/submissions", { open_timeout: 5 })
+    HTTParty.delete(
+      "#{base_adapter_domain}/submissions",
+      { open_timeout: 10, read_timeout: 10 }
+    )
   end
 
   def base_adapter_domain
