@@ -134,4 +134,4 @@ endif
 
 ## Experimental ##
 spec-ci:
-	docker-compose -f docker-compose.ci.yml run integration_ci bundle exec rspec spec --exclude-pattern 'spec/features/save_and_return_module_spec.rb'
+	docker-compose -f docker-compose.ci.yml run integration_ci bundle exec parallel_rspec spec --exclude-pattern 'spec/features/save_and_return_module_spec.rb'
