@@ -32,12 +32,10 @@ Emails in CI tests are sent to fb-acceptance-tests@digital.justice.gov.uk.
 The following environment variables need to be set in order to authorize against the Google Gmail API:
 
 - GOOGLE_CLIENT_ID
-- GOOGLE_PROJECT_ID
 - GOOGLE_CLIENT_SECRET
-- GOOGLE_ACCESS_TOKEN
 - GOOGLE_REFRESH_TOKEN
 
-Credentials for interacting with the Gmail API may need refreshing every now and then. Follow instructions on how to do this in the runbook.
+Credentials for interacting with the Gmail API are refreshed each time the test suite is run.
 
 The tests run against forms published to the `test-dev` environment. Currently these are:
 

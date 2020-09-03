@@ -4,6 +4,7 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:latest
+    resource_class: large
     steps:
       - setup_remote_docker
       - checkout
@@ -12,16 +13,10 @@ jobs:
           command: bundle install
       - run:
           name: Setup the tests
-          command: make setup
+          command: make setup-ci -s # -s hides output of environment variables in logs
       - run:
           name: Run acceptance tests
-          command: make spec
-          #      - run:
-          #          name: Setup the tests
-          #          command: make setup-ci -s # -s hides output of environment variables in logs
-          #      - run:
-          #          name: Run acceptance tests
-          #          command: make spec-ci
+          command: make spec-ci
 
 workflows:
   version: 2

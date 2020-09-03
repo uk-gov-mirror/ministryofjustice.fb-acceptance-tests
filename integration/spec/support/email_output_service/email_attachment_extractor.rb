@@ -15,7 +15,7 @@ class EmailAttachmentExtractor
         break
       else
         puts "Waiting for email #{tries} of #{max_tries}"
-        sleep 3
+        sleep 5
         tries += 1
       end
     end
