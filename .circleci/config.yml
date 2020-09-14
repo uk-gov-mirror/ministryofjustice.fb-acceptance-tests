@@ -17,9 +17,26 @@ jobs:
       - run:
           name: Run acceptance tests
           command: make spec-ci
+  clear_old_emails:
+    docker:
+      - image: circleci/ruby:latest
+    steps:
+      - run:
+          name: Clear old emails
+          command: make clear-emails
 
 workflows:
   version: 2
   commit-workflow:
     jobs:
       - test
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - clear_old_emails
