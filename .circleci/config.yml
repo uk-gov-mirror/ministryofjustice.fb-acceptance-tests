@@ -21,6 +21,10 @@ jobs:
     docker:
       - image: circleci/ruby:latest
     steps:
+      - checkout
+      - run:
+          name: Prepare the repository
+          command: bundle install
       - run:
           name: Clear old emails
           command: make clear-emails
