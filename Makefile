@@ -139,3 +139,6 @@ spec-ci:
 ## Clears out emails older than 24 hours from the gmail inbox that receives test submissions
 clear-emails:
 	ruby ./scripts/clear_emails.rb
+
+smoke-tests:
+	docker-compose -f docker-compose.ci.yml run integration_ci bundle exec rspec smoke_tests/form_spec.rb
