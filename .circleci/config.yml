@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Prepare the repository
-          command: bundle install
+          command: BUNDLE_GEMFILE=./integration/Gemfile bundle install
       - run:
           name: Clear old emails
           command: make clear-emails
