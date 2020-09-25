@@ -28,38 +28,30 @@ describe 'Filling out an Email output form' do
     form.email_field.set('fb-acceptance-tests@digital.justice.gov.uk')
     continue
 
-    # text
     fill_in 'cat_details', with: 'My cat is a fluffy killer'
-    continue
+    continue # optional field. Skipping.
 
-    # checkbox
     form.apples_field.check
     form.pears_field.check
     continue
 
-    # date
     form.day_field.set('12')
     form.month_field.set('11')
     form.year_field.set('2007')
     continue
 
-    # number
     form.number_cats_field.set(28)
     continue
 
-    # select
     form.cat_spy_field.select("I can't say (They can read)")
     continue
 
-    # autocomplete
     form.autocomplete_field.set("California Spangled\n") # the new line "presses enter" on the selected option
     continue
 
-    # upload
     attach_file("cat_picture[1]", 'spec/fixtures/files/hello_world.txt')
     continue
 
-    # upload check
     form.confirm_upload_field.choose
     continue
 
@@ -104,41 +96,31 @@ describe 'Filling out an Email output form' do
 
     expect(result).to include('Email Output Service PDF Heading')
 
-    # text
     expect(result).to include('Your name')
     expect(result).to match(/First name[\n\r\s]+#{generated_first_name}/)
     expect(result).to match(/Last name[\n\r\s]+Builders/)
 
-    # radio
     expect(result).to include('Can we contact you by')
     expect(result).to include('email?')
     expect(result).to include('Yes')
 
-    # email
     expect(result).to include('Your email address')
     expect(result).to include('fb-acceptance-tests@digital.justice.gov.uk')
 
-    # textarea
     expect(result).to include('Your cat')
-    expect(result).to include('My cat is a fluffy killer')
 
-    # checkbox
     expect(result).to include('Your fruit')
     expect(result).to include('Choose your fruit')
     expect(result).to include('Apples')
     expect(result).to include('Pears')
 
-    # date
     expect(result).to include('When did your cat choose')
     expect(result).to include('you?')
     expect(result).to include('12 November 2007')
-
-    # number
     expect(result).to include('How many cats have chosen')
     expect(result).to include('you?')
     expect(result).to include('28')
 
-    # select
     expect(result).to include('Is your cat watching you')
     expect(result).to include('now?')
     expect(result).to include("I can't say (They can read)")
@@ -159,6 +141,8 @@ describe 'Filling out an Email output form' do
 
     p 'Asserting CSV contents'
 
+    #require 'pry'
+    #binding.pry
     expect(rows[0]).to eql([
       'submission_id',
       'submission_at',

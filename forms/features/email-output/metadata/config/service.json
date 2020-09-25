@@ -2,6 +2,8 @@
   "_id": "service",
   "_isa": "@ministryofjustice/fb-components=>service",
   "_type": "config.service",
+  "emailSubjectTeam": "Email Output Acceptance Test submission: {first_name}",
+  "emailSubjectUser": "Email Output Acceptance Test submission: {first_name}",
   "name": "Email Output Acceptance Test Service",
   "pdfHeading": "Email Output Service PDF Heading",
   "phase": "none"

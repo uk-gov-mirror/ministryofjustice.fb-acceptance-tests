@@ -7,7 +7,10 @@
       "_type": "textarea",
       "hint": "Tell us about your cat",
       "label": "Your cat",
-      "name": "cat_details"
+      "name": "cat_details",
+      "validation": {
+        "required": false
+      }
     }
   ],
   "sectionHeading": "A **Textarea** component",
