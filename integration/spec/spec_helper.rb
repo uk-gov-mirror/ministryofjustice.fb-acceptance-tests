@@ -28,7 +28,11 @@ RSpec.configure do |c|
   c.include Capybara::DSL
 
   c.after do |example_group|
-    save_and_open_page if example_group.exception.present?
+    if example_group.exception.present?
+      puts "***************************************"
+      puts page.text
+      puts "***************************************"
+    end
   end
 
   require File.join(File.dirname(__FILE__), 'support', 'service_app')
