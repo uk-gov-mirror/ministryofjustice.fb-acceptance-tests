@@ -101,7 +101,7 @@ services:
     container_name: submitter-worker
     build:
       context: .submitter
-      dockerfile: ./docker/worker/Dockerfile
+      dockerfile: ./docker/workers/Dockerfile
       args:
         BUNDLE_ARGS: ''
     environment:
