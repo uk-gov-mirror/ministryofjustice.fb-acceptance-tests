@@ -16,6 +16,8 @@ procodile.log
 pids
 capybara*.html
 integration/tests.env
+integration/bin/private_key
+results.bin
 
 # Google authentication
 credentials.json

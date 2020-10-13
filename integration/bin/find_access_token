@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+$VERBOSE = nil
+require 'jwt'
+require 'openssl'
+require 'base64'
+require 'active_support/core_ext'
+require 'pry'
+
+user_identifier = ARGV[0]
+if user_identifier.nil?
+  puts "User identifier need to be set. ./find_access_token 1234-uuid-111-uuid"
+  exit
+end
+
+begin
+  dirname = File.dirname(__FILE__)
+  encoded_private_key = File.read(File.join(dirname, "private_key"))
+rescue
+  puts "You need to create a 'private_key' file in #{dirname} with the encoded private key"
+  exit
+end
+
+private_key = OpenSSL::PKey::RSA.new(Base64.strict_decode64(encoded_private_key.chomp))
+
+jwt = JWT.encode({sub: user_identifier, iat: Time.current.to_i}, private_key, 'RS256')
+
+puts "#{jwt}"
