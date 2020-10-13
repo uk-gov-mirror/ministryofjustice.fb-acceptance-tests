@@ -14,11 +14,11 @@ fi
 
 url="http://localhost:10001/service/slug/user/$user_identifier"
 
-echo "======== Apache Benchmark for 'GET ${url}' ========="
-ab -n $number_of_requests -c $concurrency -H "x-access-token-v2: ${access_token}" $url
-
 echo "======== Apache Benchmark for 'POST ${url}' ========="
 ab -n $number_of_requests -c $concurrency -H "x-access-token-v2: ${access_token}" -p "${BASEDIR}/datastore_request_body" -T application/json  $url
+
+echo "======== Apache Benchmark for 'GET ${url}' ========="
+ab -n $number_of_requests -c $concurrency -H "x-access-token-v2: ${access_token}" $url
 
 echo "======= Vegeta Attack for 'GET ${url}' =========="
 echo "GET $url" | \
