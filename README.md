@@ -199,3 +199,20 @@ The argument should be a valid UUID.
 
 1. You will need to grep the private key located in the Procfile.local in order to run the script, and then save the file in integration/bin/private_key. The reason to do this is that we need to generate an access token on Datastore.
 2. You need to install apache benchmark (probably that you already have installed - ab in the terminal) and Vegeta load testing (`brew install vegeta`).
+
+
+## Updating the private and public keys used by the JWT authentication
+
+The acceptance tests use private keys to sign a JWT token when sending requests to apps like the Metadata API. These
+public and private keys live in the `formbuilder-saas-test` namespace. Setting them is a bit of a manual process. There
+is an example config map file in `/deploy/templates/config_map_example.yaml`. Take a copy of that file and enter in the
+require values for the public and private keys. They need to be base64 encoded. Then run:
+
+`kubectl apply -n formbuilder-saas-test -f path/to/config_map.yaml`
+
+You will now be able to see the updated values for those keys:
+
+`kubectl get configmaps -n formbuilder-saas-test  fb-acceptance-tests-config-map -o json`
+
+`ACCEPTANCE_TESTS_PRIVATE_KEY` needs to be set in the environment for the tests to sign each request. See the `fb-deploy`
+repo and run the `/bin/get_environment_variables` script.
