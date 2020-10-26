@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+user_identifier=$1
+number_of_requests=100
+concurrency=100
+
+BASEDIR=$(dirname $0)
+access_token=$($BASEDIR/find_access_token $user_identifier)
+domain=$2
+
+if [[ -z $domain ]]; then
+  domain="http://localhost:10001"
+fi
+
+if [[ $access_token =~ "You need to create" ]]; then
+  echo "access token must be set"
+  exit 1
+fi
+
+url="${domain}/service/slug/user/$user_identifier"
+
+echo "======= Vegeta Attack for 'POST ${url}' =========="
+  echo "POST $url" | \
+  vegeta attack -rate=150 -header "x-access-token-v2: ${access_token}" \
+  -body "${BASEDIR}/datastore_request_body" \
+  -duration=20s | \
+  tee results.bin | \
+  vegeta report
+
+echo "======= Vegeta Attack for 'GET ${url}' =========="
+echo "GET $url" | \
+  vegeta attack -header "x-access-token-v2: ${access_token}" \
+  -duration=20s | \
+  tee results.bin | \
+  vegeta report
+
+# get again because the token will expire in 60 seconds.
+access_token=$($BASEDIR/find_access_token $user_identifier)
+
+echo "======== Apache Benchmark for 'POST ${url}' ========="
+ab -n $number_of_requests -c $concurrency -H "x-access-token-v2: ${access_token}" -p "${BASEDIR}/datastore_request_body" -T application/json  $url
+
+echo "======== Apache Benchmark for 'GET ${url}' ========="
+ab -n $number_of_requests -c $concurrency -H "x-access-token-v2: ${access_token}" $url

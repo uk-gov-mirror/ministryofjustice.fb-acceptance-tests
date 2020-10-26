@@ -186,3 +186,16 @@ Every time you change a spec file you need to run this in order for the
 container to be updated:
 
     $ make integration-refresh && docker-compose run integration bundle exec rspec spec
+
+## Load testing Datastore
+
+Usage:
+
+```
+ ./integration/bin/load-test-datastore UUID-of-an-user
+```
+
+The argument should be a valid UUID.
+
+1. You will need to grep the private key located in the Procfile.local in order to run the script, and then save the file in integration/bin/private_key. The reason to do this is that we need to generate an access token on Datastore.
+2. You need to install apache benchmark (probably that you already have installed - ab in the terminal) and Vegeta load testing (`brew install vegeta`).
