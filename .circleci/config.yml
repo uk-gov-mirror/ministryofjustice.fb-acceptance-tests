@@ -13,10 +13,10 @@ jobs:
           command: bundle install
       - run:
           name: Setup the tests
-          command: make setup-ci -s # -s hides output of environment variables in logs
+          command: make setup -s # -s hides output of environment variables in logs
       - run:
           name: Run acceptance tests
-          command: make spec-ci
+          command: make spec
   clear_old_emails:
     docker:
       - image: circleci/ruby:latest
