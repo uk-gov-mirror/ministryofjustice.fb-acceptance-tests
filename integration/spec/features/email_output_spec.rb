@@ -104,12 +104,15 @@ describe 'Filling out an Email output form' do
 
     expect(result).to include('Email Output Service PDF Heading')
 
+    expect(result).to include('Text components')
+
     # text
     expect(result).to include('Your name')
     expect(result).to match(/First name[\n\r\s]+#{generated_first_name}/)
     expect(result).to match(/Last name[\n\r\s]+Builders/)
 
     # radio
+    expect(result).to include('A Radios component')
     expect(result).to include('Can we contact you by')
     expect(result).to include('email?')
     expect(result).to include('Yes')
