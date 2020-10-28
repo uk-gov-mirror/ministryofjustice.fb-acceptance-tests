@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fb-acceptance-tests-config-map
+  namespace: formbuilder-saas-test
+data:
+  ENCODED_PRIVATE_KEY:
+  ENCODED_PUBLIC_KEY:
