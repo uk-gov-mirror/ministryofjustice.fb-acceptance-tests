@@ -29,7 +29,7 @@ describe 'Filling out an Email output form' do
     continue
 
     # text
-    fill_in 'cat_details', with: 'My cat is a fluffy killer named %'
+    fill_in 'cat_details', with: 'My cat is a fluffy killer named £ % ~ ! @ # $ ^ * ( ) - _ = + [ ] | ; , . ?'
     continue
 
     # checkbox
@@ -120,7 +120,7 @@ describe 'Filling out an Email output form' do
 
     # textarea
     expect(result).to include('Your cat')
-    expect(result).to include('My cat is a fluffy killer named %')
+    expect(result).to include('My cat is a fluffy killer named £ % ~ ! @ # $ ^ * ( ) - _ = + [ ] | ; , . ?')
 
     # checkbox
     expect(result).to include('Your fruit')
@@ -183,7 +183,7 @@ describe 'Filling out an Email output form' do
       'Builders',
       'yes',
       'fb-acceptance-tests@digital.justice.gov.uk',
-      'My cat is a fluffy killer named %',
+      'My cat is a fluffy killer named £ % ~ ! @ # $ ^ * ( ) - _ = + [ ] | ; , . ?',
       'Apples',
       'Pears',
       '2007-11-12',
