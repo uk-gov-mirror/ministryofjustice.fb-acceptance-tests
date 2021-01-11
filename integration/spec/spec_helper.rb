@@ -4,7 +4,7 @@ require 'site_prism'
 require 'fb/integration'
 require 'dotenv'
 Dotenv.load('tests.env')
-require 'active_support/core_ext'
+require 'active_support/all'
 
 if ENV['CI_MODE'].present?
   Dotenv.require_keys(

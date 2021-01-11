@@ -4,7 +4,7 @@ $VERBOSE = nil
 require 'jwt'
 require 'openssl'
 require 'base64'
-require 'active_support/core_ext'
+require 'active_support/all'
 require 'pry'
 
 user_identifier = ARGV[0]
