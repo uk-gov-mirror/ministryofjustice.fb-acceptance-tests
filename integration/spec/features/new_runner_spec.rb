@@ -54,7 +54,7 @@ describe 'New Runner' do
     expect(form.text).to include("You've sent us the answers about your cat!")
 
     attachments = find_attachments(
-      id: 'Submission for New Acceptance tests Email Output',
+      id: 'Submission from New Acceptance tests Email Output',
       pdf_filename: '-answers.pdf',
       user_attachment_filename: 'hello_world.txt'
     )
@@ -79,12 +79,13 @@ describe 'New Runner' do
 
     p 'Asserting PDF contents'
 
+    expect(result).to include('Subheading for new acceptance tests')
     expect(result).to include('Submission for New Acceptance tests Email Output')
 
     # text
     expect(result).to include('Your name')
-    expect(result).to match(/First name[\n\r\s]+#{generated_first_name}/)
-    expect(result).to match(/Last name[\n\r\s]+Builders/)
+    expect(result).to match(/First name[\n\r\s]+Stormtrooper/)
+    expect(result).to match(/Last name[\n\r\s]+FN-2187/)
 
     # email
     expect(result).to include('Your email address')
