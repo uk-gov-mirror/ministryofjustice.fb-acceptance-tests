@@ -71,6 +71,7 @@ services:
     ports:
       - 10003:3000
     environment:
+      RAILS_LOG_TO_STDOUT: 'true'
       DATABASE_URL: postgres://postgres:password@submitter-db/submitter_local
       NOTIFY_EMAIL_GENERIC: 46a72b64-9541-4000-91a7-fa8a3fa10bf9
       NOTIFY_EMAIL_RETURN_SETUP_EMAIL_TOKEN: 38f6a1cd-a810-4f59-8899-2c300236c5b4
