@@ -35,6 +35,20 @@ describe 'New Runner' do
     form.number_cats_field.set(28)
     continue
 
+    # radio
+    form.yes_field.choose
+    continue
+
+    # check your answers
+    expect(page.text).to include('First name Stormtrooper')
+    expect(page.text).to include('Last name FN-2187')
+    expect(page.text).to include('Your email address fb-acceptance-tests@digital.justice.gov.uk')
+    expect(page.text).to include('Your cat My cat is a fluffy killer £ % ~ ! @ # $ ^ * ( ) - _ = + [ ] | ; , . ?')
+    expect(page.text).to include("Your fruit Apples\nPears")
+    expect(page.text).to include('12 November 2007')
+    expect(page.text).to include('How many cats have chosen you? 28')
+    expect(page.text).to include('Is your cat watching you now? Yes')
+
     click_on 'Accept and send application'
 
     expect(form.text).to include("You've sent us the answers about your cat!")
