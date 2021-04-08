@@ -196,11 +196,7 @@ describe 'Filling out an Email output form' do
 
   def find_attachments(pdf_filename:, user_attachment_filename:)
     if ENV['CI_MODE'].present?
-      EmailAttachmentExtractor.find(
-        id: generated_first_name,
-        pdf_filename: pdf_filename,
-        user_attachment_filename: user_attachment_filename
-      )
+      EmailAttachmentExtractor.find(id: generated_first_name)
     else
       all_attachments = {}
 

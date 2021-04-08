@@ -1,17 +1,19 @@
 require_relative 'google_service'
 
 class EmailFinder
-  USER_ID = 'me'.freeze
+  attr_accessor :id, :expected_emails, :find_criteria
 
-  attr_reader :id
-  attr_accessor :expected_emails
-
-  def initialize(service:, id:, pdf_filename:, user_attachment_filename:, expected_emails: nil)
+  def initialize(
+    service:,
+    id:,
+    expected_emails: nil,
+    find_criteria: nil
+  )
     @service = service.new.authenticated_service
     @id = id
-    @pdf_filename = pdf_filename
-    @user_attachment_filename = user_attachment_filename
+    @find_criteria = find_criteria || :subject
     @expected_emails = expected_emails || 2
+    @inbox = Inbox.new(@service).all
   end
 
   def email_received?
@@ -19,51 +21,50 @@ class EmailFinder
   end
 
   def emails
-    Array(messages).map do |m|
-      message = service.get_user_message(USER_ID, m.id)
-      subject = Array(message.payload.headers).find { |h| h.name == 'Subject' }&.value
-
-      puts "Looking for subject with #{id} in #{subject}"
-      message if subject.include?(id)
-    end.compact
+    if find_criteria == :subject
+      all_by_subject
+    else
+      all_by_attachment
+    end
   end
 
   def attachments
-    all_attachments = { csvs: [] }
+    require 'byebug'
+    byebug
+    emails.first.attachments if emails.size == 1
+  end
 
-    emails.map do |email|
-      email.payload.parts.each do |part|
-        next if part.filename.empty?
-
-        data = part.body.data
-        if data.blank?
-          data = service.get_user_message_attachment(
-            USER_ID,
-            email.id,
-            part.body.attachment_id
-          ).data
-        end
-
-        if part.filename.include?(pdf_filename)
-          all_attachments[:pdf_answers] = data
-        elsif part.filename.include?(user_attachment_filename)
-          all_attachments[:file_upload] = data
-        elsif part.filename.include?('.csv')
-          all_attachments[:csvs] << data
-        end
-      end
-      puts "Trashing email #{email.id}"
-      service.trash_user_message(USER_ID, email.id)
-    end
-
-    all_attachments
+  def remove_emails
+    inbox.remove_emails(emails)
   end
 
   private
 
-  def messages
-    service.list_user_messages(USER_ID).messages
+  def all_by_subject
+    inbox.select do |email|
+      puts "Looking for subject with #{id} in #{email.subject}"
+      email.subject.include?(id)
+    end
   end
 
-  attr_reader :service, :pdf_filename, :user_attachment_filename
+  def all_by_attachment
+    require 'byebug'
+    byebug
+    inbox.select do |email|
+      if email.attachments[:pdf_answers]
+        pdf_path = "/tmp/submission-#{SecureRandom.uuid}.pdf"
+        File.open(pdf_path, 'w') do |file|
+          file.write(email.attachments[:pdf_answers])
+        end
+        result = PDF::Reader.new(pdf_path).pages.map do |page|
+          page.text
+        end.join(' ')
+
+        puts "Looking for attachment with #{id} in #{email.subject}"
+        result.include?(id)
+      end
+    end
+  end
+
+  attr_reader :service, :pdf_filename, :user_attachment_filename, :inbox
 end
