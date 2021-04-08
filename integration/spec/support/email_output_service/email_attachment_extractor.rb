@@ -1,11 +1,13 @@
 class EmailAttachmentExtractor
-  def self.find(id:, pdf_filename:, user_attachment_filename:)
+  def self.find(id:, pdf_filename:, user_attachment_filename:, expected_emails: nil)
     email_finder = EmailFinder.new(
       service: GoogleService,
       id: id,
       pdf_filename: pdf_filename,
       user_attachment_filename: user_attachment_filename
     )
+
+    email_finder.expected_emails = expected_emails if expected_emails.present?
 
     tries = 1
     max_tries = 20

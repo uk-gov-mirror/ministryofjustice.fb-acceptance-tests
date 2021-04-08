@@ -4,16 +4,18 @@ class EmailFinder
   USER_ID = 'me'.freeze
 
   attr_reader :id
+  attr_accessor :expected_emails
 
-  def initialize(service:, id:, pdf_filename:, user_attachment_filename:)
+  def initialize(service:, id:, pdf_filename:, user_attachment_filename:, expected_emails: nil)
     @service = service.new.authenticated_service
     @id = id
     @pdf_filename = pdf_filename
     @user_attachment_filename = user_attachment_filename
+    @expected_emails = expected_emails || 2
   end
 
   def email_received?
-    emails.size == 2
+    emails.size == @expected_emails
   end
 
   def emails
