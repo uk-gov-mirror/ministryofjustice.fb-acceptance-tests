@@ -16,7 +16,7 @@ describe 'New Runner' do
     continue
 
     # text
-    fill_in 'cat_details',
+    fill_in 'Your cat',
       with: 'My cat is a fluffy killer £ % ~ ! @ # $ ^ * ( ) - _ = + [ ] | ; , . ?'
     continue
 
@@ -99,7 +99,8 @@ describe 'New Runner' do
       EmailAttachmentExtractor.find(
         id: id,
         pdf_filename: pdf_filename,
-        user_attachment_filename: user_attachment_filename
+        user_attachment_filename: user_attachment_filename,
+        expected_emails: 1
       )
     else
       all_attachments = {}
