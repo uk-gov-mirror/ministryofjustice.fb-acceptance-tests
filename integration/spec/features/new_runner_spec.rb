@@ -99,11 +99,11 @@ describe 'New Runner' do
     expect(result).to include('Pears')
 
     # date
-    expect(result).to include("When did your cat choose\n you?")
+    expect(result).to include("When did your cat choose")
     expect(result).to include('12 November 2007')
 
     # number
-    expect(result).to include("How many cats have chosen\n you?")
+    expect(result).to include("How many cats have chosen")
     expect(result).to include('28')
   end
 
