@@ -74,9 +74,7 @@ describe 'Smoke test' do
 
     form.send_application_button.click
     attachments = EmailAttachmentExtractor.find(
-      id: generated_name,
-      pdf_filename: '-answers.pdf',
-      user_attachment_filename: 'hello_world.txt'
+      id: generated_name
     )
 
     puts 'Verifying file upload'
