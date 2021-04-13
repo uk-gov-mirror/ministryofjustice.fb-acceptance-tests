@@ -60,6 +60,16 @@ describe 'New Runner' do
     assert_pdf_contents(attachments)
   end
 
+  it 'opens the standalone pages' do
+    form.load
+    expect(form.cookies_link).to be_visible
+    expect(form.privacy_link).to be_visible
+    expect(form.accessibility_link).to be_visible
+
+    form.cookies_link.click
+    expect(form.text).to include()
+  end
+
   def continue
     form.continue_button.click
   end
